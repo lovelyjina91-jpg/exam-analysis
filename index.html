@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>승주를 위한 시험분석 ♡ 지나티처</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#E8BE18;
+    --yellow-soft:#F5D45A;
+    --yellow-bg:#FFFBEB;
+    --yellow-pale:#FFF8D6;
+    --black:#1a1a1a;
+    --black-soft:#4a4a4a;
+    --white:#ffffff;
+    --line:#e8e8e8;
+    --correct:#22c55e;
+    --correct-bg:#dcfce7;
+    --wrong:#ef4444;
+    --wrong-bg:#fee2e2;
+    --amber:#E8BE18;
+    --amber-bg:#FFFBEB;
+    --purple:#8b5cf6;
+    --purple-bg:#ede9fe;
+    --navy:#1a1a1a;
+    --navy-soft:#333333;
+    --gold:#E8BE18;
+    --gold-soft:#F5D45A;
+    --sky:#FFF8D6;
+    --sky-deep:#F5D45A;
+    --blue:#FFF8D6;
+    --blue-deep:#E8BE18;
+    --cream:#FFFDF5;
+    --paper:#FFFFFF;
+    --ink:#1a1a1a;
+    --ink-soft:#5a5a5a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter','Apple SD Gothic Neo',sans-serif;
+    background:#ffffff;
+    color:var(--black);line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  /* 배경 동글 장식 */
+  body::before{content:"";position:fixed;top:-120px;right:-100px;width:340px;height:340px;background:var(--yellow);border-radius:50%;opacity:0.18;pointer-events:none;z-index:0;}
+  body::after{content:"";position:fixed;bottom:-100px;left:-80px;width:260px;height:260px;background:var(--yellow);border-radius:50%;opacity:0.13;pointer-events:none;z-index:0;}
+
+  /* 추가 동글 장식 */
+  .bg-circle-1{position:fixed;top:40%;right:-60px;width:160px;height:160px;background:var(--yellow);border-radius:50%;opacity:0.09;pointer-events:none;z-index:0;}
+  .bg-circle-2{position:fixed;top:20%;left:-50px;width:120px;height:120px;background:var(--yellow);border-radius:50%;opacity:0.10;pointer-events:none;z-index:0;}
+
+  .progress-bar{position:fixed;top:0;left:0;width:100%;height:4px;background:#f0f0f0;z-index:999;}
+  .progress-fill{height:100%;background:var(--yellow);width:0%;transition:width 0.15s;}
+
+  .container{max-width:680px;margin:0 auto;padding:0 16px 80px;position:relative;z-index:1;}
+
+  /* HERO */
+  .hero{text-align:center;padding:52px 20px 36px;}
+  .hero-badge{display:inline-block;background:var(--black);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:0.12em;padding:5px 16px;border-radius:20px;margin-bottom:18px;}
+  .hero-logo{width:62px;height:62px;margin:0 auto 14px;background:var(--yellow);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:var(--black);box-shadow:4px 4px 0px var(--black);border:2px solid var(--black);letter-spacing:-0.5px;}
+  .hero h1{font-family:'Gowun Batang',serif;font-size:clamp(21px,5.5vw,30px);font-weight:700;color:var(--black);line-height:1.35;margin-bottom:8px;}
+  .hero h1 em{color:var(--yellow);font-style:normal;-webkit-text-stroke:1px var(--black);}
+  .hero-sub{font-size:12.5px;color:var(--black-soft);margin-bottom:22px;letter-spacing:0.04em;}
+  .hero-intro{max-width:440px;margin:0 auto;background:var(--yellow-pale);border-radius:20px;padding:18px 20px;border:2px solid var(--black);box-shadow:4px 4px 0px var(--black);font-size:13.5px;color:var(--black);line-height:1.75;font-family:'Gowun Batang',serif;}
+  .hero-intro strong{color:var(--black);font-weight:700;}
+
+  /* TOC GRID */
+  .toc-wrap{background:#fff;border-radius:20px;padding:20px;margin:24px 0;border:2px solid var(--black);box-shadow:4px 4px 0px var(--black);}
+  .toc-title{font-size:11px;font-weight:700;color:var(--black);letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;}
+  .toc-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;}
+  .toc-cell{aspect-ratio:1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;cursor:pointer;transition:transform 0.1s;text-decoration:none;border:2px solid var(--black);}
+  .toc-cell.ok{background:var(--yellow);color:var(--black);}
+  .toc-cell.wrong{background:var(--wrong-bg);color:var(--wrong);}
+  .toc-cell:hover{transform:translate(-2px,-2px);box-shadow:2px 2px 0 var(--black);}
+  .toc-legend{display:flex;gap:14px;margin-top:12px;font-size:11px;color:var(--black-soft);}
+  .toc-legend span{display:flex;align-items:center;gap:5px;}
+  .dot{width:10px;height:10px;border-radius:3px;border:1.5px solid var(--black);}
+  .dot.ok{background:var(--yellow);}
+  .dot.wrong{background:var(--wrong);}
+
+  /* SECTION TITLE */
+  .section-title{font-family:'Gowun Batang',serif;font-size:15px;font-weight:700;color:var(--black);margin:32px 0 12px;padding-left:12px;border-left:4px solid var(--yellow);letter-spacing:0.04em;}
+
+  /* QUESTION CARD */
+  .question{background:#fff;border-radius:22px;padding:26px 20px;margin-bottom:16px;border:2px solid var(--black);box-shadow:4px 4px 0px var(--black);position:relative;overflow:hidden;}
+  .question::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--yellow);}
+  .question.q-wrong::before{background:var(--wrong);}
+  .question.q-ok::before{background:var(--yellow);}
+
+  .q-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:10px;}
+  .q-num-wrap{display:flex;align-items:center;gap:10px;}
+  .q-num{width:38px;height:38px;border-radius:50%;background:var(--yellow);color:var(--black);font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--black);box-shadow:2px 2px 0 var(--black);}
+  .q-num.sm{font-size:10px;}
+  .q-num.ok{background:var(--yellow);color:var(--black);}
+  .q-num.err{background:var(--wrong);color:#fff;}
+  .q-meta{display:flex;flex-direction:column;gap:2px;}
+  .q-meta .type{font-size:10.5px;color:var(--black-soft);letter-spacing:0.05em;text-transform:uppercase;}
+  .q-meta .points{font-size:13px;font-weight:700;color:var(--black);}
+  .q-tag{font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;letter-spacing:0.06em;text-transform:uppercase;flex-shrink:0;border:1.5px solid var(--black);}
+  .q-tag.vocab{background:#dbeafe;color:#1d4ed8;}
+  .q-tag.grammar{background:#ede9fe;color:#7c3aed;}
+  .q-tag.reading{background:var(--yellow-bg);color:var(--black);}
+  .q-tag.write{background:#fef3c7;color:#d97706;}
+
+  .q-title{font-size:14px;font-weight:600;color:var(--black);margin-bottom:13px;line-height:1.55;}
+
+  .q-passage{background:var(--yellow-pale);border-radius:12px;padding:13px 15px;font-size:12.5px;color:var(--black-soft);margin-bottom:13px;line-height:1.8;border-left:4px solid var(--yellow);border:2px solid var(--black);}
+  .q-passage strong{color:var(--black);}
+
+  /* OPTIONS */
+  .q-options{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+  .opt{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border-radius:10px;font-size:13px;border:2px solid var(--line);background:#fafafa;}
+  .opt .num{width:22px;height:22px;border-radius:50%;background:#f0f0f0;color:var(--black-soft);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;border:1.5px solid var(--line);}
+  .opt.correct{border-color:var(--black);background:var(--yellow-pale);}
+  .opt.correct .num{background:var(--yellow);color:var(--black);border-color:var(--black);}
+  .opt.student-wrong{border-color:var(--wrong);background:var(--wrong-bg);opacity:0.85;}
+  .opt.student-wrong .num{background:var(--wrong);color:#fff;border-color:var(--wrong);}
+  .strike{text-decoration:line-through;color:var(--wrong);}
+
+  /* ANS BOXES */
+  .ans-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px;}
+  .ans-box{flex:1;min-width:140px;border-radius:12px;padding:11px 14px;border:2px solid var(--black);}
+  .ans-box.wrong-box{background:var(--wrong-bg);}
+  .ans-box.correct-box{background:var(--yellow-pale);}
+  .ans-box .ab-label{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px;}
+  .ans-box.wrong-box .ab-label{color:var(--wrong);}
+  .ans-box.correct-box .ab-label{color:var(--black);}
+  .ans-box .ab-val{font-size:13px;color:var(--black);line-height:1.5;}
+
+  /* EXPLAIN */
+  .explain{background:var(--yellow-pale);border-radius:12px;padding:14px 15px;margin-bottom:11px;border:2px solid var(--black);}
+  .explain-head{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
+  .explain-head .ico{width:25px;height:25px;border-radius:50%;background:var(--yellow);color:var(--black);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--black);}
+  .explain-head .label{font-size:12.5px;font-weight:700;color:var(--black);}
+  .explain-body{font-size:13px;color:var(--black-soft);line-height:1.75;}
+  .explain-body p{margin-bottom:7px;}
+  .explain-body p:last-child{margin-bottom:0;}
+  .hl{background:rgba(232,190,24,0.25);padding:1px 4px;border-radius:4px;}
+  .hl-ok{background:rgba(232,190,24,0.3);padding:1px 4px;border-radius:4px;color:var(--black);font-weight:600;}
+  .hl-wrong{background:rgba(239,68,68,0.13);padding:1px 4px;border-radius:4px;color:var(--wrong);text-decoration:line-through;}
+  .arrow{color:var(--black);font-weight:700;margin:0 4px;}
+
+  /* VOCAB BOX */
+  .vocab-box{background:#fafafa;border-radius:12px;padding:14px 15px;margin-bottom:11px;border:2px solid var(--black);}
+  .vocab-box-title{font-size:10.5px;font-weight:700;color:var(--black);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:11px;}
+  .vocab-list{display:flex;flex-direction:column;gap:7px;}
+  .vocab-item{display:flex;gap:10px;align-items:flex-start;}
+  .vocab-item .vi-word{min-width:110px;font-size:13px;font-weight:700;color:var(--black);background:var(--yellow);border-radius:20px;padding:4px 12px;border:2px solid var(--black);flex-shrink:0;box-shadow:2px 2px 0 var(--black);}
+  .vocab-item .vi-def{font-size:13px;color:var(--black-soft);line-height:1.6;padding-top:4px;}
+  .vocab-item .vi-def em{color:var(--black);font-style:normal;font-weight:600;}
+
+  /* GRAMMAR BOX */
+  .grammar-box{background:var(--yellow-pale);border-radius:12px;padding:14px 15px;margin-bottom:11px;border:2px solid var(--black);}
+  .grammar-box-title{font-size:10.5px;font-weight:700;color:var(--black);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:9px;}
+  .grammar-rule{background:#fff;border-radius:9px;padding:11px 13px;margin-bottom:7px;font-size:13px;color:var(--black);line-height:1.7;border:2px solid var(--black);}
+  .grammar-rule:last-child{margin-bottom:0;}
+  .grammar-rule .rule-label{font-size:10px;font-weight:700;color:var(--black);margin-bottom:4px;letter-spacing:0.05em;}
+  .grammar-rule code{background:var(--yellow);border-radius:5px;padding:1px 6px;font-family:monospace;font-size:12.5px;color:var(--black);font-weight:700;border:1px solid var(--black);}
+
+  /* TIP */
+  .tip{background:var(--yellow-pale);border-radius:11px;padding:12px 14px;margin-bottom:11px;border:2px solid var(--black);font-size:13px;color:var(--black);line-height:1.7;}
+  .tip-label{font-size:10px;font-weight:700;color:var(--black);display:block;margin-bottom:5px;letter-spacing:0.06em;text-transform:uppercase;}
+
+  /* ERROR BREAKDOWN */
+  .err-row{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:10px;border:2px solid var(--line);background:#fafafa;margin-bottom:6px;font-size:13px;}
+  .err-badge{min-width:26px;height:20px;border-radius:5px;font-size:9.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+  .err-badge.red{background:var(--wrong-bg);color:var(--wrong);}
+  .err-badge.amber{background:var(--yellow-bg);color:var(--black);}
+  .err-content{line-height:1.6;color:var(--black-soft);}
+  .err-content strong{color:var(--black);}
+
+  /* CHEER */
+  .cheer{background:var(--yellow);border-radius:22px;padding:32px 24px;margin-top:16px;text-align:center;position:relative;overflow:hidden;border:2px solid var(--black);box-shadow:5px 5px 0 var(--black);}
+  .cheer::before{content:"●";position:absolute;top:18px;left:22px;font-size:32px;color:rgba(0,0,0,0.08);}
+  .cheer::after{content:"●";position:absolute;bottom:18px;right:22px;font-size:24px;color:rgba(0,0,0,0.05);}
+  .cheer-label{font-size:10px;color:rgba(0,0,0,0.45);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;}
+  .cheer-body{font-family:'Gowun Batang',serif;font-size:clamp(14px,3.8vw,16.5px);color:var(--black);line-height:1.9;margin-bottom:18px;}
+  .cheer-body strong{color:var(--black);font-weight:900;}
+  .cheer-sig{font-size:12px;color:rgba(0,0,0,0.5);font-style:italic;}
+
+  @media(max-width:480px){
+    .question{padding:20px 14px;}
+    .ans-row{flex-direction:column;}
+    .vocab-item{flex-direction:column;gap:4px;}
+    .vocab-item .vi-word{min-width:auto;}
+    .toc-grid{grid-template-columns:repeat(6,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-circle-1"></div><div class="bg-circle-2"></div>
+<div class="progress-bar"><div class="progress-fill" id="pf"></div></div>
+
+<div class="container">
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-badge">ENG FIT ACADEMY · 2026</div>
+  <div class="hero-logo">영핏</div>
+  <h1>승주를 위한<br><em>시험 문항 분석</em></h1>
+  <div class="hero-sub">2026학년도 1학기 1차 정기시험 · 문성중학교 2학년 영어 · 2026.04.30</div>
+  <div class="hero-intro">
+    승주야, 이 분석 노트는 이번 시험의 모든 문제를 함께 살펴보기 위해 만들었어.<br>
+    <strong>틀린 문제는 물론이고, 맞은 문제도 왜 그게 정답인지 확실히 이해하는 게 중요해.</strong><br>
+    한 문제씩 천천히 읽어봐 ♡
+  </div>
+</section>
+
+<!-- ===== TOC ===== -->
+<div class="toc-wrap">
+  <div class="toc-title">문항 한눈에 보기</div>
+  <div class="toc-grid">
+    <a class="toc-cell ok" href="#q1">1</a>
+    <a class="toc-cell ok" href="#q2">2</a>
+    <a class="toc-cell ok" href="#q3">3</a>
+    <a class="toc-cell ok" href="#q4">4</a>
+    <a class="toc-cell wrong" href="#q5">5</a>
+    <a class="toc-cell wrong" href="#q6">6</a>
+    <a class="toc-cell wrong" href="#q7">7</a>
+    <a class="toc-cell wrong" href="#q8">8</a>
+    <a class="toc-cell wrong" href="#q9">9</a>
+    <a class="toc-cell ok" href="#q10">10</a>
+    <a class="toc-cell wrong" href="#q11">11</a>
+    <a class="toc-cell ok" href="#q12">12</a>
+    <a class="toc-cell ok" href="#q13">13</a>
+    <a class="toc-cell wrong" href="#q14">14</a>
+    <a class="toc-cell ok" href="#q15">15</a>
+    <a class="toc-cell ok" href="#q16">16</a>
+    <a class="toc-cell ok" href="#q17">17</a>
+    <a class="toc-cell ok" href="#sw1">서1</a>
+    <a class="toc-cell ok" href="#q18">18</a>
+    <a class="toc-cell ok" href="#q19">19</a>
+    <a class="toc-cell ok" href="#q20">20</a>
+    <a class="toc-cell wrong" href="#q21">21</a>
+    <a class="toc-cell ok" href="#q22">22</a>
+    <a class="toc-cell ok" href="#q23">23</a>
+    <a class="toc-cell wrong" href="#q24">24</a>
+    <a class="toc-cell ok" href="#q25">25</a>
+    <a class="toc-cell wrong" href="#q26">26</a>
+    <a class="toc-cell ok" href="#q27">27</a>
+    <a class="toc-cell wrong" href="#q28">28</a>
+    <a class="toc-cell ok" href="#q29">29</a>
+    <a class="toc-cell ok" href="#q30">30</a>
+    <a class="toc-cell ok" href="#q31">31</a>
+    <a class="toc-cell ok" href="#q32">32</a>
+    <a class="toc-cell wrong" href="#sw2">서2</a>
+  </div>
+  <div class="toc-legend">
+    <span><div class="dot ok"></div> 맞은 문항 (22)</span>
+    <span><div class="dot wrong"></div> 틀린 문항 (12)</span>
+  </div>
+</div>
+
+<p class="section-title">※ [1–4] 다음 글을 읽고, 물음에 답하시오</p>
+
+<!-- Q1 -->
+<section class="question q-ok" id="q1">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">1</div>
+      <div class="q-meta"><span class="type">Reading · 내용 요약</span><span class="points">3점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 내용을 요약한 &lt;보기&gt;의 빈칸에 들어갈 표현으로 가장 적절하지 않은 것은?</div>
+  <div class="q-passage">
+    <strong>&lt;보기&gt;</strong><br>
+    Junho spends his free time writing on his ___. There are many ___ about Junho's ___ things on his blog. Kate thinks Junho uploads quite a lot of ___ on his blog. Kate is ___ to make a dance video. Junho and Alex are excited about Kate's idea of making a new video for them.
+  </div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>posts</div></div>
+    <div class="opt"><div class="num">②</div><div>blog</div></div>
+    <div class="opt"><div class="num">③</div><div>willing</div></div>
+    <div class="opt"><div class="num">④</div><div>content</div></div>
+    <div class="opt correct"><div class="num">⑤</div><div><span class="strike">unique</span></div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ⑤번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>보기의 빈칸에 <span class="hl">① posts · ② blog · ③ willing · ④ content</span>는 모두 자연스럽게 들어가지만, <strong>⑤ unique</strong>는 원문 대화에서 Junho의 블로그 내용을 "독특하다"고 표현한 적이 없어. Kate가 "That's a lot!"이라고 한 것처럼, '많이 쓴다'는 내용이지 unique(독특한)이라는 묘사는 없어서 가장 적절하지 않은 것은 ⑤야.</p>
+    </div>
+  </div>
+  <div class="vocab-box">
+    <div class="vocab-box-title">📝 단어 정리</div>
+    <div class="vocab-list">
+      <div class="vocab-item"><div class="vi-word">posts</div><div class="vi-def">블로그 게시물 <em>(blog posts)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">content</div><div class="vi-def">콘텐츠, 내용물 — 블로그에 올리는 모든 것</div></div>
+      <div class="vocab-item"><div class="vi-word">willing</div><div class="vi-def">기꺼이 ~하려는 <em>(be willing to + 동사원형)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">unique</div><div class="vi-def">독특한, 유일한</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Q2 -->
+<section class="question q-ok" id="q2">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">2</div>
+      <div class="q-meta"><span class="type">Reading · 내용 일치</span><span class="points">2점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 내용과 일치하지 않는 것은?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>Junho tries to update his blog every day.</div></div>
+    <div class="opt correct"><div class="num">②</div><div><span class="strike">Junho will teach Alex and Kate how to dance.</span></div></div>
+    <div class="opt"><div class="num">③</div><div>Alex is interested in various types of dance.</div></div>
+    <div class="opt"><div class="num">④</div><div>Kate's hobby is making videos in her free time.</div></div>
+    <div class="opt"><div class="num">⑤</div><div>Junho looks forward to activities with his friends.</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ②번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>대화에서 Junho가 "Maybe <strong>you</strong> can teach <strong>us</strong> some dance moves sometime."라고 했어. 즉, <span class="hl-ok">Alex</span>가 가르치는 사람이고 Junho·Kate가 배우는 쪽이야. Junho가 가르치는 게 아니라서 ②가 내용과 다른 것!</p>
+    </div>
+  </div>
+</section>
+
+<!-- Q3 -->
+<section class="question q-ok" id="q3">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">3</div>
+      <div class="q-meta"><span class="type">Reading · 어구 의미</span><span class="points">3점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 밑줄 친 ⓐ <em>"That's a lot!"</em>의 의미로 가장 적절한 것은?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>Junho has too many blogs.</div></div>
+    <div class="opt"><div class="num">②</div><div>Junho writes very long stories.</div></div>
+    <div class="opt correct"><div class="num">③</div><div>Junho writes on his blog very frequently.</div></div>
+    <div class="opt"><div class="num">④</div><div>Junho spends a lot of money on his blog.</div></div>
+    <div class="opt"><div class="num">⑤</div><div>Junho has many friends who visit his blog.</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ③번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>Junho가 "I try to write something on my blog <strong>every day</strong>."라고 하자, Kate가 "That's a lot!"이라고 반응했어. 매일 쓴다는 것에 놀란 것이니, "매우 자주 쓴다" = <span class="hl-ok">③ very frequently</span>가 정확한 의미야.</p>
+    </div>
+  </div>
+  <div class="tip">
+    <span class="tip-label">표현 포인트</span>
+    That's a lot! = 정말 많다! / 대단하다! → 빈도나 양이 많을 때 쓰는 감탄 표현
+  </div>
+</section>
+
+<!-- Q4 -->
+<section class="question q-ok" id="q4">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">4</div>
+      <div class="q-meta"><span class="type">Reading · 내용 추론</span><span class="points">2점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 내용으로 보아, 세 친구가 앞으로 함께 할 활동으로 가장 적절한 것은?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>Writing diaries together.</div></div>
+    <div class="opt correct"><div class="num">②</div><div>Dancing and making a video of it.</div></div>
+    <div class="opt"><div class="num">③</div><div>Learning how to manage a blog.</div></div>
+    <div class="opt"><div class="num">④</div><div>Going to see a dance performance.</div></div>
+    <div class="opt"><div class="num">⑤</div><div>Sharing tips on how to edit videos.</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ②번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>대화에서 Junho가 Alex에게 "춤을 가르쳐 달라"고 했고, Kate가 "Oh, I can make a video of <strong>our new dance</strong>."라고 했어. 즉 세 명이 함께 춤을 추고 (Alex 가르침), Kate가 영상을 찍는 활동을 계획한 것이야 → <span class="hl-ok">② Dancing and making a video of it</span></p>
+    </div>
+  </div>
+</section>
+
+<p class="section-title">어휘 · 영영풀이 (5~8번)</p>
+
+<!-- Q5 -->
+<section class="question q-wrong" id="q5">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err">5</div>
+      <div class="q-meta"><span class="type">Vocab · 어휘 빈칸</span><span class="points">3점 ✗</span></div>
+    </div>
+    <span class="q-tag vocab">어휘</span>
+  </div>
+  <div class="q-title">다음 빈칸에 들어갈 날말로 가장 적절하지 않은 것은?</div>
+  <div class="q-passage">
+    · I _____ the price to attract more customers.<br>
+    · Saving money can _____ your future chances.<br>
+    · She reminded the players to _____ their backs after training.<br>
+    · He quickly tried to _____ out the wrong answers before handing in his paper.
+  </div>
+  <div class="ans-row">
+    <div class="ans-box wrong-box"><div class="ab-label">내 답</div><div class="ab-val">③ rub</div></div>
+    <div class="ans-box correct-box"><div class="ab-label">정답</div><div class="ab-val">① block</div></div>
+  </div>
+  <div class="q-options">
+    <div class="opt correct"><div class="num">①</div><div><span class="strike">block</span> — 어느 빈칸에도 자연스럽지 않아!</div></div>
+    <div class="opt"><div class="num">②</div><div>increase — "Saving money can <strong>increase</strong> your future chances." ✓</div></div>
+    <div class="opt student-wrong"><div class="num">③</div><div>rub — "rub <strong>out</strong> the wrong answers" ✓ (지우다)</div></div>
+    <div class="opt"><div class="num">④</div><div>reduce — "I <strong>reduced</strong> the price" ✓ (가격을 낮추다)</div></div>
+    <div class="opt"><div class="num">⑤</div><div>stretch — "stretch their backs" ✓ (등을 스트레칭하다)</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ①번이 정답이야?</div></div>
+    <div class="explain-body">
+      <p><strong>rub out</strong> = 지우다 (erase)라서 "rub out the wrong answers"는 정답이야. 승주가 ③을 골랐는데, rub은 네 번째 빈칸 "rub out"으로 완벽하게 들어가!</p>
+      <p>반면 <strong>① block</strong>은 "막다/차단하다"는 뜻인데, 네 문장 중 어디에도 자연스럽게 들어가지 않아. "I blocked the price"도 이상하고, 나머지도 마찬가지야.</p>
+    </div>
+  </div>
+  <div class="vocab-box">
+    <div class="vocab-box-title">📝 단어 정리</div>
+    <div class="vocab-list">
+      <div class="vocab-item"><div class="vi-word">block</div><div class="vi-def">막다, 차단하다 — <em>block the road (길을 막다)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">reduce</div><div class="vi-def">줄이다, 낮추다 — <em>reduce the price (가격을 낮추다)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">increase</div><div class="vi-def">늘리다, 증가시키다 — <em>increase your chances (기회를 늘리다)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">stretch</div><div class="vi-def">스트레칭하다, 늘리다 — <em>stretch your back (등을 펴다)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">rub out</div><div class="vi-def">지우다 — <em>rub out mistakes (실수를 지우다)</em></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Q6 -->
+<section class="question q-wrong" id="q6">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err">6</div>
+      <div class="q-meta"><span class="type">Vocab · 영영풀이</span><span class="points">4점 ✗</span></div>
+    </div>
+    <span class="q-tag vocab">어휘</span>
+  </div>
+  <div class="q-title">다음 주어진 단어들의 영영풀이가 빈칸에 들어갈 말로 가장 적절하지 않은 것은?</div>
+  <div class="q-passage">
+    · tale: a story about exciting _____ events<br>
+    · stretch: to straighten your arms, legs, or body _____<br>
+    · stamp: a small piece of paper that you buy and stick onto a(n) _____ or package before posting it<br>
+    · brain: the _____ inside your head that controls how you think, feel, and move<br>
+    · stress: a state of mental _____ and worry caused by problems in your life, work, etc.
+  </div>
+  <div class="ans-row">
+    <div class="ans-box wrong-box"><div class="ab-label">내 답</div><div class="ab-val">② tension</div></div>
+    <div class="ans-box correct-box"><div class="ab-label">정답</div><div class="ab-val">① develop</div></div>
+  </div>
+  <div class="q-options">
+    <div class="opt correct"><div class="num">①</div><div><span class="strike">develop</span> — 어느 영영풀이 빈칸에도 들어가지 않아!</div></div>
+    <div class="opt student-wrong"><div class="num">②</div><div>tension — stress: "a state of mental <strong>tension</strong> and worry" ✓</div></div>
+    <div class="opt"><div class="num">③</div><div>organ — brain: "the <strong>organ</strong> inside your head" ✓</div></div>
+    <div class="opt"><div class="num">④</div><div>imaginary — tale: "a story about exciting <strong>imaginary</strong> events" ✓</div></div>
+    <div class="opt"><div class="num">⑤</div><div>to full length — stretch: "straighten your body <strong>to full length</strong>" ✓</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ①번이 정답이야?</div></div>
+    <div class="explain-body">
+      <p><strong>tension</strong>(긴장감)은 stress의 영영풀이 "mental _____ and worry"에 완벽히 들어가. 승주가 ②를 골랐는데, 틀린 거야!</p>
+      <p>반면 <strong>① develop</strong>(개발하다/발달하다)은 tale, stretch, stamp, brain, stress 중 어느 단어의 영영풀이에도 자연스럽게 들어가지 않아. 그래서 ①이 "가장 적절하지 않은 것"이야.</p>
+    </div>
+  </div>
+  <div class="vocab-box">
+    <div class="vocab-box-title">📝 단어 정리</div>
+    <div class="vocab-list">
+      <div class="vocab-item"><div class="vi-word">imaginary</div><div class="vi-def">상상의, 가상의 — <em>imaginary events (가상의 사건들)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">organ</div><div class="vi-def">장기, 기관 — <em>brain = an organ (뇌 = 장기)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">tension</div><div class="vi-def">긴장(감) — <em>mental tension (정신적 긴장)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">to full length</div><div class="vi-def">완전히 펼쳐서 — stretch to full length (몸을 완전히 뻗다)</div></div>
+      <div class="vocab-item"><div class="vi-word">develop</div><div class="vi-def">발달하다, 개발하다 — 이 문제에선 들어갈 곳 없음</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Q7 -->
+<section class="question q-wrong" id="q7">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err">7</div>
+      <div class="q-meta"><span class="type">Vocab · 어휘 쓰임</span><span class="points">4점 ✗</span></div>
+    </div>
+    <span class="q-tag vocab">어휘</span>
+  </div>
+  <div class="q-title">다음 밑줄 친 어휘의 쓰임이 적절한 것은?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>My father put <u>off</u> a desk for my little sister. <span style="color:var(--ink-soft);font-size:12px;">→ put off = 미루다 (책상과 무관)</span></div></div>
+    <div class="opt"><div class="num">②</div><div>I was really <u>in to</u> photography and often took pictures. <span style="color:var(--ink-soft);font-size:12px;">→ into (붙여 써야 함)</span></div></div>
+    <div class="opt"><div class="num">③</div><div>She lights <u>upon</u> a candle to create a cozy atmosphere. <span style="color:var(--ink-soft);font-size:12px;">→ lights up (켜다)</span></div></div>
+    <div class="opt correct"><div class="num">④</div><div>I need some <u>advice on</u> how to improve my English skills. ✓</div></div>
+    <div class="opt student-wrong"><div class="num">⑤</div><div>I paused for a moment to take <u>into</u> the morning air. <span style="color:var(--ink-soft);font-size:12px;">→ take in (들이마시다)</span></div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ④번이 정답이야?</div></div>
+    <div class="explain-body">
+      <p><span class="hl-ok">advice on + 명사/동명사</span> = "~에 대한 조언"이라는 올바른 표현이야. "advice on how to improve" = 향상 방법에 대한 조언 ✓</p>
+      <p>⑤ <strong>take into</strong>는 틀린 표현이야. 올바른 표현은 <span class="hl">take in</span> = 들이마시다 (take in the morning air = 아침 공기를 마시다).</p>
+    </div>
+  </div>
+  <div class="vocab-box">
+    <div class="vocab-box-title">📝 구동사 (phrasal verb) 정리</div>
+    <div class="vocab-list">
+      <div class="vocab-item"><div class="vi-word">put off</div><div class="vi-def">미루다, 연기하다 — <em>put off the meeting (회의를 미루다)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">be into</div><div class="vi-def">~에 빠져있다 — <em>I'm into photography (나는 사진에 빠져있어)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">light up</div><div class="vi-def">켜다, 밝히다 — <em>light up a candle (촛불을 켜다)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">advice on</div><div class="vi-def">~에 관한 조언 — <em>advice on English (영어에 관한 조언)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">take in</div><div class="vi-def">들이마시다, 받아들이다 — <em>take in fresh air (신선한 공기를 마시다)</em></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Q8 -->
+<section class="question q-wrong" id="q8">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err">8</div>
+      <div class="q-meta"><span class="type">Vocab · 영영풀이 연결</span><span class="points">4점 ✗</span></div>
+    </div>
+    <span class="q-tag vocab">어휘</span>
+  </div>
+  <div class="q-title">다음 &lt;보기1&gt;의 영영풀이에 해당하는 단어를 &lt;보기2&gt;의 문장의 빈칸에 알맞게 연결한 것은?</div>
+  <div class="q-passage">
+    <strong>&lt;보기1&gt;</strong><br>
+    A: to take hold of someone or something suddenly with your hand<br>
+    B: to make something less or smaller in size, amount, degree, etc.<br>
+    C: in place of somebody or something<br>
+    D: to move your hand up-and-down repeatedly over a surface while pressing it<br>
+    E: a statement of what may, must or must not be done in a particular situation
+  </div>
+  <div class="ans-row">
+    <div class="ans-box wrong-box"><div class="ab-label">내 답</div><div class="ab-val">⑤ A-ⓓ, B-ⓑ, C-ⓐ, D-ⓒ, E-ⓔ</div></div>
+    <div class="ans-box correct-box"><div class="ab-label">정답</div><div class="ab-val">② A-ⓑ, B-ⓒ, C-ⓐ, D-ⓔ, E-ⓓ</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">올바른 연결 정리</div></div>
+    <div class="explain-body">
+      <p>A = "갑자기 붙잡다" <span class="arrow">→</span> <span class="hl-ok">grab</span> (ⓑ)</p>
+      <p>B = "줄이다/작게 하다" <span class="arrow">→</span> <span class="hl-ok">reduce</span> (ⓒ)</p>
+      <p>C = "~대신에" <span class="arrow">→</span> <span class="hl-ok">instead of</span> (ⓐ)</p>
+      <p>D = "표면을 문지르다" <span class="arrow">→</span> <span class="hl-ok">rub</span> (ⓔ)</p>
+      <p>E = "규칙/규정" <span class="arrow">→</span> <span class="hl-ok">rule</span> (ⓓ)</p>
+    </div>
+  </div>
+  <div class="vocab-box">
+    <div class="vocab-box-title">📝 단어 정리</div>
+    <div class="vocab-list">
+      <div class="vocab-item"><div class="vi-word">grab</div><div class="vi-def">갑자기 붙잡다, 낚아채다</div></div>
+      <div class="vocab-item"><div class="vi-word">reduce</div><div class="vi-def">줄이다, 감소시키다</div></div>
+      <div class="vocab-item"><div class="vi-word">instead of</div><div class="vi-def">~ 대신에</div></div>
+      <div class="vocab-item"><div class="vi-word">rub</div><div class="vi-def">문지르다 (손을 대고 왔다갔다)</div></div>
+      <div class="vocab-item"><div class="vi-word">rule</div><div class="vi-def">규칙, 규정</div></div>
+    </div>
+  </div>
+</section>
+
+<p class="section-title">9번 대화문 / 10~11 어법</p>
+
+<!-- Q9 -->
+<section class="question q-wrong" id="q9">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err">9</div>
+      <div class="q-meta"><span class="type">Reading · 내용 일치</span><span class="points">2점 ✗</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">다음 대화의 내용과 일치하지 않는 것은?</div>
+  <div class="q-passage">
+    B: You look down. What's wrong?<br>
+    G: I'm worried about my presentation.<br>
+    B: When do you do your presentation?<br>
+    G: It's this afternoon. I feel so nervous.<br>
+    B: Don't worry. You'll do fine. Just make sure you stand up straight and speak clearly.<br>
+    G: I'll try. Thanks for your advice.
+  </div>
+  <div class="ans-row">
+    <div class="ans-box wrong-box"><div class="ab-label">내 답</div><div class="ab-val">③ The girl has a presentation later the same day.</div></div>
+    <div class="ans-box correct-box"><div class="ab-label">정답</div><div class="ab-val">① The boy makes the girl feel anxious.</div></div>
+  </div>
+  <div class="q-options">
+    <div class="opt correct"><div class="num">①</div><div><span class="strike">The boy makes the girl feel anxious.</span> — 소년은 오히려 위로해줬어!</div></div>
+    <div class="opt"><div class="num">②</div><div>The girl is going to take the boy's advice.</div></div>
+    <div class="opt student-wrong"><div class="num">③</div><div>The girl has a presentation later the same day. — "this afternoon" = 오늘 오후 = TRUE ✓</div></div>
+    <div class="opt"><div class="num">④</div><div>The boy tells the girl to speak in a clear voice.</div></div>
+    <div class="opt"><div class="num">⑤</div><div>The girl expresses concern about an upcoming task.</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ①번이 정답이야?</div></div>
+    <div class="explain-body">
+      <p>승주가 ③번을 골랐는데, ③ "the girl has a presentation later the same day"는 <strong>사실이야</strong>. 대화에서 G(여학생)가 "It's <strong>this afternoon</strong>"이라고 했으니 같은 날 오후 = 나중에 = ✓</p>
+      <p>정답은 ①번이야. 소년(B)은 "Don't worry. <strong>You'll do fine</strong>."이라고 여학생을 <span class="hl-ok">위로</span>해줬어. 여학생을 불안하게 만든 게 아니야! 그래서 "소년이 여학생을 불안하게 만든다"는 내용과 일치하지 않아.</p>
+    </div>
+  </div>
+  <div class="tip">
+    <span class="tip-label">꼭 기억해</span>
+    "this afternoon" = 오늘 오후 → 같은 날 나중에 = ✓ TRUE<br>
+    "makes the girl feel anxious" = 불안하게 만든다 ↔ 실제로는 위로 → ✗ FALSE
+  </div>
+</section>
+
+<!-- Q10 -->
+<section class="question q-ok" id="q10">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">10</div>
+      <div class="q-meta"><span class="type">Grammar · 어법</span><span class="points">4점 ✓</span></div>
+    </div>
+    <span class="q-tag grammar">문법</span>
+  </div>
+  <div class="q-title">다음 중 어법상 적절한 것은? [10번]</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>I will lend the umbrella my friend. <span style="color:var(--wrong);font-size:12px;">→ lend my friend the umbrella / lend the umbrella to my friend</span></div></div>
+    <div class="opt"><div class="num">②</div><div>Because they did a good job they got a prize. <span style="color:var(--wrong);font-size:12px;">→ because절만으론 완전한 문장 안 됨</span></div></div>
+    <div class="opt correct"><div class="num">③</div><div>Yesterday grandmother got toys to the children. ✓ <span style="color:#15803d;font-size:12px;">"get A to B" = A를 B에게 전달하다</span></div></div>
+    <div class="opt"><div class="num">④</div><div>He had to stay late because of not finishing the work.</div></div>
+    <div class="opt"><div class="num">⑤</div><div>I missed the bus because I <span class="strike">late</span> for school. <span style="color:var(--wrong);font-size:12px;">→ I <strong>was</strong> late</span></div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ③번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p><strong>get A to B</strong> = A를 B에게 전달/가져다주다. "grandmother got toys to the children" = 할머니가 아이들에게 장난감을 가져다줬다 ✓</p>
+      <p>① <strong>4형식 어순</strong>: lend + 간접목적어(사람) + 직접목적어(물건) → "lend my friend the umbrella" or "lend the umbrella <u>to</u> my friend"<br>
+      ⑤ "because I late" → 동사 <span class="hl-ok">was</span> 빠짐</p>
+    </div>
+  </div>
+  <div class="grammar-box">
+    <div class="grammar-box-title">📐 4형식 동사 어순</div>
+    <div class="grammar-rule">
+      <div class="rule-label">GIVE TYPE</div>
+      <code>give / lend / send / show + 사람 + 물건</code><br>
+      또는 <code>동사 + 물건 + to/for + 사람</code>
+    </div>
+    <div class="grammar-rule">
+      <div class="rule-label">GET A TO B</div>
+      <code>get + A(물건) + to + B(사람)</code> = A를 B에게 전달하다
+    </div>
+  </div>
+</section>
+
+<!-- Q11 -->
+<section class="question q-wrong" id="q11">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err">11</div>
+      <div class="q-meta"><span class="type">Grammar · 어법</span><span class="points">4점 ✗</span></div>
+    </div>
+    <span class="q-tag grammar">문법</span>
+  </div>
+  <div class="q-title">다음 중 어법상 적절한 것은? [11번]</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>We want strong someone to carry the box. <span style="color:var(--wrong);font-size:12px;">→ <strong>someone strong</strong> (형용사는 -one 뒤에)</span></div></div>
+    <div class="opt correct"><div class="num">②</div><div>He is thinking about <strong>where to go</strong> for the trip. ✓</div></div>
+    <div class="opt"><div class="num">③</div><div>They didn't see <span class="strike">special anything</span> in the gallery. <span style="color:var(--wrong);font-size:12px;">→ <strong>anything special</strong></span></div></div>
+    <div class="opt"><div class="num">④</div><div>I have no idea what to <span class="strike">do it</span> next. <span style="color:var(--wrong);font-size:12px;">→ what to do (it 불필요)</span></div></div>
+    <div class="opt student-wrong"><div class="num">⑤</div><div>She told me how <span class="strike">solve</span> the problem. <span style="color:var(--wrong);font-size:12px;">→ how <strong>to solve</strong></span></div></div>
+  </div>
+  <div class="ans-row">
+    <div class="ans-box wrong-box"><div class="ab-label">내 답</div><div class="ab-val">⑤ how solve</div></div>
+    <div class="ans-box correct-box"><div class="ab-label">정답</div><div class="ab-val">② where to go</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ②번이 정답이야?</div></div>
+    <div class="explain-body">
+      <p><strong>의문사 + to부정사</strong>: where to go (어디 갈지), how to solve (어떻게 풀지), what to do (무엇을 할지) — "to"가 반드시 있어야 해!</p>
+      <p>⑤는 "how <span class="hl-wrong">solve</span>"인데, "how <span class="hl-ok">to solve</span>"가 돼야 해. to를 빠뜨렸어.</p>
+      <p>① -one/-body/-thing 뒤에는 형용사가 와야 해: <span class="hl-ok">someone strong</span> (O), <span class="hl-wrong">strong someone</span> (X)</p>
+    </div>
+  </div>
+  <div class="grammar-box">
+    <div class="grammar-box-title">📐 핵심 문법 2가지</div>
+    <div class="grammar-rule">
+      <div class="rule-label">① -one/-body/-thing 뒤에 형용사</div>
+      <code>someone strong</code> ✓ &nbsp;|&nbsp; <code>anything special</code> ✓<br>
+      <code>strong someone</code> ✗ &nbsp;|&nbsp; <code>special anything</code> ✗
+    </div>
+    <div class="grammar-rule">
+      <div class="rule-label">② 의문사 + to부정사</div>
+      <code>how to solve</code> · <code>where to go</code> · <code>what to do</code> · <code>when to leave</code><br>
+      → "to" 절대 빠지면 안 돼!
+    </div>
+  </div>
+</section>
+
+<p class="section-title">※ [12–13] 다음 대화를 읽고, 물음에 답하시오</p>
+
+<!-- Q12 -->
+<section class="question q-ok" id="q12">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">12</div>
+      <div class="q-meta"><span class="type">Reading · 내용 일치</span><span class="points">3점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗 대화의 내용과 일치하는 것은?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>Alex is already doing neck stretches every day. <span style="color:var(--wrong);font-size:12px;">→ Ms. Kim이 권유한 것</span></div></div>
+    <div class="opt"><div class="num">②</div><div>Alex advises Ms. Kim to do neck stretching exercises. <span style="color:var(--wrong);font-size:12px;">→ 반대</span></div></div>
+    <div class="opt"><div class="num">③</div><div>Minji doesn't notice that her habit can cause neck problems. <span style="color:var(--wrong);font-size:12px;">→ Ms. Kim이 알려줬음</span></div></div>
+    <div class="opt"><div class="num">④</div><div>Students are told to hold the phone below eye level. <span style="color:var(--wrong);font-size:12px;">→ AT eye level</span></div></div>
+    <div class="opt correct"><div class="num">⑤</div><div>Minji understands the risk of text neck and immediately changes neck position. ✓</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ⑤번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>Ms. Kim의 설명을 들은 후 Minji가 <strong>"Okay, we'll start doing that."</strong>이라고 바로 반응했어. 텍스트 넥의 위험을 이해하고 즉시 자세를 바꾸겠다고 한 것 = <span class="hl-ok">⑤ TRUE</span></p>
+      <p>④ "hold it <strong>at</strong> eye level" (눈 높이에 맞춰) ↔ "below eye level" (눈 아래) → 방향이 반대야!</p>
+    </div>
+  </div>
+  <div class="tip">
+    <span class="tip-label">단어 포인트</span>
+    text neck = 스마트폰을 내려보다 생기는 목 통증 | at eye level = 눈 높이에서 | hold it = 폰을 잡다
+  </div>
+</section>
+
+<!-- Q13 -->
+<section class="question q-ok" id="q13">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">13</div>
+      <div class="q-meta"><span class="type">Reading · 동의어</span><span class="points">2점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">밑줄 친 (A) <em>"you should hold it at eye level"</em>과 의미가 같지 않은 것은?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>make sure you hold it at eye level. ✓</div></div>
+    <div class="opt"><div class="num">②</div><div>don't forget to stay it at eye level. ✓</div></div>
+    <div class="opt correct"><div class="num">③</div><div><span class="strike">try to keep it away from your eyes.</span> ← 뜻이 달라!</div></div>
+    <div class="opt"><div class="num">④</div><div>be sure to keep it level with your eyes. ✓</div></div>
+    <div class="opt"><div class="num">⑤</div><div>remember to position it in line with your eyes. ✓</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ③번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>"hold it <strong>at eye level</strong>" = 눈 높이에서 (폰을) 잡아라<br>
+      ③ "keep it <strong>away from your eyes</strong>" = 눈에서 멀리 떨어뜨려라 → 완전히 다른 의미!</p>
+      <p>①②④⑤는 모두 "눈 높이에 맞춰라"라는 같은 뜻이야. ③만 "눈에서 떨어뜨려라"로 의미가 달라.</p>
+    </div>
+  </div>
+</section>
+
+<p class="section-title">※ [14–17, 서술형1] 다음 글을 읽고, 물음에 답하시오</p>
+
+<!-- Q14 -->
+<section class="question q-wrong" id="q14">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err">14</div>
+      <div class="q-meta"><span class="type">Grammar · 어법 선택</span><span class="points">2점 ✗</span></div>
+    </div>
+    <span class="q-tag grammar">문법</span>
+  </div>
+  <div class="q-title">윗글의 (A)~(D)에 들어갈 말로 가장 적절한 것은?</div>
+  <div class="q-passage">
+    (A) [get / reach]: "Why do we need to (A) to the top?"<br>
+    (B) [and / or]: "Carefully put the pieces together, (B) you will forget about your worries."<br>
+    (C) [succeed / success]: "It will give you a sense of (C)."<br>
+    (D) [receipts / recipes]: "Follow the (D)"
+  </div>
+  <div class="ans-row">
+    <div class="ans-box wrong-box"><div class="ab-label">내 답</div><div class="ab-val">② get — or — succeed — recipes</div></div>
+    <div class="ans-box correct-box"><div class="ab-label">정답</div><div class="ab-val">① get — and — success — recipes</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ①번이 정답이야?</div></div>
+    <div class="explain-body">
+      <p><strong>(B) 명령문, and vs. or</strong><br>
+      "Put the pieces together, <span class="hl-ok">and</span> you will forget about worries." = 그렇게 하면 걱정을 잊게 될 거야 ✓<br>
+      "~, <span class="hl-wrong">or</span> you will forget" = 그렇게 하지 않으면 잊게 된다 → 문맥에 안 맞아!</p>
+      <p><strong>(C) success vs. succeed</strong><br>
+      "a sense of <span class="hl-ok">success</span>(명사)" ✓ — "a sense of"(~한 느낌) 뒤엔 명사가 와.<br>
+      "a sense of <span class="hl-wrong">succeed</span>(동사)" ✗</p>
+      <p><strong>(D) recipes vs. receipts</strong><br>
+      <span class="hl-ok">recipes</span> = 요리법 ✓ / receipts = 영수증</p>
+    </div>
+  </div>
+  <div class="grammar-box">
+    <div class="grammar-box-title">📐 명령문, and / or</div>
+    <div class="grammar-rule">
+      <div class="rule-label">명령문, AND = "그렇게 하면"</div>
+      Study hard, <code>and</code> you will pass. = 열심히 하면 합격할 거야.
+    </div>
+    <div class="grammar-rule">
+      <div class="rule-label">명령문, OR = "그렇게 안 하면"</div>
+      Study hard, <code>or</code> you will fail. = 열심히 안 하면 떨어질 거야.
+    </div>
+  </div>
+  <div class="vocab-box">
+    <div class="vocab-box-title">📝 헷갈리는 단어</div>
+    <div class="vocab-list">
+      <div class="vocab-item"><div class="vi-word">success</div><div class="vi-def"><em>명사</em> — 성공 | a sense of success (성공의 느낌)</div></div>
+      <div class="vocab-item"><div class="vi-word">succeed</div><div class="vi-def"><em>동사</em> — 성공하다 | You will succeed. (너는 성공할 거야)</div></div>
+      <div class="vocab-item"><div class="vi-word">recipes</div><div class="vi-def">요리법, 레시피</div></div>
+      <div class="vocab-item"><div class="vi-word">receipts</div><div class="vi-def">영수증 (receipt의 복수)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Q15 -->
+<section class="question q-ok" id="q15">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">15</div>
+      <div class="q-meta"><span class="type">Grammar · 품사 구분</span><span class="points">2점 ✓</span></div>
+    </div>
+    <span class="q-tag grammar">문법</span>
+  </div>
+  <div class="q-title">윗글의 밑줄 친 ⓐ~ⓔ중 성격이 다른 것은?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>ⓐ reaching — 동명사/현재분사 (get to the top에서)</div></div>
+    <div class="opt"><div class="num">②</div><div>ⓑ enjoying — 동명사 (about enjoying the journey)</div></div>
+    <div class="opt correct"><div class="num">③</div><div>ⓒ amazing — <strong>형용사</strong> (the amazing views 수식) ← 성격이 달라!</div></div>
+    <div class="opt"><div class="num">④</div><div>ⓓ Doing — 동명사 (Doing puzzles is good for~)</div></div>
+    <div class="opt"><div class="num">⑤</div><div>ⓔ clearing — 동명사 (good for clearing your mind)</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ③번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>ⓐ reaching, ⓑ enjoying, ⓓ Doing, ⓔ clearing → 모두 <span class="hl-ok">동명사(gerund)</span> 역할을 해.</p>
+      <p>ⓒ <strong>amazing</strong>은 "the <u>amazing</u> views"에서 명사 views를 꾸미는 <span class="hl">형용사</span>야. 품사가 달라서 ③이 정답!</p>
+    </div>
+  </div>
+  <div class="grammar-box">
+    <div class="grammar-box-title">📐 -ing의 역할</div>
+    <div class="grammar-rule">
+      <div class="rule-label">동명사 (Gerund) — 명사 역할</div>
+      <code>Doing</code> puzzles is fun. (주어) | good for <code>clearing</code> (전치사 뒤)
+    </div>
+    <div class="grammar-rule">
+      <div class="rule-label">형용사 역할 — 명사 수식</div>
+      the <code>amazing</code> views | an <code>interesting</code> book → 명사 앞에서 꾸밈
+    </div>
+  </div>
+</section>
+
+<!-- Q16 -->
+<section class="question q-ok" id="q16">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">16</div>
+      <div class="q-meta"><span class="type">Reading · 내용 일치</span><span class="points">2점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">Which is NOT true about hiking?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>Climbing to the top is not the only goal. ✓</div></div>
+    <div class="opt"><div class="num">②</div><div>It is important to enjoy the process of hiking itself. ✓</div></div>
+    <div class="opt"><div class="num">③</div><div>The author encourages you to go out and explore nature right now. ✓</div></div>
+    <div class="opt"><div class="num">④</div><div>You can enjoy the wonderful view while breathing in the fresh air. ✓</div></div>
+    <div class="opt correct"><div class="num">⑤</div><div><span class="strike">The author advises you to be careful of knee injuries when coming down.</span> — 지문에 없는 내용!</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ⑤번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>글에는 무릎 부상(knee injuries)에 관한 내용이 전혀 없어. ①②③④는 모두 본문에서 확인할 수 있지만, ⑤는 지문에 없는 내용이야 → <span class="hl-ok">NOT TRUE = ⑤</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- Q17 -->
+<section class="question q-ok" id="q17">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">17</div>
+      <div class="q-meta"><span class="type">Reading · 내용 일치</span><span class="points">3점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">베이킹(Baking)에 관한 설명 중 윗글의 내용과 일치하는 것은?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>You must follow the standard way exactly. <span style="color:var(--wrong);font-size:12px;">→ "don't be afraid to get creative" → 자유롭게!</span></div></div>
+    <div class="opt"><div class="num">②</div><div>Only several shapes are the best for cookies. <span style="color:var(--wrong);font-size:12px;">→ cats, flowers, 등 다양한 모양 가능</span></div></div>
+    <div class="opt"><div class="num">③</div><div>Correctness is more important than getting creative. <span style="color:var(--wrong);font-size:12px;">→ 반대. 창의성 강조!</span></div></div>
+    <div class="opt correct"><div class="num">④</div><div>Baking can be creative and a way to express yourself. ✓</div></div>
+    <div class="opt"><div class="num">⑤</div><div>The highlight of baking is the joy of <span class="strike">hiding</span> cookies from family and friends. <span style="color:var(--wrong);font-size:12px;">→ sharing (나누는 것)</span></div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ④번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>글에서 "Just express yourself!"라고 했고, 베이킹을 자신을 표현하는 창의적인 활동으로 소개했어. <span class="hl-ok">④</span>가 정확히 그 내용이야.</p>
+      <p>⑤ "hiding cookies" → 글에서는 <strong>sharing</strong>(나눔)의 기쁨이라고 했어. hiding(숨기는 것)이 아니야!</p>
+    </div>
+  </div>
+</section>
+
+<!-- 서술형1 -->
+<section class="question q-ok" id="sw1">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok sm">서1</div>
+      <div class="q-meta"><span class="type">Writing · 조건 영작</span><span class="points">5점 (부분점수) ✓</span></div>
+    </div>
+    <span class="q-tag write">서술형</span>
+  </div>
+  <div class="q-title">[서술형 1] 윗글을 읽고 다음 질문에 대한 알맞은 대답이 되도록 주어진 &lt;조건&gt;에 맞게 쓰시오.<br><em>Q. What does hiking a mountain mean according to the writer?</em></div>
+  <div class="q-passage">
+    조건1. 주어는 It으로 시작하시오.<br>
+    조건2. both ... and ... 구문을 사용하시오.<br>
+    조건3. 시제, 인칭에 유의하여 완전한 문장으로 쓰시오.
+  </div>
+  <div class="ans-row">
+    <div class="ans-box correct-box"><div class="ab-label">모범 정답</div><div class="ab-val">It is both about reaching the top and (about) enjoying the journey.</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">핵심 포인트</div></div>
+    <div class="explain-body">
+      <p>본문: "hiking is not just about <strong>reaching</strong> the top. It is also about <strong>enjoying</strong> the journey."</p>
+      <p>→ <span class="hl-ok">both A and B</span> 구문으로 합치면: "It is both about <strong>reaching</strong> the top and <strong>enjoying</strong> the journey." ✓</p>
+      <p>It으로 시작 ✓ · both...and ✓ · 동명사(-ing) 형태 유지 ✓</p>
+    </div>
+  </div>
+  <div class="grammar-box">
+    <div class="grammar-box-title">📐 both A and B</div>
+    <div class="grammar-rule">
+      <code>both A and B</code> = A와 B 둘 다<br>
+      It is both <code>about reaching the top</code> and <code>(about) enjoying the journey</code>.
+    </div>
+  </div>
+</section>
+
+<p class="section-title">※ [18–19] 나무공예 / [20–24] 강아지 Bailey 이야기</p>
+
+<!-- Q18 -->
+<section class="question q-ok" id="q18">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">18</div>
+      <div class="q-meta"><span class="type">Reading · 내용 일치</span><span class="points">3점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 내용과 일치하지 않는 것으로 짝지어진 것은?</div>
+  <div class="q-passage" style="font-size:12px;">
+    ⓐ The writer says only one type of wood should be used. (오직 한 종류만?)<br>
+    ⓑ The writer expresses creativity through wood crafting.<br>
+    ⓒ The writer can make useful items like boxes or chairs.<br>
+    ⓓ The writer sometimes paints the wood in special colors.<br>
+    ⓔ The writer says that wood crafting is tough and tiring. (힘들다?)<br>
+    ⓕ The writer suggests that the readers give his hobby a try.<br>
+    ⓖ The writer can make small houses for birds out of wood.
+  </div>
+  <div class="q-options">
+    <div class="opt correct"><div class="num">①</div><div>(ⓐ, ⓔ) — 둘 다 본문과 다른 내용 ✓</div></div>
+    <div class="opt"><div class="num">②</div><div>(ⓑ, ⓓ)</div></div>
+    <div class="opt"><div class="num">③</div><div>(ⓒ, ⓕ)</div></div>
+    <div class="opt"><div class="num">④</div><div>(ⓓ, ⓔ)</div></div>
+    <div class="opt"><div class="num">⑤</div><div>(ⓕ, ⓖ)</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ①번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>ⓐ 글에서 "I can choose <strong>different types of wood</strong>"라고 했어 → 한 종류만? 틀린 내용 ✗</p>
+      <p>ⓔ 글에서 나무공예를 "<strong>fun</strong>"이라고 했어 → 힘들고 지친다? 틀린 내용 ✗</p>
+      <p>→ ⓐ와 ⓔ가 본문과 일치하지 않는 것의 짝 = <span class="hl-ok">① (ⓐ, ⓔ)</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- Q19 -->
+<section class="question q-ok" id="q19">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">19</div>
+      <div class="q-meta"><span class="type">Reading · 글의 목적</span><span class="points">2점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">What is the purpose of the above text?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>To teach the guidelines for wood crafting</div></div>
+    <div class="opt"><div class="num">②</div><div>To provide tips on how to build a birdhouse</div></div>
+    <div class="opt"><div class="num">③</div><div>To give advice on how to choose a new hobby</div></div>
+    <div class="opt"><div class="num">④</div><div>To explain the types and characteristics of wood</div></div>
+    <div class="opt correct"><div class="num">⑤</div><div>To introduce one's hobby and encourage others to try it ✓</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ⑤번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>글쓴이가 자신의 취미(나무공예)를 소개하고, 마지막에 "Do you want to try something fun? <strong>Why don't you give it a try?</strong>"라고 독자에게 권유했어. → 자신의 취미를 소개하고 다른 사람도 해보길 권함 = <span class="hl-ok">⑤</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- Q20 -->
+<section class="question q-ok" id="q20">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">20</div>
+      <div class="q-meta"><span class="type">Reading · 제목</span><span class="points">2점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 제목으로 가장 적절한 것은? (Bailey 이야기)</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>Wise Ways to Use Smartphones More Efficiently</div></div>
+    <div class="opt correct"><div class="num">②</div><div>A Day in the Happy Life of a Dog and Its Owner ✓</div></div>
+    <div class="opt"><div class="num">③</div><div>The Positive Effects of Smartphones on Teenagers</div></div>
+    <div class="opt"><div class="num">④</div><div>How to Train Your Dog Effectively in Everyday Life</div></div>
+    <div class="opt"><div class="num">⑤</div><div>Problems Caused by Too Much Phone Use: A Dog's Concern</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ②번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>글은 강아지 Bailey가 "Hi! I'm Bailey, the friendly dog in town."으로 시작해 주인 Jin과의 하루를 일기처럼 서술하고, 마지막엔 "My plan worked! I was so <strong>happy</strong>."로 끝나. 강아지와 주인의 행복한 일상을 담은 이야기 = <span class="hl-ok">② A Day in the Happy Life of a Dog and Its Owner</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- Q21 -->
+<section class="question q-wrong" id="q21">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err">21</div>
+      <div class="q-meta"><span class="type">Grammar · 어법</span><span class="points">3점 ✗</span></div>
+    </div>
+    <span class="q-tag grammar">문법</span>
+  </div>
+  <div class="q-title">윗글의 밑줄 친 ⓐ~ⓔ중, 어법상 적절한 것은?</div>
+  <div class="q-passage" style="font-size:12.5px;">
+    ⓐ <u>That</u> tiny earphones in your ears are blocking me out.<br>
+    ⓑ you keep <u>to rub</u> them.<br>
+    ⓒ You're <u>forgettable</u> these days.<br>
+    ⓓ I hope you're not one of <u>those teens</u>, my smart friend.<br>
+    ⓔ <u>While</u> this break, look far away.
+  </div>
+  <div class="ans-row">
+    <div class="ans-box wrong-box"><div class="ab-label">내 답</div><div class="ab-val">① ⓐ That</div></div>
+    <div class="ans-box correct-box"><div class="ab-label">정답</div><div class="ab-val">④ ⓓ those teens</div></div>
+  </div>
+  <div class="q-options">
+    <div class="opt student-wrong"><div class="num">①</div><div>ⓐ <span class="strike">That</span> tiny earphones → <strong>Those</strong> (복수명사 earphones)</div></div>
+    <div class="opt"><div class="num">②</div><div>ⓑ keep <span class="strike">to rub</span> → <strong>keep rubbing</strong> (keep + V-ing)</div></div>
+    <div class="opt"><div class="num">③</div><div>ⓒ <span class="strike">forgettable</span> → <strong>forgetful</strong> (잘 잊어버리는 사람)</div></div>
+    <div class="opt correct"><div class="num">④</div><div>ⓓ <strong>those teens</strong> ✓ — "one of + 복수명사" 올바름!</div></div>
+    <div class="opt"><div class="num">⑤</div><div>ⓔ <span class="strike">While</span> this break → <strong>During</strong> (명사 앞엔 During)</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ④번이 정답이야?</div></div>
+    <div class="explain-body">
+      <p>ⓓ "one of <strong>those teens</strong>" = those + 복수명사 = "one of + 복수명사" 형태로 완벽히 맞아 ✓</p>
+      <p>ⓐ <span class="hl-wrong">That</span> tiny earphones → earphones는 복수! → <span class="hl-ok">Those</span><br>
+      ⓑ <span class="hl-wrong">keep to rub</span> → keep 뒤엔 동명사! → <span class="hl-ok">keep rubbing</span><br>
+      ⓒ <span class="hl-wrong">forgettable</span>(잊히기 쉬운) → <span class="hl-ok">forgetful</span>(잘 잊어버리는)<br>
+      ⓔ <span class="hl-wrong">While</span> this break → While 뒤엔 절(S+V)이 와야 해. 명사 앞엔 → <span class="hl-ok">During</span></p>
+    </div>
+  </div>
+  <div class="grammar-box">
+    <div class="grammar-box-title">📐 핵심 문법 4가지</div>
+    <div class="grammar-rule">
+      <div class="rule-label">① This/That vs. These/Those</div>
+      복수명사 앞: <code>These/Those + 복수명사</code> | 단수명사 앞: <code>This/That + 단수명사</code>
+    </div>
+    <div class="grammar-rule">
+      <div class="rule-label">② keep + V-ing</div>
+      <code>keep rubbing</code> ✓ | <code>keep to rub</code> ✗ | keep + 동명사 = 계속 ~하다
+    </div>
+    <div class="grammar-rule">
+      <div class="rule-label">③ forgetful vs. forgettable</div>
+      <code>forgetful</code> = 잘 잊어버리는 (사람 특성) | <code>forgettable</code> = 잊히기 쉬운
+    </div>
+    <div class="grammar-rule">
+      <div class="rule-label">④ While vs. During</div>
+      <code>While + S + V</code> (절) | <code>During + 명사</code> (명사구)
+    </div>
+  </div>
+</section>
+
+<!-- Q22 -->
+<section class="question q-ok" id="q22">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">22</div>
+      <div class="q-meta"><span class="type">Reading · 내용 일치</span><span class="points">3점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 내용과 일치하지 않는 것은?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>Jin's eyes look tired from late-night smartphone use. ✓</div></div>
+    <div class="opt"><div class="num">②</div><div>Bailey tries various ways to get Jin away from her phone. ✓</div></div>
+    <div class="opt"><div class="num">③</div><div>Jin may have memory problems from overusing digital devices. ✓</div></div>
+    <div class="opt"><div class="num">④</div><div>Jin's earphones use may have negative effects on her hearing. ✓</div></div>
+    <div class="opt correct"><div class="num">⑤</div><div><span class="strike">The tips recommend using earphones for at least 60 minutes a day.</span> ← "less than 60 minutes"!</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ⑤번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>Digital Life Tips: "Use earphones for <strong>less than 60 minutes</strong> a day." = 하루 60분 <span class="hl-ok">미만</span>으로 사용해<br>
+      ⑤는 "at least 60 minutes" = 최소 60분 이상 → 반대 의미야! ✗</p>
+    </div>
+  </div>
+  <div class="tip">
+    <span class="tip-label">핵심 표현</span>
+    <strong>less than</strong> 60 minutes = 60분 미만 (60분보다 적게)<br>
+    <strong>at least</strong> 60 minutes = 최소 60분 이상 (60분 이상)<br>
+    → 완전히 반대 의미야!
+  </div>
+</section>
+
+<!-- Q23 -->
+<section class="question q-ok" id="q23">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">23</div>
+      <div class="q-meta"><span class="type">Reading · 지시어</span><span class="points">2점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 밑줄 친 (가) <em>them</em>이 가리키는 대상으로 가장 적절한 것은?</div>
+  <div class="q-passage">
+    "Please take <u>them</u> off and play with me!"
+  </div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>Jin's ears</div></div>
+    <div class="opt correct"><div class="num">②</div><div>the earphones ✓</div></div>
+    <div class="opt"><div class="num">③</div><div>Bailey's sounds</div></div>
+    <div class="opt"><div class="num">④</div><div>the loud sounds</div></div>
+    <div class="opt"><div class="num">⑤</div><div>the singing monsters</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ②번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>"That tiny earphones in your ears are blocking me out." → Bailey는 Jin의 <strong>이어폰</strong>을 언급했어.<br>
+      "Please take <strong>them</strong> off" = 이어폰을 빼라 → <span class="hl-ok">them = the earphones</span></p>
+      <p>"take off + 이어폰/옷" = 벗다/빼다 → "take them off" = 이어폰을 빼라 ✓</p>
+    </div>
+  </div>
+</section>
+
+<!-- Q24 -->
+<section class="question q-wrong" id="q24">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err">24</div>
+      <div class="q-meta"><span class="type">Grammar · 어법 선택</span><span class="points">3점 ✗</span></div>
+    </div>
+    <span class="q-tag grammar">문법</span>
+  </div>
+  <div class="q-title">윗글의 (A)~(C)에 들어갈 말로 가장 적절한 것은?</div>
+  <div class="q-passage">
+    (A) [because / although]: I'm a bit worried (A) she's so into it.<br>
+    (B) [yet / still]: It's late, but you're (B) busy with your phone.<br>
+    (C) [beyond / below]: Make sure the volume is (C) 60 percent of the maximum.
+  </div>
+  <div class="ans-row">
+    <div class="ans-box wrong-box"><div class="ab-label">내 답</div><div class="ab-val">③ because — yet — below</div></div>
+    <div class="ans-box correct-box"><div class="ab-label">정답</div><div class="ab-val">① because — still — below</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ①번이 정답이야?</div></div>
+    <div class="explain-body">
+      <p><strong>(A) because vs. although</strong><br>
+      "I'm worried <span class="hl-ok">because</span> she's so into it." = 그녀가 너무 폰에 빠져있어서 걱정이야 ✓<br>
+      although = 비록 ~이지만 (반대 상황) → 문맥에 안 맞아</p>
+      <p><strong>(B) still vs. yet</strong><br>
+      <span class="hl-ok">still</span> = 여전히 (긍정문에서 사용): "you're still busy" = 여전히 바빠 ✓<br>
+      <span class="hl-wrong">yet</span> = 아직 (주로 부정문/의문문): "I haven't finished yet." → 긍정문에는 still!</p>
+      <p><strong>(C) below vs. beyond</strong><br>
+      <span class="hl-ok">below</span> 60% = 60% 미만으로 (60-60 Rule: 볼륨은 60% 아래로) ✓<br>
+      beyond 60% = 60%를 넘어서 → 반대!</p>
+    </div>
+  </div>
+  <div class="grammar-box">
+    <div class="grammar-box-title">📐 still vs. yet 핵심 정리</div>
+    <div class="grammar-rule">
+      <div class="rule-label">still — 긍정문에서 "여전히"</div>
+      She is <code>still</code> sleeping. (그녀는 여전히 자고 있어.) ✓
+    </div>
+    <div class="grammar-rule">
+      <div class="rule-label">yet — 부정문/의문문에서 "아직"</div>
+      She hasn't arrived <code>yet</code>. (아직 도착 안 했어.) ✓<br>
+      Has she arrived <code>yet</code>? (벌써 도착했어?) ✓
+    </div>
+  </div>
+</section>
+
+<p class="section-title">※ [25–26] FOMO / [27–28] 수면</p>
+
+<!-- Q25 -->
+<section class="question q-ok" id="q25">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">25</div>
+      <div class="q-meta"><span class="type">Reading · 빈칸 추론</span><span class="points">2점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 빈칸에 들어갈 말로 가장 적절한 것은?</div>
+  <div class="q-passage">
+    "When you ______________, you can feel happier and less worried about missing out on things. Remember to take a step back and enjoy your own experiences!"
+  </div>
+  <div class="q-options">
+    <div class="opt correct"><div class="num">①</div><div>focus on yourself ✓</div></div>
+    <div class="opt"><div class="num">②</div><div>try not to miss what others are doing</div></div>
+    <div class="opt"><div class="num">③</div><div>think more about what you might be missing</div></div>
+    <div class="opt"><div class="num">④</div><div>keep track of important messages and posts</div></div>
+    <div class="opt"><div class="num">⑤</div><div>stay aware of what is happening around you</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ①번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>글의 조언: "Take a break from social media. Spend less time online and try to enjoy the things in your life."<br>
+      → <span class="hl-ok">자기 자신에게 집중하면(focus on yourself)</span> 더 행복해지고 덜 불안해진다는 흐름이야.</p>
+      <p>②③④⑤는 오히려 다른 사람이나 SNS를 계속 신경 쓰는 것 → FOMO를 없애는 데 도움이 안 돼!</p>
+    </div>
+  </div>
+  <div class="tip">
+    <span class="tip-label">단어 포인트</span>
+    FOMO = Fear Of Missing Out = 나만 뒤처지는 것 같은 불안감<br>
+    focus on yourself = 자기 자신에게 집중하다
+  </div>
+</section>
+
+<!-- Q26 -->
+<section class="question q-wrong" id="q26">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err">26</div>
+      <div class="q-meta"><span class="type">Reading · 답할 수 없는 것</span><span class="points">3점 ✗</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">다음 질문 중 윗글을 읽고 답할 수 없는 것은?</div>
+  <div class="ans-row">
+    <div class="ans-box wrong-box"><div class="ab-label">내 답</div><div class="ab-val">④ How would life change if you were free from FOMO?</div></div>
+    <div class="ans-box correct-box"><div class="ab-label">정답</div><div class="ab-val">⑤ Why should people with FOMO take a step forward in the world?</div></div>
+  </div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>What might people think when they feel FOMO? ✓ 답할 수 있음</div></div>
+    <div class="opt"><div class="num">②</div><div>In what situations might people experience FOMO? ✓ 답할 수 있음</div></div>
+    <div class="opt"><div class="num">③</div><div>What actions might people take to overcome FOMO? ✓ 답할 수 있음</div></div>
+    <div class="opt student-wrong"><div class="num">④</div><div>How would life change if you were free from FOMO? — ④도 답할 수 있어!</div></div>
+    <div class="opt correct"><div class="num">⑤</div><div><span class="strike">Why should people with FOMO take a step forward in the world?</span> — 지문엔 "step back"이야!</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ⑤번이 정답이야?</div></div>
+    <div class="explain-body">
+      <p>글에서 "Remember to <strong>take a step back</strong> and enjoy your own experiences!"라고 했어. <span class="hl-ok">step back</span>(물러서다) = SNS에서 한 발짝 물러서라는 뜻이야.</p>
+      <p>⑤는 "<strong>take a step forward</strong>(앞으로 나아가다)"를 물어보는데, 이건 지문에 없는 내용이야 → 답할 수 없어!</p>
+      <p>④는 "FOMO에서 벗어나면 삶이 어떻게 달라질까?"인데, 글에서 "you can feel happier and less worried"라고 힌트를 주고 있어 → 답할 수 있어.</p>
+    </div>
+  </div>
+  <div class="tip">
+    <span class="tip-label">표현 구분</span>
+    <strong>take a step back</strong> = 한 발짝 물러서다 (잠시 쉬다, SNS에서 멀어지다)<br>
+    <strong>take a step forward</strong> = 앞으로 나아가다 → 지문에 없는 표현!
+  </div>
+</section>
+
+<!-- Q27 -->
+<section class="question q-ok" id="q27">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">27</div>
+      <div class="q-meta"><span class="type">Reading · 내용 일치</span><span class="points">2점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 내용과 일치하지 않는 것은? (수면 지문)</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>Avoiding phones at night can help improve sleep. ✓</div></div>
+    <div class="opt"><div class="num">②</div><div>People sometimes sleep less when they are busy. ✓</div></div>
+    <div class="opt"><div class="num">③</div><div>Too little sleep can harm both the body and the mind. ✓</div></div>
+    <div class="opt correct"><div class="num">④</div><div><span class="strike">The effects of not sleeping enough appear immediately.</span> — "develop slowly"라고 했어!</div></div>
+    <div class="opt"><div class="num">⑤</div><div>Getting enough sleep allows people to perform better. ✓</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ④번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>보기 문장: "These health issues <strong>develop slowly</strong>, so people may not notice the danger right away."<br>
+      → 수면 부족의 건강 문제는 <span class="hl-ok">천천히 생긴다</span> (develop slowly) = 즉각 나타나지 않아!</p>
+      <p>④ "appear <span class="hl-wrong">immediately</span>(즉각)" → 글의 내용과 반대야 ✗</p>
+    </div>
+  </div>
+</section>
+
+<!-- Q28 -->
+<section class="question q-wrong" id="q28">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err">28</div>
+      <div class="q-meta"><span class="type">Reading · 문장 삽입</span><span class="points">3점 ✗</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글에서 &lt;보기&gt; 문장이 들어갈 가장 적절한 곳은?</div>
+  <div class="q-passage">
+    <strong>&lt;보기&gt;</strong> "These health issues develop slowly, so people may not notice the danger right away."
+  </div>
+  <div class="ans-row">
+    <div class="ans-box wrong-box"><div class="ab-label">내 답</div><div class="ab-val">④ ⓓ</div></div>
+    <div class="ans-box correct-box"><div class="ab-label">정답</div><div class="ab-val">② ⓑ</div></div>
+  </div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>ⓐ — 문단 시작 바로 뒤</div></div>
+    <div class="opt correct"><div class="num">②</div><div>ⓑ — "they do not realize that lack of sleep can cause serious health problems." 뒤 ✓</div></div>
+    <div class="opt"><div class="num">③</div><div>ⓒ</div></div>
+    <div class="opt student-wrong"><div class="num">④</div><div>ⓓ</div></div>
+    <div class="opt"><div class="num">⑤</div><div>ⓔ</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ②ⓑ번이 정답이야?</div></div>
+    <div class="explain-body">
+      <p>ⓑ 자리 앞 문장: "...they do not <strong>realize</strong> that lack of sleep can cause <strong>serious health problems</strong>."<br>
+      → "왜 깨닫지 못하는가?" 이유를 설명하는 보기 문장이 들어가면 완벽해:<br>
+      "These health issues <span class="hl-ok">develop slowly</span>, so people may not notice..." = 천천히 진행되니까 모르는 것!</p>
+      <p><strong>논리 흐름</strong>: 건강 문제를 모른다(ⓑ앞) → 왜냐면 천천히 발전하니까(보기) → 다음 내용 ✓</p>
+    </div>
+  </div>
+  <div class="tip">
+    <span class="tip-label">문장 삽입 풀이 전략</span>
+    보기 문장의 "These health issues"는 앞에서 언급된 "serious health problems"를 받아야 해.<br>
+    "develop slowly" → "not notice the danger" 의 인과관계가 자연스러워!
+  </div>
+</section>
+
+<p class="section-title">※ [29–30] 스케이트보드 / [31–32] 연기 동아리</p>
+
+<!-- Q29 -->
+<section class="question q-ok" id="q29">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">29</div>
+      <div class="q-meta"><span class="type">Vocab · 어휘 쓰임</span><span class="points">4점 ✓</span></div>
+    </div>
+    <span class="q-tag vocab">어휘</span>
+  </div>
+  <div class="q-title">윗글의 ⓐ~ⓔ중 문맥상 어휘의 쓰임이 가장 적절한 것은?</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>ⓐ <u>cliffs</div></div>
+    <div class="opt"><div class="num">②</div><div>ⓑ <u>high-quality</u> swimming pools</div></div>
+    <div class="opt correct"><div class="num">③</div><div>ⓒ <u>techniques</u> ✓ — 스케이터들이 놀라운 기술을 향상시켰다</div></div>
+    <div class="opt"><div class="num">④</div><div>ⓓ <u>climax</u></div></div>
+    <div class="opt"><div class="num">⑤</div><div>ⓔ <u>award</u></div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ③번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>ⓒ "improved skateboarding with amazing <span class="hl-ok">techniques</span>(기술)" = 스케이터들이 놀라운 기술로 스케이트보딩을 발전시켰다 → 문맥에 딱 맞아!</p>
+      <p>ⓐ cliffs(절벽) → 스케이트보드 시작은 평지/빈 수영장에서. 절벽은 문맥에 안 맞아.<br>
+      ⓑ high-quality(고급) swimming pools → 그냥 빈 수영장(empty pools)이어야 맞아.<br>
+      ⓓ climax → "the climax of street skateboarding" = 거리 스케이트보딩의 절정이라는 표현은 다소 어색해.<br>
+      ⓔ award(상, 상금) → "give you a special award" = 문맥에서 "특별한 경험/느낌"이 맞아.</p>
+    </div>
+  </div>
+  <div class="vocab-box">
+    <div class="vocab-box-title">📝 단어 정리</div>
+    <div class="vocab-list">
+      <div class="vocab-item"><div class="vi-word">technique</div><div class="vi-def">기술, 테크닉 — <em>amazing techniques (놀라운 기술)</em></div></div>
+      <div class="vocab-item"><div class="vi-word">cliff</div><div class="vi-def">절벽</div></div>
+      <div class="vocab-item"><div class="vi-word">climax</div><div class="vi-def">절정, 클라이맥스</div></div>
+      <div class="vocab-item"><div class="vi-word">award</div><div class="vi-def">상, 상금 — <em>win an award (상을 받다)</em></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Q30 -->
+<section class="question q-ok" id="q30">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">30</div>
+      <div class="q-meta"><span class="type">Reading · 내용 일치</span><span class="points">3점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 내용과 일치하지 않는 것은? (스케이트보드)</div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>Skateboarding is enjoyed by people of all ages. ✓</div></div>
+    <div class="opt"><div class="num">②</div><div>Skateboarding started in California in the 1960s. ✓</div></div>
+    <div class="opt"><div class="num">③</div><div>In the 1990s, skateboarding became more well-liked. ✓</div></div>
+    <div class="opt"><div class="num">④</div><div>Mullen created new tricks of skating on even ground in the 1980s. ✓</div></div>
+    <div class="opt correct"><div class="num">⑤</div><div><span class="strike">Although it is very well-known, skateboarding has never been an Olympic sport.</span> — 2021 도쿄올림픽에서 정식 종목이 됐어!</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ⑤번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>글에서 "Skateboarding even <strong>became an Olympic sport</strong> at the <strong>Tokyo Olympic Games in 2021</strong>."이라고 했어. 스케이트보딩은 이미 올림픽 종목이야! "never been"은 틀린 내용 ✗</p>
+    </div>
+  </div>
+</section>
+
+<!-- Q31 -->
+<section class="question q-ok" id="q31">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">31</div>
+      <div class="q-meta"><span class="type">Grammar/Reading · 연결어</span><span class="points">3점 ✓</span></div>
+    </div>
+    <span class="q-tag grammar">문법</span>
+  </div>
+  <div class="q-title">윗글의 (A)에 들어갈 말로 가장 적절한 것은?</div>
+  <div class="q-passage">
+    "First, you can get creative. ... Acting can also give you confidence. ...<br>
+    (A) _________, you can see people's lives through the eyes of different characters."
+  </div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>Hopefully</div></div>
+    <div class="opt correct"><div class="num">②</div><div>Moreover ✓ — "게다가, 더욱이" (추가 이점 나열)</div></div>
+    <div class="opt"><div class="num">③</div><div>Therefore</div></div>
+    <div class="opt"><div class="num">④</div><div>As a result</div></div>
+    <div class="opt"><div class="num">⑤</div><div>Actually</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ②번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>앞에서 연기의 장점 두 가지(①창의성 ②자신감)를 말했고, 이어서 세 번째 장점(다른 사람의 삶을 이해)을 추가하는 흐름이야.<br>
+      <span class="hl-ok">Moreover</span> = 게다가 (추가 정보를 연결할 때) ✓<br>
+      Therefore/As a result = 따라서 (결과) → 추가 내용이 아님 ✗</p>
+    </div>
+  </div>
+  <div class="tip">
+    <span class="tip-label">연결어 정리</span>
+    <strong>Moreover / Furthermore / In addition</strong> = 게다가, 더욱이 (추가)<br>
+    <strong>Therefore / As a result</strong> = 따라서, 결과적으로 (결과)<br>
+    <strong>However / But</strong> = 하지만 (반전)
+  </div>
+</section>
+
+<!-- Q32 -->
+<section class="question q-ok" id="q32">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num ok">32</div>
+      <div class="q-meta"><span class="type">Reading · 내용 일치</span><span class="points">3점 ✓</span></div>
+    </div>
+    <span class="q-tag reading">독해</span>
+  </div>
+  <div class="q-title">윗글의 연기에 대한 내용으로 어색한 것끼리 짝지어진 것은?</div>
+  <div class="q-passage" style="font-size:12px;">
+    ⓐ You can become creative. ✓<br>
+    ⓑ You can feel more confidence. (어색 - feel more <strong>confident</strong>가 맞음, but 내용은 TRUE)<br>
+    ⓒ You can express yourself better publicly. ✓<br>
+    ⓓ You can feel new emotions and experiences. ✓<br>
+    ⓔ You can make your relationships with others better. ✓<br>
+    ⓕ By practicing acting a lot, the pressure increases. ✗ (실제론 편안해진다)<br>
+    ⓖ You can become various characters through imagination. ✓<br>
+    ⓗ You can look into others' lives and compare your own life to the lives of others. ✗ (비교가 아닌 이해!)
+  </div>
+  <div class="q-options">
+    <div class="opt"><div class="num">①</div><div>(ⓐ, ⓒ)</div></div>
+    <div class="opt"><div class="num">②</div><div>(ⓑ, ⓔ)</div></div>
+    <div class="opt"><div class="num">③</div><div>(ⓓ, ⓖ)</div></div>
+    <div class="opt correct"><div class="num">④</div><div>(ⓕ, ⓗ) ✓ — 둘 다 어색한 내용!</div></div>
+    <div class="opt"><div class="num">⑤</div><div>(ⓖ, ⓗ)</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">왜 ④번이 정답일까?</div></div>
+    <div class="explain-body">
+      <p>ⓕ "By practicing acting, the <span class="hl-wrong">pressure increases</span>" → 글에서 "you'll feel more <span class="hl-ok">comfortable</span> around people"이라고 했어. 압박이 늘어나는 게 아니라 편안해져!</p>
+      <p>ⓗ "look into others' lives and <span class="hl-wrong">compare</span> your own life" → 글에서 "You will <span class="hl-ok">understand</span> other people's emotions and actions better."이라고 했어. 비교가 아닌 이해!</p>
+    </div>
+  </div>
+</section>
+
+<p class="section-title">서술형 2번</p>
+
+<!-- 서술형2 -->
+<section class="question q-wrong" id="sw2">
+  <div class="q-head">
+    <div class="q-num-wrap">
+      <div class="q-num err sm">서2</div>
+      <div class="q-meta"><span class="type">Writing · 조건 영작</span><span class="points">5점 ✗</span></div>
+    </div>
+    <span class="q-tag write">서술형</span>
+  </div>
+  <div class="q-title">[서술형 2] 주어진 우리말을 조건에 맞게 영작하시오.<br><em>"그는 규칙적으로 운동하기 때문에 더 건강해지고 있다."</em></div>
+  <div class="q-passage">
+    조건1. 접속사 because를 사용하시오.<br>
+    조건2. 총 8단어로 쓰시오.<br>
+    조건3. get + 비교급을 사용하시오.<br>
+    조건4. 진행시제, 인칭에 유의하여 완전한 문장으로 쓰시오.
+  </div>
+  <div class="ans-row">
+    <div class="ans-box wrong-box"><div class="ab-label">내가 쓴 것</div><div class="ab-val">He get heather because he exercise every day.</div></div>
+    <div class="ans-box correct-box"><div class="ab-label">모범 정답</div><div class="ab-val">He is getting healthier because he exercises regularly.</div></div>
+  </div>
+  <div class="explain">
+    <div class="explain-head"><div class="ico">J</div><div class="label">오류 분석</div></div>
+    <div class="explain-body">
+      <p><strong>오류 ①</strong> <span class="hl-wrong">get</span> → <span class="hl-ok">is getting</span><br>
+      조건4에서 "진행시제"를 사용하라고 했어. 현재진행 = is + V-ing → <strong>is getting</strong></p>
+      <p><strong>오류 ②</strong> <span class="hl-wrong">heather</span> → <span class="hl-ok">healthier</span><br>
+      철자 오류 2개 이상 → 오답 처리. 비교급: healthy → health<strong>i</strong>er (y→i+er)</p>
+      <p><strong>오류 ③</strong> <span class="hl-wrong">he exercise</span> → <span class="hl-ok">he exercises</span><br>
+      3인칭 단수 주어(he) + 일반동사 → 동사에 -(e)s 반드시 붙여야 해!</p>
+      <p>잘 한 것 ✓: because 사용 ✓ | 8단어 ✓ (He is getting healthier because he exercises regularly = 8단어)</p>
+    </div>
+  </div>
+  <div class="grammar-box">
+    <div class="grammar-box-title">📐 3가지 핵심 정리</div>
+    <div class="grammar-rule">
+      <div class="rule-label">① 현재진행 시제</div>
+      <code>He is getting</code> healthier. (is + V-ing)<br>
+      <code>She is studying</code>. / <code>They are playing</code>. ✓
+    </div>
+    <div class="grammar-rule">
+      <div class="rule-label">② 비교급: healthy → healthier</div>
+      <code>healthy → healthier</code> (y → i + er)<br>
+      <code>happy → happier</code> / <code>easy → easier</code>
+    </div>
+    <div class="grammar-rule">
+      <div class="rule-label">③ 3인칭 단수 현재 -s</div>
+      He/She/It + <code>exercises</code> / <code>studies</code> / <code>goes</code><br>
+      → 주어가 he, she, it일 땐 동사에 꼭 -(e)s!
+    </div>
+  </div>
+</section>
+
+<!-- CHEER -->
+<section class="cheer">
+  <div class="cheer-label">From 지나티처 ♡</div>
+  <div class="cheer-body">
+    승주야, 이번 시험 정말 수고했어.<br>
+    34문제를 하나하나 다시 살펴봤는데,<br>
+    맞은 문제도 왜 맞는지 이해하는 게 중요해.<br><br>
+    틀린 문제들 — <strong>still vs. yet, 명령문 and/or,<br>
+    진행시제, 3인칭 단수 -s</strong> — 이건 꼭 암기해!<br>
+    실수가 아니라 완전히 내 것으로 만들어야 다음엔 안 틀려.<br><br>
+    승주는 충분히 잘 할 수 있어. 지나티처가 응원해 ♡
+  </div>
+  <div class="cheer-sig">— 지나티처 드림 · 영핏 (ENG FIT)</div>
+</section>
+
+</div><!-- /container -->
+
+<script>
+  const pf = document.getElementById('pf');
+  document.addEventListener('scroll', () => {
+    const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    pf.style.width = (scrolled * 100) + '%';
+  });
+</script>
+</body>
+</html>
