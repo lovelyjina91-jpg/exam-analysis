@@ -178,6 +178,12 @@
     .vocab-item{flex-direction:column;gap:4px;}
     .vocab-item .vi-word{min-width:auto;}
   }
+
+  /* 공유 지문 블록 */
+  .passage-block{background:rgba(232,247,253,0.35);border-radius:16px;padding:18px 20px;margin-bottom:14px;border:1px solid rgba(58,174,220,0.2);font-size:13px;color:var(--ink-soft);line-height:1.9;}
+  .passage-block .pb-title{font-size:11px;font-weight:700;color:var(--sky-deep);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;}
+  .passage-block .pb-speaker{font-weight:700;color:var(--ink);margin-right:4px;}
+  .passage-block .pb-body{white-space:pre-line;}
 </style>
 </head>
 <body>
@@ -201,6 +207,19 @@
 </section>
 
 <p class="section-title">※ [1–4] 다음 글을 읽고, 물음에 답하시오</p>
+<div class="passage-block">
+  <div class="pb-title">📖 지문</div>
+  <p><span class="pb-speaker">Alex:</span> What are you doing, Junho?</p>
+  <p><span class="pb-speaker">Junho:</span> I'm writing on my blog. I like writing about my everyday life.</p>
+  <p><span class="pb-speaker">Alex:</span> How often do you write?</p>
+  <p><span class="pb-speaker">Junho:</span> I try to write something on my blog every day.</p>
+  <p><span class="pb-speaker">Kate:</span> Is that a lot? What about you, Alex? What do you do in your free time?</p>
+  <p><span class="pb-speaker">Alex:</span> I enjoy dancing. I like all kinds of dance.</p>
+  <p><span class="pb-speaker">Kate:</span> That sounds fun! Maybe you can teach us some dance moves sometime.</p>
+  <p><span class="pb-speaker">Alex:</span> Yeah! Or, I can make a video of our new dance. I usually make videos in my free time.</p>
+  <p><span class="pb-speaker">Kate:</span> Really? That would be great!</p>
+  <p><span class="pb-speaker">Junho:</span> Wow! I can't wait!</p>
+</div>
 
 <!-- Q1 -->
 <section class="question q-ok" id="q1">
@@ -496,6 +515,16 @@
 
 <p class="section-title">9번 대화문 / 10~11 어법</p>
 
+<div class="passage-block">
+  <div class="pb-title">📝 9번 대화문</div>
+  <div class="pb-body"><span class="pb-speaker">B:</span> You look down. What's wrong?
+<span class="pb-speaker">G:</span> I'm worried about my presentation.
+<span class="pb-speaker">B:</span> When do you do your presentation?
+<span class="pb-speaker">G:</span> It's this afternoon. I feel so nervous.
+<span class="pb-speaker">B:</span> Don't worry. You'll do fine. Just make sure you stand up straight and speak clearly.
+<span class="pb-speaker">G:</span> I'll try. Thanks for your advice.</div>
+</div>
+
 <!-- Q9 -->
 <section class="question q-wrong" id="q9">
   <div class="q-head">
@@ -623,6 +652,19 @@
 </section>
 
 <p class="section-title">※ [12–13] 다음 대화를 읽고, 물음에 답하시오</p>
+<div class="passage-block">
+  <div class="pb-title">📖 지문</div>
+  <p><span class="pb-speaker">Ms. Kim:</span> Minji, Alex, what are you doing?</p>
+  <p><span class="pb-speaker">Minji:</span> We're watching some videos for the science project.</p>
+  <p><span class="pb-speaker">Ms. Kim:</span> That's good, but I'm worried about your necks.</p>
+  <p><span class="pb-speaker">Alex:</span> Why? Is there something wrong with our necks?</p>
+  <p><span class="pb-speaker">Ms. Kim:</span> Yes, you're looking down at the smartphone. It'll increase stress on your necks, and you can get text neck.</p>
+  <p><span class="pb-speaker">Minji:</span> Oh, really? I didn't know that. What should we do?</p>
+  <p><span class="pb-speaker">Ms. Kim:</span> When you use your phone, <strong>(A) you should hold it at eye level.</strong></p>
+  <p><span class="pb-speaker">Minji:</span> Okay, we'll start doing that.</p>
+  <p><span class="pb-speaker">Ms. Kim:</span> Great. And make sure you do some neck stretching exercises.</p>
+  <p><span class="pb-speaker">Alex:</span> We'll do that, too. Thank you, Ms. Kim.</p>
+</div>
 
 <!-- Q12 -->
 <section class="question q-ok" id="q12">
@@ -682,6 +724,16 @@
 </section>
 
 <p class="section-title">※ [14–17, 서술형1] 다음 글을 읽고, 물음에 답하시오</p>
+<div class="passage-block">
+  <div class="pb-title">📖 지문</div>
+  <p>What do you usually do in your free time? How about trying some interesting hobbies? The activities below will add something new to your life!</p><br>
+  <p><strong>🥾 하이킹</strong><br>
+  Let's go hiking! Some people say, "Why do we need to go to the top? We can't come back down anyway." Well, hiking a mountain is not just about ① <u>reaching</u> the top. It is also about ② <u>enjoying</u> the journey. Look at the ③ <u>amazing</u> views and take in the fresh air! Why don't you go out and explore nature right now?</p><br>
+  <p><strong>🧩 퍼즐</strong><br>
+  Now, take a break with puzzles. Carefully put the pieces together. ④ <u>Doing</u> puzzles is good for ⑤ <u>clearing</u> your mind. And guess what? When you put in the last piece, you will feel great. You will feel a sense of ⑥ <u>success</u>. Grab a puzzle and enjoy!</p><br>
+  <p><strong>🍪 베이킹</strong><br>
+  Lastly, head to the kitchen for some baking. Do you know how to make your own cookies? Follow the ⑦ <u>recipes</u>, but don't be afraid to get creative. When you make cookies, you can express yourself. Just express yourself! And here is the highlight of baking. It gives you the joy of sharing. Bake something special for your friends or family. They will love your cookies!</p>
+</div>
 
 <!-- Q14 -->
 <section class="question q-wrong" id="q14">
@@ -861,7 +913,12 @@
   </div>
 </section>
 
-<p class="section-title">※ [18–19] 나무공예 / [20–24] 강아지 Bailey 이야기</p>
+<p class="section-title">※ [18–19] 나무공예</p>
+
+<div class="passage-block">
+  <div class="pb-title">📖 [18–19] 나무공예 (Wood Crafting)</div>
+  <div class="pb-body">Today, I'll tell you about my special hobby. My hobby is wood crafting. Working with wood is fun. I can make something useful like boxes, chairs, or even small houses for birds. It also gives me the joy of expressing my creativity. I can choose different types of wood and paint them in special colors. Do you want to try something fun? Why don't you give it a try?</div>
+</div>
 
 <!-- Q18 -->
 <section class="question q-ok" id="q18">
@@ -923,6 +980,30 @@
     </div>
   </div>
 </section>
+
+
+<p class="section-title">※ [20–24] 다음 글을 읽고, 물음에 답하시오</p>
+<div class="passage-block">
+  <div class="pb-title">📖 [20–24] 강아지 Bailey 이야기</div>
+  <div class="pb-body">Hi! I'm Bailey, the friendly dog in town. I have a tale for you. It's about my sweet friend Jin and her smartphone. I'm a bit worried <u>because</u> she's so into it.
+
+<strong>4 p.m.</strong>
+Bow-wow! Jin, I was waiting for you all day. Let's go out and play. But you can't hear me. <u>That</u> tiny earphones in your ears are blocking me out. I can hear the thundering sounds from <u>them</u>. Are some singing monsters living there? Those loud sounds will harm your hearing. Please take them off and play with me!
+
+<strong>11 p.m.</strong>
+It's late, but you're <u>still</u> busy with your phone. Are you watching something interesting? Your eyes look pink, and you keep <u>rubbing</u> them. Please give your eyes a break! I'll show you how to rest. Close your eyes and think about your favorite snacks.
+
+<strong>8 a.m. the Next Day</strong>
+Good morning! Oh, you're coming back. Did you forget something again? You're <u>forgetful</u> these days. Look! The news says many teens experience memory problems because they use digital devices too much. I hope you're not one of <u>those teens</u>, my smart friend.
+
+After school that day, I brought her my leash and did a cute dance. My plan worked! She put down her phone, and we walked around town.
+— <em>"Jin, please use your phone less and spend more time with me! Can you promise me?"</em>
+
+<strong>💡 Digital Life Tips for You</strong>
+• <strong>60-60 Rule:</strong> 이어폰은 하루 60분 이하, 볼륨은 최대치의 60% 이하로 유지
+• <strong>20-20 Rule:</strong> 화면을 20분 보면 20초 쉬고, 먼 곳을 바라보기
+• <strong>Train Your Brain:</strong> 스마트폰 없이 기억력으로 할 일 기억하기</div>
+</div>
 
 <!-- Q20 -->
 <section class="question q-ok" id="q20">
@@ -1117,7 +1198,12 @@
   </div>
 </section>
 
-<p class="section-title">※ [25–26] FOMO / [27–28] 수면</p>
+<p class="section-title">※ [25–26] FOMO</p>
+
+<div class="passage-block">
+  <div class="pb-title">📖 [25–26] FOMO 지문</div>
+  <div class="pb-body">FOMO stands for "fear of missing out." It is a feeling of worry. You think other people are having fun, but you are not. You might feel this way when you see posts, pictures, or videos on social media about other people's lives. You may think their lives are more exciting than yours. If you have FOMO, you might say yes to every invitation because you don't want to miss out. You might also keep checking your phone because you worry about missing an important message or post. To avoid FOMO, use social media less. Spend less time online and try to enjoy the things in your life. When you ______, you can feel happier and less worried about missing out on things. Remember to take a step back and enjoy your own experiences!</div>
+</div>
 
 <!-- Q25 -->
 <section class="question q-ok" id="q25">
@@ -1190,6 +1276,17 @@
   </div>
 </section>
 
+
+<p class="section-title">※ [27–28] 다음 글을 읽고, 물음에 답하시오</p>
+<div class="passage-block">
+  <div class="pb-title">📖 [27–28] 수면의 중요성</div>
+  <div class="pb-body">Many people do not know the importance of sleep for their health. When they are busy, they choose to sleep less to have more time for work or study. <u>However</u>, they do not realize that lack of sleep can cause serious health problems.
+
+Scientists say that not sleeping enough can lead to health problems. People may gain weight or have heart problems. Lack of sleep also affects the mind. People can't focus, remember things, or stay in a good mood.
+
+People should learn how to get enough sleep to stay healthy. They need to sleep at the same time every night and avoid using their phones before bed. Getting enough sleep helps both the body and mind, so people can be more productive and healthier in the long run.</div>
+</div>
+
 <!-- Q27 -->
 <section class="question q-ok" id="q27">
   <div class="q-head">
@@ -1257,7 +1354,12 @@
   </div>
 </section>
 
-<p class="section-title">※ [29–30] 스케이트보드 / [31–32] 연기 동아리</p>
+<p class="section-title">※ [29–30] 스케이트보드</p>
+
+<div class="passage-block">
+  <div class="pb-title">📖 [29–30] 스케이트보드의 역사</div>
+  <div class="pb-body">Are you looking for something fun and exciting? It is skateboarding. People of all ages around the world enjoy it. Skateboarding started in California in the 1960s. Surfers wanted to "surf" on land when there were no waves, so they used <u>cliffs</u> at school. This was the start of skateboarding. In the 1980s, Raymond Mummey from Florida invented new tricks on flat ground. These tricks made the <u>climax</u> of street skateboarding. In the 1990s, skateboarding became more popular because of better technology and design. Skateboarding was included as an Olympic sport at the Tokyo Olympic Games in 2021. Today, skateboarding is a very popular action sport around the world. How about trying it? It will give you a special <u>award</u>.</div>
+</div>
 
 <!-- Q29 -->
 <section class="question q-ok" id="q29">
@@ -1321,6 +1423,21 @@
     </div>
   </div>
 </section>
+
+
+<p class="section-title">※ [31–32] 다음 글을 읽고, 물음에 답하시오</p>
+<div class="passage-block">
+  <div class="pb-title">📖 [31–32] 연기 동아리</div>
+  <div class="pb-body">I'll tell you about our acting club. Do you think acting is only for actors? It is not. Anyone can be a great actor. Also, you can experience something special through acting.
+
+First, you can get creative. You can be a musician one day and a king the next. To become different characters, you can use your imagination. You can explore new experiences and feelings through acting.
+
+Acting can also give you confidence. You'll get better at expressing yourself in public. When you practice acting, you feel more comfortable around people and enjoy talking with them.
+
+<u>(A)</u> ______, you can see people's lives through the eyes of different characters. You will understand other people's emotions and actions better. It will improve your relationships with others.
+
+Join our acting club now! The stage is ready — will you step into the spotlight?</div>
+</div>
 
 <!-- Q31 -->
 <section class="question q-ok" id="q31">
