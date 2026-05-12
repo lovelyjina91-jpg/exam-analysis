@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한태은 중간고사 오답 분석 | 영핏영어 EngFit</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8edf3 100%);
+    color: #2c3e50;
+    line-height: 1.7;
+    padding: 20px;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  header {
+    background: linear-gradient(135deg, #4a6fdc 0%, #6b8ee0 100%);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+  }
+  header .brand {
+    font-size: 14px;
+    letter-spacing: 3px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  header .meta {
+    font-size: 14px;
+    opacity: 0.95;
+  }
+  .score-banner {
+    background: #fff5e6;
+    padding: 20px 30px;
+    border-bottom: 2px solid #ffe0b3;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .score-item {
+    text-align: center;
+    min-width: 140px;
+  }
+  .score-item .label {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+  .score-item .value {
+    font-size: 26px;
+    font-weight: 700;
+    color: #d97706;
+  }
+  .score-item .value.green { color: #16a34a; }
+  .score-item .value.red { color: #dc2626; }
+  .summary {
+    padding: 30px;
+    background: #f8f9fb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .summary h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #1e3a8a;
+  }
+  .summary ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .summary li {
+    padding: 10px 16px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border-left: 4px solid #ef4444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .summary li .qnum { font-weight: 700; color: #1e3a8a; }
+  .summary li .qpoint { font-size: 13px; color: #ef4444; font-weight: 600; }
+
+  .problem {
+    padding: 36px 30px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .problem:last-of-type { border-bottom: none; }
+  .problem-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #4a6fdc;
+  }
+  .problem-header h3 {
+    font-size: 22px;
+    color: #1e3a8a;
+  }
+  .points-tag {
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #6366f1;
+    margin: 24px 0 10px 0;
+    text-transform: uppercase;
+  }
+  .passage {
+    background: #fefce8;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .passage .date-tag {
+    display: inline-block;
+    background: #f59e0b;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .passage .passage-title {
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+  .question-box {
+    background: #f1f5f9;
+    border-left: 4px solid #4a6fdc;
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .options {
+    margin: 12px 0;
+    padding-left: 16px;
+  }
+  .options li {
+    list-style: none;
+    padding: 6px 0;
+    font-size: 15px;
+  }
+  .answer-row {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  .answer-box {
+    flex: 1;
+    min-width: 240px;
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+  .wrong-box {
+    background: #fef2f2;
+    border: 2px solid #fca5a5;
+  }
+  .wrong-box .label { color: #b91c1c; font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+  .correct-box {
+    background: #f0fdf4;
+    border: 2px solid #86efac;
+  }
+  .correct-box .label { color: #166534; font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+  .explanation {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .explanation h4 {
+    color: #1e40af;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  .explanation p { margin-bottom: 10px; }
+  .explanation .key-point {
+    background: white;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin: 10px 0;
+    border-left: 3px solid #3b82f6;
+    font-size: 14px;
+  }
+  .grammar-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .grammar-table th, .grammar-table td {
+    border: 1px solid #cbd5e1;
+    padding: 10px 12px;
+    text-align: left;
+  }
+  .grammar-table th {
+    background: #4a6fdc;
+    color: white;
+    font-weight: 600;
+  }
+  .grammar-table tr:nth-child(even) { background: #f8fafc; }
+  .grammar-table .correct { color: #16a34a; font-weight: 600; }
+  .grammar-table .wrong { color: #dc2626; font-weight: 600; }
+
+  .retry-section {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0 12px 0;
+  }
+  .retry-section h4 {
+    color: #92400e;
+    font-size: 17px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .retry-section h4::before {
+    content: '한번 더!';
+    background: #f59e0b;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .retry-question {
+    background: white;
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+  .retry-answer {
+    margin-top: 14px;
+    padding: 16px 20px;
+    background: white;
+    border-radius: 8px;
+    border-top: 3px solid #16a34a;
+  }
+  .retry-answer .ra-label {
+    color: #166534;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .word-breakdown {
+    background: #f5f3ff;
+    border: 1px solid #ddd6fe;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 14px 0;
+  }
+  .word-breakdown .wb-title {
+    color: #6d28d9;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .word-chip {
+    display: inline-block;
+    background: white;
+    padding: 4px 10px;
+    margin: 3px 4px;
+    border-radius: 14px;
+    font-size: 13px;
+    border: 1px solid #ddd6fe;
+  }
+
+  footer {
+    background: #1e3a8a;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    font-size: 14px;
+  }
+  footer .brand-name { font-weight: 700; font-size: 18px; margin-bottom: 8px; }
+  footer .motto { opacity: 0.85; font-style: italic; }
+
+  @media (max-width: 640px) {
+    body { padding: 10px; }
+    header { padding: 24px 20px; }
+    header h1 { font-size: 22px; }
+    .problem { padding: 24px 18px; }
+    .answer-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="brand">영핏영어 · EngFit</div>
+    <h1>한태은 중간고사 오답 분석</h1>
+    <div class="meta">2026학년도 1학기 2학년 1회 정기시험 · 영어 · 2026.04.28</div>
+  </header>
+
+  <div class="score-banner">
+    <div class="score-item">
+      <div class="label">총점</div>
+      <div class="value green">90 / 100</div>
+    </div>
+    <div class="score-item">
+      <div class="label">맞은 문제</div>
+      <div class="value green">22 / 26</div>
+    </div>
+    <div class="score-item">
+      <div class="label">틀린 문제</div>
+      <div class="value red">4문항</div>
+    </div>
+    <div class="score-item">
+      <div class="label">감점</div>
+      <div class="value red">-10점</div>
+    </div>
+  </div>
+
+  <div class="summary">
+    <h2>오답 요약</h2>
+    <ul>
+      <li><span><span class="qnum">11번</span> · to부정사의 같은 쓰임 찾기</span><span class="qpoint">-4점</span></li>
+      <li><span><span class="qnum">18번</span> · 영영뜻풀이에서 본문에 없는 단어 찾기</span><span class="qpoint">-4점</span></li>
+      <li><span><span class="qnum">서술형 6-1</span> · 우리말 조건 영작 (sudden sound)</span><span class="qpoint">-1점</span></li>
+      <li><span><span class="qnum">서술형 6-2</span> · 우리말 조건 영작 (wonder why)</span><span class="qpoint">-1점</span></li>
+    </ul>
+  </div>
+
+  <!-- 문제 11 -->
+  <div class="problem">
+    <div class="problem-header">
+      <h3>문제 11. to부정사의 같은 쓰임</h3>
+      <span class="points-tag">4점</span>
+    </div>
+
+    <div class="section-label">본문 (FEB 14)</div>
+    <div class="passage">
+      <span class="date-tag">FEB 14</span>
+      <p>This afternoon, I took part in a training class for Halla and Olle, two dolphins in an aquarium in Jeju-do. The latest project of Dolphin Lovers is <strong>(A) to return</strong> them to the sea. For this, Halla and Olle have some skills <strong>(B) to learn</strong>. They will need them <strong>(C) to survive</strong> in the wild. I really wanted to be part of the project. Luckily, I got the chance. I just ran some errands in the training class today, but the experience made me so excited. <em>*I = Inho</em></p>
+    </div>
+
+    <div class="section-label">본문 (FEB 14 추가 — 10~12번 공통 지문)</div>
+    <div class="passage">
+      <span class="passage-title">Text Better, Communicate Better!</span>
+      <p>Texting is the main way of communication for many people these days, especially for teenagers. Do you want to know (A) <strong>문자메세지를 통해 어떻게 더 잘 소통하는지</strong>? Here are some helpful tips.</p>
+      <p><strong>1 You need to (B) ______.</strong></p>
+      <p>Henry just sent the text message below to his mother.</p>
+      <p>"Mom, I want you <strong>(C) to wait</strong> just a little longer. BRT"</p>
+      <p>Do you think Henry's mother differently understood BRT? Probably not.</p>
+      <p>You can use expressions like <em>BRT</em> (be right there), <em>JK</em> (just kidding), or <em>LOL</em> (laughing out loud) when you text your friends. However, be smart with such expressions when you text your teachers or parents. You need to understand that some of them may not know the meanings of such expressions.</p>
+    </div>
+
+    <div class="section-label">문제</div>
+    <div class="question-box">
+      밑줄 친 (C) <strong>to wait</strong>와 쓰임이 같은 to부정사가 사용된 문장을 〈보기〉에서 고른 것으로 가장 적절한 것은? [4점]
+      <ul class="options">
+        <li>ⓐ He woke up early <strong>to catch</strong> the first bus.</li>
+        <li>ⓑ They expect us <strong>to follow</strong> the rules at school.</li>
+        <li>ⓒ The teacher allows students <strong>to ask</strong> questions anytime.</li>
+        <li>ⓓ She bought a dress <strong>to wear</strong> at her cousin's birthday party.</li>
+        <li>ⓔ My dream is <strong>to become</strong> a doctor and help sick people in the future.</li>
+      </ul>
+      ① ⓐ, ⓒ &nbsp;&nbsp; ② ⓐ, ⓓ &nbsp;&nbsp; ③ ⓑ, ⓒ &nbsp;&nbsp; ④ ⓑ, ⓓ &nbsp;&nbsp; ⑤ ⓒ, ⓔ
+    </div>
+
+    <div class="answer-row">
+      <div class="answer-box wrong-box">
+        <div class="label">✗ 태은이가 쓴 답</div>
+        <div>② ⓐ, ⓓ</div>
+      </div>
+      <div class="answer-box correct-box">
+        <div class="label">✓ 정답</div>
+        <div>③ ⓑ, ⓒ</div>
+      </div>
+    </div>
+
+    <div class="explanation">
+      <h4>🔍 자세한 설명</h4>
+      <p>본문의 <strong>"I want you <span style="color:#dc2626;">to wait</span>"</strong>에서 <code>to wait</code>는 동사 <strong>want</strong>의 <strong>목적격 보어(O.C.)</strong>로 쓰인 to부정사예요. 즉 <strong>「want + 목적어 + to부정사」</strong> 구조입니다.</p>
+
+      <table class="grammar-table">
+        <tr><th>문장</th><th>to부정사 쓰임</th><th>같은 쓰임?</th></tr>
+        <tr><td>ⓐ He woke up early <strong>to catch</strong> the first bus.</td><td>부사적(목적) "~하기 위해"</td><td class="wrong">✗ 다름</td></tr>
+        <tr><td>ⓑ They expect us <strong>to follow</strong> the rules.</td><td>목적격 보어 (expect+O+to V)</td><td class="correct">✓ 같음</td></tr>
+        <tr><td>ⓒ The teacher allows students <strong>to ask</strong> questions.</td><td>목적격 보어 (allow+O+to V)</td><td class="correct">✓ 같음</td></tr>
+        <tr><td>ⓓ She bought a dress <strong>to wear</strong>...</td><td>형용사적 (dress 수식)</td><td class="wrong">✗ 다름</td></tr>
+        <tr><td>ⓔ My dream is <strong>to become</strong> a doctor.</td><td>명사적 (주격 보어)</td><td class="wrong">✗ 다름</td></tr>
+      </table>
+
+      <div class="key-point">
+        <strong>꼭 기억하기!</strong> 「동사 + 목적어 + to부정사」 구조를 만드는 동사: <em>want, ask, tell, expect, allow, advise, order, encourage, force</em> 등. 태은이는 ⓐ(목적)와 ⓓ(형용사적)를 골랐는데, 이 둘은 본문의 'to wait'(목적격 보어)와는 쓰임이 달라요.
+      </div>
+    </div>
+
+    <div class="retry-section">
+      <h4>한번 더 풀어보기</h4>
+      <div class="retry-question">
+        <p>다음 중 밑줄 친 to부정사의 쓰임이 <strong>"My mom told me <span style="color:#dc2626;">to clean</span> my room."</strong>의 to부정사와 같은 것은?</p>
+        <ol style="padding-left:24px; margin-top:10px;">
+          <li>I have many things <strong>to do</strong> today.</li>
+          <li>She studied hard <strong>to pass</strong> the exam.</li>
+          <li>The coach wants the players <strong>to practice</strong> more.</li>
+          <li>His plan is <strong>to travel</strong> around Europe.</li>
+        </ol>
+      </div>
+      <div class="retry-answer">
+        <div class="ra-label">✓ 정답 및 해설</div>
+        <p><strong>정답: ③</strong></p>
+        <p>제시문의 <code>told me to clean</code>은 「tell+O+to V」구조의 목적격 보어예요. ③의 <code>wants the players to practice</code> 역시 「want+O+to V」구조로 같은 쓰임입니다.</p>
+        <p>① 형용사적(things 수식) &nbsp; ② 부사적(목적) &nbsp; ④ 명사적(주격 보어) &nbsp; — 모두 쓰임이 달라요.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 문제 18 -->
+  <div class="problem">
+    <div class="problem-header">
+      <h3>문제 18. 영영뜻풀이로 본문에 없는 단어 찾기</h3>
+      <span class="points-tag">4점</span>
+    </div>
+
+    <div class="section-label">본문 (16~18번 공통 지문)</div>
+    <div class="passage">
+      <span class="passage-title">3 Sometimes, you need to pick up the phone.</span>
+      <p>Amy just got the following text message from her best friend Nari.</p>
+      <p><strong>Nari:</strong> Did you really <strong>talk behind</strong> my back? I want you to <strong>apologize</strong> to me.</p>
+      <p>Amy wanted to text Nari and <strong>explain</strong> the situation, but she thought again. "Well, (A) this is too much for a text," she said to herself and called Nari.</p>
+      <p>Texting is okay for casual situations, but sometimes, you need to pick up the phone. This is because misunderstandings can easily happen when you text. Do you need to talk about <strong>sensitive</strong> issues with your friends? Then, don't text them. Call them instead.</p>
+    </div>
+
+    <div class="section-label">문제</div>
+    <div class="question-box">
+      다음 영영뜻풀이의 단어 중 윗글에서 <strong>찾아볼 수 없는</strong> 것은? [4점]
+      <ul class="options">
+        <li>① to <strong>manage</strong> or control a business or project</li>
+        <li>② to say sorry for something you did wrong → <em>apologize</em></li>
+        <li>③ easily affected by feelings or changes around you → <em>sensitive</em></li>
+        <li>④ to say bad things about someone when they are not there → <em>talk behind (one's) back</em></li>
+        <li>⑤ to make something clear or easy to understand by giving information → <em>explain</em></li>
+      </ul>
+    </div>
+
+    <div class="answer-row">
+      <div class="answer-box wrong-box">
+        <div class="label">✗ 태은이가 쓴 답</div>
+        <div>⑤ explain</div>
+      </div>
+      <div class="answer-box correct-box">
+        <div class="label">✓ 정답</div>
+        <div>① manage</div>
+      </div>
+    </div>
+
+    <div class="explanation">
+      <h4>🔍 자세한 설명</h4>
+      <p>이 문제는 각 영영뜻풀이가 가리키는 <strong>단어가 본문에 있는지 없는지</strong>를 묻고 있어요. 본문에 등장한 단어를 하나씩 확인해 봅시다.</p>
+
+      <table class="grammar-table">
+        <tr><th>번호</th><th>영영풀이 → 단어</th><th>본문 위치</th></tr>
+        <tr><td>①</td><td>manage(관리하다)</td><td class="wrong">✗ 본문 어디에도 없음 → <strong>정답!</strong></td></tr>
+        <tr><td>②</td><td>apologize(사과하다)</td><td class="correct">✓ "I want you to apologize to me."</td></tr>
+        <tr><td>③</td><td>sensitive(민감한)</td><td class="correct">✓ "talk about sensitive issues"</td></tr>
+        <tr><td>④</td><td>talk behind(뒷담화하다)</td><td class="correct">✓ "Did you really talk behind my back?"</td></tr>
+        <tr><td>⑤</td><td>explain(설명하다)</td><td class="correct">✓ "Amy wanted to text Nari and explain the situation"</td></tr>
+      </table>
+
+      <div class="key-point">
+        <strong>왜 ⑤가 아닐까?</strong> 'explain'은 본문 둘째 문단 "Amy wanted to text Nari and <strong>explain</strong> the situation"에 분명히 나와 있어요. 'manage'는 본문에 한 번도 등장하지 않는 단어이므로 정답은 ①.
+      </div>
+      <div class="key-point">
+        <strong>풀이 팁!</strong> 영영풀이 문제는 ① 먼저 뜻풀이가 가리키는 영단어를 떠올리고 → ② 본문에서 그 단어(또는 동사 변형형, 같은 어근)를 ctrl+F로 훑듯이 빠르게 찾으면 시간을 줄일 수 있어요.
+      </div>
+    </div>
+
+    <div class="retry-section">
+      <h4>한번 더 풀어보기</h4>
+      <div class="retry-question">
+        <p>다음 글에 다음 영영풀이의 단어 중 <strong>찾을 수 없는</strong> 것은?</p>
+        <div style="background:#fefce8; padding:12px 16px; border-radius:6px; margin:10px 0;">
+          "Last weekend, I visited my grandmother. She made delicious cookies and we had a wonderful time together. I promised to visit her more often."
+        </div>
+        <ol style="padding-left:24px; margin-top:10px;">
+          <li>to come to see someone or someplace → <em>visit</em></li>
+          <li>having a very pleasant taste → <em>delicious</em></li>
+          <li>to say firmly that you will do something → <em>promise</em></li>
+          <li>extremely angry → <em>furious</em></li>
+        </ol>
+      </div>
+      <div class="retry-answer">
+        <div class="ra-label">✓ 정답 및 해설</div>
+        <p><strong>정답: ④ furious</strong></p>
+        <p>①visit, ②delicious, ③promise는 모두 본문에 등장하지만, ④ furious(매우 화난)는 본문에 없어요. 본문에 'wonderful'은 있지만 'furious'와는 다른 단어입니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 서술형 6-1 -->
+  <div class="problem">
+    <div class="problem-header">
+      <h3>서술형 6-1. 조건 영작 (sudden sound)</h3>
+      <span class="points-tag">3점</span>
+    </div>
+
+    <div class="section-label">문제</div>
+    <div class="question-box">
+      다음 우리말과 같도록 주어진 단어들을 <strong>모두</strong> 사용하여 주어진 단어 수에 맞게 문장을 쓰시오. (필요한 경우, 단어를 추가하거나 어법에 맞게 주어진 단어를 변형할 수 있음. 축약형은 두 단어로 간주함.)
+      <p style="margin-top:12px;">▶ 그 갑작스러운 큰 소리는 밤에 그 소녀를 매우 놀라게 했다. <strong>[11단어]</strong></p>
+      <div class="word-breakdown">
+        <div class="wb-title">주어진 단어</div>
+        <span class="word-chip">sudden</span>
+        <span class="word-chip">sound</span>
+        <span class="word-chip">make</span>
+        <span class="word-chip">girl</span>
+        <span class="word-chip">surprise</span>
+        <span class="word-chip">night</span>
+      </div>
+    </div>
+
+    <div class="answer-row">
+      <div class="answer-box wrong-box">
+        <div class="label">✗ 태은이가 쓴 답 (8단어)</div>
+        <div>The sudden sound <span style="color:#dc2626;">make</span> the girl <span style="color:#dc2626;">surprise</span>.</div>
+      </div>
+      <div class="answer-box correct-box">
+        <div class="label">✓ 모범 답안 (11단어)</div>
+        <div>The sudden <strong>loud</strong> sound <strong>made</strong> the girl <strong>very surprised at</strong> night.</div>
+      </div>
+    </div>
+
+    <div class="explanation">
+      <h4>🔍 자세한 설명</h4>
+      <p>이 영작에서 놓친 부분이 여러 개 있어요. 하나씩 보면:</p>
+      <table class="grammar-table">
+        <tr><th>실수</th><th>설명</th></tr>
+        <tr><td class="wrong">make → made</td><td>"놀라게 했다"는 <strong>과거시제</strong>이므로 made가 맞아요.</td></tr>
+        <tr><td class="wrong">surprise → surprised</td><td>「make + 목적어 + 형용사」 5형식. 사람이 "놀란" 감정 상태이므로 과거분사 <strong>surprised</strong>. (surprising은 사물·상황을 묘사할 때)</td></tr>
+        <tr><td class="wrong">"큰" 빠짐</td><td>'큰 소리'를 표현하려면 <strong>loud</strong>가 필요. (sudden은 '갑작스러운'을 의미하므로 '큰'은 따로 표현해야 함)</td></tr>
+        <tr><td class="wrong">"매우" 빠짐</td><td>'매우 놀라게'를 표현하려면 <strong>very</strong> 추가.</td></tr>
+        <tr><td class="wrong">"밤에" 빠짐</td><td>'밤에'를 표현하려면 <strong>at night</strong>. (전치사 at 추가)</td></tr>
+      </table>
+
+      <div class="key-point">
+        <strong>단어 수 11개 검증:</strong> The(1) / sudden(2) / loud(3) / sound(4) / made(5) / the(6) / girl(7) / very(8) / surprised(9) / at(10) / night(11) ✓
+      </div>
+      <div class="key-point">
+        <strong>감정 형용사 정리</strong><br>
+        • <strong>-ed</strong> (사람이 ~한 감정 느낌): surprised, excited, bored, interested, tired, confused<br>
+        • <strong>-ing</strong> (~한 감정을 일으키는): surprising, exciting, boring, interesting, tiring, confusing<br>
+        예) The movie was <em>boring</em>. / I was <em>bored</em>.
+      </div>
+    </div>
+
+    <div class="retry-section">
+      <h4>한번 더 풀어보기</h4>
+      <div class="retry-question">
+        <p>다음 우리말을 영어로 옮길 때, 빈칸에 알맞은 형태를 쓰세요.</p>
+        <p style="margin-top:10px;">▶ 그 영화는 매우 흥미진진했고, 우리는 모두 신이 났다.</p>
+        <p style="margin-top:8px; padding-left:14px;">→ The movie was very <strong>(exciting / excited)</strong>, and we all became <strong>(exciting / excited)</strong>.</p>
+      </div>
+      <div class="retry-answer">
+        <div class="ra-label">✓ 정답 및 해설</div>
+        <p><strong>정답: exciting / excited</strong></p>
+        <p>"영화"는 흥미를 <em>일으키는</em> 주체이므로 <code>exciting</code>(능동적 의미). "우리"는 흥미진진함을 <em>느낀</em> 사람이므로 <code>excited</code>(수동적 의미).</p>
+        <p>마찬가지로 시험 문제에서 "그 소녀를 놀라게 했다"는 → girl이 놀람을 <em>당한</em> 것이므로 <strong>surprised</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 서술형 6-2 -->
+  <div class="problem">
+    <div class="problem-header">
+      <h3>서술형 6-2. 조건 영작 (wonder why)</h3>
+      <span class="points-tag">3점</span>
+    </div>
+
+    <div class="section-label">문제</div>
+    <div class="question-box">
+      <p>▶ 그는 그녀가 요즘 왜 항상 학교에 늦는지 궁금해 한다. <strong>[11단어]</strong></p>
+      <p>※ 문장의 첫글자는 대문자로 시작할 것.</p>
+      <div class="word-breakdown">
+        <div class="wb-title">주어진 단어</div>
+        <span class="word-chip">He</span>
+        <span class="word-chip">wonder</span>
+        <span class="word-chip">she</span>
+        <span class="word-chip">late</span>
+        <span class="word-chip">school</span>
+        <span class="word-chip">these days</span>
+      </div>
+    </div>
+
+    <div class="answer-row">
+      <div class="answer-box wrong-box">
+        <div class="label">✗ 태은이가 쓴 답 (8단어)</div>
+        <div>He <span style="color:#dc2626;">wonder</span> why she <span style="color:#dc2626;">late school</span> these days.</div>
+      </div>
+      <div class="answer-box correct-box">
+        <div class="label">✓ 모범 답안 (11단어)</div>
+        <div>He <strong>wonders</strong> why she <strong>is always</strong> late <strong>for</strong> school <strong>these days</strong>.</div>
+      </div>
+    </div>
+
+    <div class="explanation">
+      <h4>🔍 자세한 설명</h4>
+      <table class="grammar-table">
+        <tr><th>실수</th><th>설명</th></tr>
+        <tr><td class="wrong">wonder → wonders</td><td>주어가 <strong>He</strong>(3인칭 단수), 현재시제이므로 동사에 <strong>-s</strong>를 붙여야 해요. → <strong>wonders</strong></td></tr>
+        <tr><td class="wrong">she late → she is late</td><td>"늦는다"는 상태를 표현할 때는 <strong>be동사</strong>가 필요. <code>she is late</code>가 맞아요.</td></tr>
+        <tr><td class="wrong">"항상" 빠짐</td><td>"항상 늦다"는 <strong>always</strong> 추가. 빈도부사는 be동사 뒤·일반동사 앞 → <code>is always late</code></td></tr>
+        <tr><td class="wrong">"학교에" → "to school" 또는 "for school"</td><td>"학교에 늦다"는 <strong>be late for school</strong>(학교에 지각하다, 가장 자연스러움) 또는 <strong>be late to school</strong>. "late school"이라고만 쓰면 안 돼요.</td></tr>
+      </table>
+
+      <div class="key-point">
+        <strong>간접의문문 어순!</strong> <code>wonder/know/ask + 의문사 + 주어 + 동사</code> 순서.<br>
+        ❌ He wonders why <em>is she</em> late ... <br>
+        ✓ He wonders why <em>she is</em> late ... (의문문 어순이 아니라 평서문 어순)
+      </div>
+      <div class="key-point">
+        <strong>단어 수 11개 검증:</strong> He(1) / wonders(2) / why(3) / she(4) / is(5) / always(6) / late(7) / for(8) / school(9) / these(10) / days(11) ✓
+      </div>
+      <div class="key-point">
+        <strong>빈도부사 위치 정리</strong><br>
+        always · usually · often · sometimes · never<br>
+        → be동사 <em>뒤</em>: She <em>is always</em> happy.<br>
+        → 일반동사 <em>앞</em>: He <em>always plays</em> soccer.
+      </div>
+    </div>
+
+    <div class="retry-section">
+      <h4>한번 더 풀어보기</h4>
+      <div class="retry-question">
+        <p>다음 우리말을 주어진 단어를 모두 사용하여 영작하세요.</p>
+        <p style="margin-top:10px;">▶ 나는 그가 왜 오늘 그렇게 피곤한지 궁금하다. [9단어]</p>
+        <p style="margin-top:8px; padding-left:14px;">주어진 단어: I / wonder / why / he / so tired / today</p>
+      </div>
+      <div class="retry-answer">
+        <div class="ra-label">✓ 정답 및 해설</div>
+        <p><strong>정답:</strong> <em>I wonder why he is so tired today.</em> (9단어)</p>
+        <p>① 간접의문문 어순 <code>why + he + is</code> ✓<br>
+        ② "피곤하다"는 상태 → <code>is tired</code> (be동사 필요) ✓<br>
+        ③ 'tired'는 과거분사형 형용사 — 사람이 피곤함을 <em>느낄 때</em>는 -ed형 ✓</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 마무리 코멘트 -->
+  <div class="summary" style="background:#ecfdf5; border-top:2px solid #86efac;">
+    <h2 style="color:#166534;">선생님의 한마디</h2>
+    <p style="font-size:15px; line-height:1.9;">
+      태은아, <strong>90점 정말 잘했어!</strong> 객관식에서는 to부정사의 쓰임 구분과 영영풀이 단어 찾기 두 문제만 실수했고, 영작에서는 단어 수를 맞추는 것이 가장 큰 과제였어. 다음 시험에서는<br>
+      ① <strong>to부정사 쓰임 5가지</strong>(명사적 · 형용사적 · 부사적 · 목적격보어 · 진주어/가주어) 구분 연습<br>
+      ② <strong>감정 동사의 -ed / -ing 변형</strong> (surprised / surprising)<br>
+      ③ <strong>주어진 단어 수만큼 문장 채우기</strong> — 우리말 한 문장을 세부 의미 단위로 쪼개서 누락 없이 옮기는 습관<br>
+      이 세 가지만 꾸준히 다지면 다음엔 만점도 충분히 가능해! 화이팅 💪
+    </p>
+  </div>
+
+  <footer>
+    <div class="brand-name">영핏영어 · EngFit</div>
+    <div class="motto">학생 한 명 한 명의 성장에 꼭 맞춘 영어 학습</div>
+    <div style="margin-top:14px; font-size:12px; opacity:0.7;">© 2026 EngFit Academy · 한태은 학생 맞춤 분석본</div>
+  </footer>
+</div>
+</body>
+</html>
