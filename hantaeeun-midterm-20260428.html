@@ -8,44 +8,139 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e8edf3 100%);
-    color: #2c3e50;
+    /* 분홍 + 흰색 세로 줄무늬 배경 */
+    background:
+      repeating-linear-gradient(
+        90deg,
+        #f5cdd6 0px,
+        #f5cdd6 22px,
+        #ffffff 22px,
+        #ffffff 44px,
+        #f0bcc9 44px,
+        #f0bcc9 66px,
+        #ffffff 66px,
+        #ffffff 88px
+      );
+    color: #4a4a4a;
     line-height: 1.7;
-    padding: 20px;
+    padding: 30px 20px;
+    min-height: 100vh;
   }
   .container {
     max-width: 960px;
     margin: 0 auto;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    background: #fdfaf3;  /* 크림색 안쪽 */
+    border-radius: 8px;
+    box-shadow: 0 12px 50px rgba(168, 138, 152, 0.25);
     overflow: hidden;
+    position: relative;
+    border: 14px solid transparent;
+    background-clip: padding-box;
   }
+  /* 세이지 그린 웨이브 프레임 */
+  .container::before {
+    content: '';
+    position: absolute;
+    top: -14px; left: -14px; right: -14px; bottom: -14px;
+    background:
+      radial-gradient(circle at 0% 0%, transparent 14px, #a8c4a2 14px),
+      radial-gradient(circle at 100% 0%, transparent 14px, #a8c4a2 14px),
+      radial-gradient(circle at 0% 100%, transparent 14px, #a8c4a2 14px),
+      radial-gradient(circle at 100% 100%, transparent 14px, #a8c4a2 14px);
+    background-size: 50% 50%;
+    background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+    background-repeat: no-repeat;
+    z-index: -1;
+    border-radius: 22px;
+  }
+  /* 컨테이너 외곽 웨이브 효과 */
+  .wave-frame {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 8px;
+    background: #a8c4a2;
+    border-radius: 28px;
+    box-shadow: 0 12px 50px rgba(120, 100, 110, 0.25);
+  }
+  .wave-frame::before, .wave-frame::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 16px;
+    background-image: radial-gradient(circle at 8px 0px, #a8c4a2 8px, transparent 9px);
+    background-size: 16px 16px;
+    background-repeat: repeat-x;
+  }
+  .wave-frame::before { top: -8px; }
+  .wave-frame::after { bottom: -8px; transform: rotate(180deg); }
+
   header {
-    background: linear-gradient(135deg, #4a6fdc 0%, #6b8ee0 100%);
-    color: white;
-    padding: 40px 30px;
+    background: #fdfaf3;
+    color: #5a7a52;
+    padding: 50px 30px 36px;
     text-align: center;
+    position: relative;
+  }
+  header::before {
+    content: '♡';
+    position: absolute;
+    top: 18px; left: 30px;
+    color: #e89bb0;
+    font-size: 18px;
+  }
+  header::after {
+    content: '♪';
+    position: absolute;
+    top: 18px; right: 30px;
+    color: #c9a86a;
+    font-size: 20px;
   }
   header .brand {
-    font-size: 14px;
-    letter-spacing: 3px;
-    opacity: 0.9;
-    margin-bottom: 8px;
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: #b08aa0;
+    margin-bottom: 12px;
+    font-weight: 500;
   }
   header h1 {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    color: #5a7a52;
+    position: relative;
+    display: inline-block;
+  }
+  header h1::after {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 14px;
+    background: #f5cdd6;
+    border-radius: 20px;
+    margin: -6px auto 0;
+    position: relative;
+    z-index: -1;
+    opacity: 0.7;
   }
   header .meta {
     font-size: 14px;
-    opacity: 0.95;
+    color: #8a7a85;
+    margin-top: 8px;
   }
+  .divider-wave {
+    height: 14px;
+    background:
+      radial-gradient(circle at 7px 14px, #a8c4a2 7px, transparent 8px) repeat-x;
+    background-size: 14px 14px;
+    margin: 0 -4px;
+  }
+
   .score-banner {
-    background: #fff5e6;
-    padding: 20px 30px;
-    border-bottom: 2px solid #ffe0b3;
+    background: #fdfaf3;
+    padding: 24px 30px;
+    border-top: 2px dashed #d4b8c4;
+    border-bottom: 2px dashed #d4b8c4;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -56,108 +151,147 @@
     min-width: 140px;
   }
   .score-item .label {
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 4px;
+    font-size: 12px;
+    color: #a08a96;
+    margin-bottom: 6px;
+    letter-spacing: 2px;
   }
   .score-item .value {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 700;
-    color: #d97706;
+    color: #c8869e;
   }
-  .score-item .value.green { color: #16a34a; }
-  .score-item .value.red { color: #dc2626; }
+  .score-item .value.green { color: #7a9c70; }
+  .score-item .value.red { color: #d18a9c; }
   .summary {
-    padding: 30px;
-    background: #f8f9fb;
-    border-bottom: 1px solid #e5e7eb;
+    padding: 32px 30px;
+    background: #fdfaf3;
   }
   .summary h2 {
     font-size: 20px;
-    margin-bottom: 16px;
-    color: #1e3a8a;
+    margin-bottom: 18px;
+    color: #5a7a52;
+    text-align: center;
+    position: relative;
+  }
+  .summary h2::before, .summary h2::after {
+    content: '✿';
+    color: #e89bb0;
+    margin: 0 12px;
+    font-size: 14px;
   }
   .summary ul {
     list-style: none;
     padding-left: 0;
   }
   .summary li {
-    padding: 10px 16px;
+    padding: 12px 18px;
     background: white;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    border-left: 4px solid #ef4444;
+    border-radius: 22px;
+    margin-bottom: 10px;
+    border: 1.5px solid #f5cdd6;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 8px rgba(245, 205, 214, 0.2);
   }
-  .summary li .qnum { font-weight: 700; color: #1e3a8a; }
-  .summary li .qpoint { font-size: 13px; color: #ef4444; font-weight: 600; }
+  .summary li .qnum { font-weight: 700; color: #5a7a52; }
+  .summary li .qpoint {
+    font-size: 13px;
+    color: #c8869e;
+    font-weight: 700;
+    background: #fce8ee;
+    padding: 3px 12px;
+    border-radius: 12px;
+  }
 
   .problem {
-    padding: 36px 30px;
-    border-bottom: 1px solid #e5e7eb;
+    padding: 40px 32px;
+    border-bottom: 2px dotted #d4b8c4;
+    background: #fdfaf3;
   }
   .problem:last-of-type { border-bottom: none; }
   .problem-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 14px;
-    border-bottom: 2px solid #4a6fdc;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #a8c4a2;
+    position: relative;
+  }
+  .problem-header::before {
+    content: '✿';
+    position: absolute;
+    left: -8px;
+    top: -4px;
+    color: #e89bb0;
+    font-size: 14px;
   }
   .problem-header h3 {
     font-size: 22px;
-    color: #1e3a8a;
+    color: #5a7a52;
+    padding-left: 14px;
   }
   .points-tag {
-    background: #fee2e2;
-    color: #b91c1c;
-    padding: 4px 12px;
-    border-radius: 16px;
+    background: #fce8ee;
+    color: #c8869e;
+    padding: 5px 14px;
+    border-radius: 18px;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
+    border: 1.5px solid #f5cdd6;
   }
   .section-label {
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 1px;
-    color: #6366f1;
-    margin: 24px 0 10px 0;
+    letter-spacing: 2px;
+    color: #b08aa0;
+    margin: 26px 0 12px 0;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::before, .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e0c9d3;
   }
   .passage {
-    background: #fefce8;
-    border: 1px solid #fde68a;
-    border-radius: 10px;
-    padding: 18px 22px;
+    background: #fff8fb;
+    border: 1.5px solid #f5cdd6;
+    border-radius: 14px;
+    padding: 20px 24px;
     margin-bottom: 16px;
     font-size: 15px;
-    line-height: 1.8;
+    line-height: 1.85;
+    position: relative;
   }
   .passage .date-tag {
     display: inline-block;
-    background: #f59e0b;
+    background: #a8c4a2;
     color: white;
-    padding: 3px 10px;
-    border-radius: 4px;
+    padding: 4px 14px;
+    border-radius: 16px;
     font-size: 12px;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
   }
   .passage .passage-title {
     font-weight: 700;
-    color: #92400e;
-    margin-bottom: 8px;
+    color: #5a7a52;
+    margin-bottom: 10px;
     font-size: 16px;
   }
   .question-box {
-    background: #f1f5f9;
-    border-left: 4px solid #4a6fdc;
-    padding: 16px 20px;
-    border-radius: 6px;
-    margin: 16px 0;
+    background: #f4f1e8;
+    border-left: 5px solid #c9a86a;
+    padding: 18px 22px;
+    border-radius: 10px;
+    margin: 18px 0;
     font-size: 15px;
   }
   .options {
@@ -172,158 +306,210 @@
   .answer-row {
     display: flex;
     gap: 16px;
-    margin: 20px 0;
+    margin: 22px 0;
     flex-wrap: wrap;
   }
   .answer-box {
     flex: 1;
     min-width: 240px;
-    padding: 16px 20px;
-    border-radius: 10px;
+    padding: 18px 22px;
+    border-radius: 14px;
     font-size: 15px;
   }
   .wrong-box {
-    background: #fef2f2;
-    border: 2px solid #fca5a5;
+    background: #fce8ee;
+    border: 2px solid #f0bcc9;
   }
-  .wrong-box .label { color: #b91c1c; font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+  .wrong-box .label {
+    color: #c8869e;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
   .correct-box {
-    background: #f0fdf4;
-    border: 2px solid #86efac;
+    background: #ecf3e8;
+    border: 2px solid #a8c4a2;
   }
-  .correct-box .label { color: #166534; font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+  .correct-box .label {
+    color: #5a7a52;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
   .explanation {
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
-    border-radius: 10px;
-    padding: 20px 24px;
-    margin: 16px 0;
+    background: #fff8fb;
+    border: 1.5px dashed #d4b8c4;
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin: 18px 0;
   }
   .explanation h4 {
-    color: #1e40af;
-    margin-bottom: 12px;
-    font-size: 16px;
+    color: #5a7a52;
+    margin-bottom: 14px;
+    font-size: 17px;
   }
   .explanation p { margin-bottom: 10px; }
   .explanation .key-point {
     background: white;
-    padding: 12px 16px;
-    border-radius: 6px;
-    margin: 10px 0;
-    border-left: 3px solid #3b82f6;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin: 12px 0;
+    border-left: 4px solid #a8c4a2;
     font-size: 14px;
+    box-shadow: 0 2px 6px rgba(168, 196, 162, 0.15);
   }
   .grammar-table {
     width: 100%;
-    border-collapse: collapse;
-    margin: 12px 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 14px 0;
     font-size: 14px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(168, 138, 152, 0.12);
   }
   .grammar-table th, .grammar-table td {
-    border: 1px solid #cbd5e1;
-    padding: 10px 12px;
+    border-bottom: 1px solid #f0e0e8;
+    padding: 12px 14px;
     text-align: left;
   }
   .grammar-table th {
-    background: #4a6fdc;
+    background: #a8c4a2;
     color: white;
     font-weight: 600;
+    letter-spacing: 1px;
   }
-  .grammar-table tr:nth-child(even) { background: #f8fafc; }
-  .grammar-table .correct { color: #16a34a; font-weight: 600; }
-  .grammar-table .wrong { color: #dc2626; font-weight: 600; }
+  .grammar-table tr:nth-child(even) { background: #fdfaf3; }
+  .grammar-table .correct { color: #5a7a52; font-weight: 700; }
+  .grammar-table .wrong { color: #c8869e; font-weight: 700; }
 
   .retry-section {
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-    border-radius: 12px;
-    padding: 24px;
-    margin: 24px 0 12px 0;
+    background: linear-gradient(135deg, #fce8ee 0%, #f5cdd6 100%);
+    border-radius: 18px;
+    padding: 26px;
+    margin: 26px 0 12px 0;
+    border: 2px solid white;
+    box-shadow: 0 4px 16px rgba(232, 155, 176, 0.2);
   }
   .retry-section h4 {
-    color: #92400e;
+    color: #c8869e;
     font-size: 17px;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
   .retry-section h4::before {
-    content: '한번 더!';
-    background: #f59e0b;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 14px;
+    content: '♡ 한번 더!';
+    background: white;
+    color: #c8869e;
+    padding: 5px 14px;
+    border-radius: 18px;
     font-size: 12px;
     font-weight: 700;
+    letter-spacing: 1px;
   }
   .retry-question {
     background: white;
-    padding: 16px 20px;
-    border-radius: 8px;
+    padding: 18px 22px;
+    border-radius: 12px;
     font-size: 15px;
   }
   .retry-answer {
     margin-top: 14px;
-    padding: 16px 20px;
+    padding: 18px 22px;
     background: white;
-    border-radius: 8px;
-    border-top: 3px solid #16a34a;
+    border-radius: 12px;
+    border-top: 4px solid #a8c4a2;
   }
   .retry-answer .ra-label {
-    color: #166534;
+    color: #5a7a52;
     font-weight: 700;
     font-size: 13px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
   }
 
   .word-breakdown {
-    background: #f5f3ff;
-    border: 1px solid #ddd6fe;
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin: 14px 0;
+    background: #f4f1e8;
+    border: 1.5px solid #e6d9b8;
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin: 16px 0;
   }
   .word-breakdown .wb-title {
-    color: #6d28d9;
+    color: #a08a4a;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
   }
   .word-chip {
     display: inline-block;
     background: white;
-    padding: 4px 10px;
+    padding: 5px 14px;
     margin: 3px 4px;
-    border-radius: 14px;
+    border-radius: 16px;
     font-size: 13px;
-    border: 1px solid #ddd6fe;
+    border: 1.5px solid #e6d9b8;
+    color: #7a6a44;
   }
 
   footer {
-    background: #1e3a8a;
+    background: #5a7a52;
     color: white;
     text-align: center;
-    padding: 30px;
+    padding: 34px 30px;
     font-size: 14px;
+    position: relative;
   }
-  footer .brand-name { font-weight: 700; font-size: 18px; margin-bottom: 8px; }
-  footer .motto { opacity: 0.85; font-style: italic; }
+  footer::before {
+    content: '✿  ✿  ✿';
+    display: block;
+    color: #f5cdd6;
+    margin-bottom: 12px;
+    letter-spacing: 8px;
+    font-size: 12px;
+  }
+  footer .brand-name {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 8px;
+    letter-spacing: 4px;
+  }
+  footer .motto {
+    opacity: 0.9;
+    font-style: italic;
+    color: #ecf3e8;
+  }
 
   @media (max-width: 640px) {
-    body { padding: 10px; }
-    header { padding: 24px 20px; }
+    body {
+      padding: 12px 8px;
+      background-size: auto;
+    }
+    .wave-frame { padding: 6px; border-radius: 18px; }
+    header { padding: 36px 20px 28px; }
     header h1 { font-size: 22px; }
-    .problem { padding: 24px 18px; }
+    .problem { padding: 28px 18px; }
     .answer-row { flex-direction: column; }
+    .score-banner { padding: 18px; gap: 12px; }
+    .score-item { min-width: 100px; }
+    .score-item .value { font-size: 22px; }
   }
 </style>
 </head>
 <body>
+<div class="wave-frame">
 <div class="container">
   <header>
-    <div class="brand">영핏영어 · EngFit</div>
+    <div class="brand">♡ 영핏영어 · ENGFIT ♡</div>
     <h1>한태은 중간고사 오답 분석</h1>
     <div class="meta">2026학년도 1학기 2학년 1회 정기시험 · 영어 · 2026.04.28</div>
   </header>
+  <div class="divider-wave"></div>
 
   <div class="score-banner">
     <div class="score-item">
@@ -622,71 +808,4 @@
         <div>He <span style="color:#dc2626;">wonder</span> why she <span style="color:#dc2626;">late school</span> these days.</div>
       </div>
       <div class="answer-box correct-box">
-        <div class="label">✓ 모범 답안 (11단어)</div>
-        <div>He <strong>wonders</strong> why she <strong>is always</strong> late <strong>for</strong> school <strong>these days</strong>.</div>
-      </div>
-    </div>
-
-    <div class="explanation">
-      <h4>🔍 자세한 설명</h4>
-      <table class="grammar-table">
-        <tr><th>실수</th><th>설명</th></tr>
-        <tr><td class="wrong">wonder → wonders</td><td>주어가 <strong>He</strong>(3인칭 단수), 현재시제이므로 동사에 <strong>-s</strong>를 붙여야 해요. → <strong>wonders</strong></td></tr>
-        <tr><td class="wrong">she late → she is late</td><td>"늦는다"는 상태를 표현할 때는 <strong>be동사</strong>가 필요. <code>she is late</code>가 맞아요.</td></tr>
-        <tr><td class="wrong">"항상" 빠짐</td><td>"항상 늦다"는 <strong>always</strong> 추가. 빈도부사는 be동사 뒤·일반동사 앞 → <code>is always late</code></td></tr>
-        <tr><td class="wrong">"학교에" → "to school" 또는 "for school"</td><td>"학교에 늦다"는 <strong>be late for school</strong>(학교에 지각하다, 가장 자연스러움) 또는 <strong>be late to school</strong>. "late school"이라고만 쓰면 안 돼요.</td></tr>
-      </table>
-
-      <div class="key-point">
-        <strong>간접의문문 어순!</strong> <code>wonder/know/ask + 의문사 + 주어 + 동사</code> 순서.<br>
-        ❌ He wonders why <em>is she</em> late ... <br>
-        ✓ He wonders why <em>she is</em> late ... (의문문 어순이 아니라 평서문 어순)
-      </div>
-      <div class="key-point">
-        <strong>단어 수 11개 검증:</strong> He(1) / wonders(2) / why(3) / she(4) / is(5) / always(6) / late(7) / for(8) / school(9) / these(10) / days(11) ✓
-      </div>
-      <div class="key-point">
-        <strong>빈도부사 위치 정리</strong><br>
-        always · usually · often · sometimes · never<br>
-        → be동사 <em>뒤</em>: She <em>is always</em> happy.<br>
-        → 일반동사 <em>앞</em>: He <em>always plays</em> soccer.
-      </div>
-    </div>
-
-    <div class="retry-section">
-      <h4>한번 더 풀어보기</h4>
-      <div class="retry-question">
-        <p>다음 우리말을 주어진 단어를 모두 사용하여 영작하세요.</p>
-        <p style="margin-top:10px;">▶ 나는 그가 왜 오늘 그렇게 피곤한지 궁금하다. [9단어]</p>
-        <p style="margin-top:8px; padding-left:14px;">주어진 단어: I / wonder / why / he / so tired / today</p>
-      </div>
-      <div class="retry-answer">
-        <div class="ra-label">✓ 정답 및 해설</div>
-        <p><strong>정답:</strong> <em>I wonder why he is so tired today.</em> (9단어)</p>
-        <p>① 간접의문문 어순 <code>why + he + is</code> ✓<br>
-        ② "피곤하다"는 상태 → <code>is tired</code> (be동사 필요) ✓<br>
-        ③ 'tired'는 과거분사형 형용사 — 사람이 피곤함을 <em>느낄 때</em>는 -ed형 ✓</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 마무리 코멘트 -->
-  <div class="summary" style="background:#ecfdf5; border-top:2px solid #86efac;">
-    <h2 style="color:#166534;">선생님의 한마디</h2>
-    <p style="font-size:15px; line-height:1.9;">
-      태은아, <strong>90점 정말 잘했어!</strong> 객관식에서는 to부정사의 쓰임 구분과 영영풀이 단어 찾기 두 문제만 실수했고, 영작에서는 단어 수를 맞추는 것이 가장 큰 과제였어. 다음 시험에서는<br>
-      ① <strong>to부정사 쓰임 5가지</strong>(명사적 · 형용사적 · 부사적 · 목적격보어 · 진주어/가주어) 구분 연습<br>
-      ② <strong>감정 동사의 -ed / -ing 변형</strong> (surprised / surprising)<br>
-      ③ <strong>주어진 단어 수만큼 문장 채우기</strong> — 우리말 한 문장을 세부 의미 단위로 쪼개서 누락 없이 옮기는 습관<br>
-      이 세 가지만 꾸준히 다지면 다음엔 만점도 충분히 가능해! 화이팅 💪
-    </p>
-  </div>
-
-  <footer>
-    <div class="brand-name">영핏영어 · EngFit</div>
-    <div class="motto">학생 한 명 한 명의 성장에 꼭 맞춘 영어 학습</div>
-    <div style="margin-top:14px; font-size:12px; opacity:0.7;">© 2026 EngFit Academy · 한태은 학생 맞춤 분석본</div>
-  </footer>
-</div>
-</body>
-</html>
+        <div class="label"
