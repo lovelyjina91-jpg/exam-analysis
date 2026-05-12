@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>한태은 중간고사 오답 분석 | 영핏영어 EngFit</title>
+<title>한태은 중간고사 문제 해설 | 영핏영어 EngFit</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-    /* 분홍 + 흰색 세로 줄무늬 배경 */
     background:
       repeating-linear-gradient(
         90deg,
@@ -26,34 +25,6 @@
     padding: 30px 20px;
     min-height: 100vh;
   }
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    background: #fdfaf3;  /* 크림색 안쪽 */
-    border-radius: 8px;
-    box-shadow: 0 12px 50px rgba(168, 138, 152, 0.25);
-    overflow: hidden;
-    position: relative;
-    border: 14px solid transparent;
-    background-clip: padding-box;
-  }
-  /* 세이지 그린 웨이브 프레임 */
-  .container::before {
-    content: '';
-    position: absolute;
-    top: -14px; left: -14px; right: -14px; bottom: -14px;
-    background:
-      radial-gradient(circle at 0% 0%, transparent 14px, #a8c4a2 14px),
-      radial-gradient(circle at 100% 0%, transparent 14px, #a8c4a2 14px),
-      radial-gradient(circle at 0% 100%, transparent 14px, #a8c4a2 14px),
-      radial-gradient(circle at 100% 100%, transparent 14px, #a8c4a2 14px);
-    background-size: 50% 50%;
-    background-position: 0 0, 100% 0, 0 100%, 100% 100%;
-    background-repeat: no-repeat;
-    z-index: -1;
-    border-radius: 22px;
-  }
-  /* 컨테이너 외곽 웨이브 효과 */
   .wave-frame {
     position: relative;
     max-width: 960px;
@@ -74,7 +45,11 @@
   }
   .wave-frame::before { top: -8px; }
   .wave-frame::after { bottom: -8px; transform: rotate(180deg); }
-
+  .container {
+    background: #fdfaf3;
+    border-radius: 22px;
+    overflow: hidden;
+  }
   header {
     background: #fdfaf3;
     color: #5a7a52;
@@ -130,80 +105,46 @@
   }
   .divider-wave {
     height: 14px;
-    background:
-      radial-gradient(circle at 7px 14px, #a8c4a2 7px, transparent 8px) repeat-x;
+    background: radial-gradient(circle at 7px 14px, #a8c4a2 7px, transparent 8px) repeat-x;
     background-size: 14px 14px;
-    margin: 0 -4px;
+    margin: 0;
   }
-
-  .score-banner {
-    background: #fdfaf3;
-    padding: 24px 30px;
-    border-top: 2px dashed #d4b8c4;
-    border-bottom: 2px dashed #d4b8c4;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  .score-item {
-    text-align: center;
-    min-width: 140px;
-  }
-  .score-item .label {
-    font-size: 12px;
-    color: #a08a96;
-    margin-bottom: 6px;
-    letter-spacing: 2px;
-  }
-  .score-item .value {
-    font-size: 28px;
-    font-weight: 700;
-    color: #c8869e;
-  }
-  .score-item .value.green { color: #7a9c70; }
-  .score-item .value.red { color: #d18a9c; }
-  .summary {
+  .toc {
     padding: 32px 30px;
     background: #fdfaf3;
+    border-bottom: 2px dashed #d4b8c4;
   }
-  .summary h2 {
+  .toc h2 {
     font-size: 20px;
     margin-bottom: 18px;
     color: #5a7a52;
     text-align: center;
-    position: relative;
   }
-  .summary h2::before, .summary h2::after {
+  .toc h2::before, .toc h2::after {
     content: '✿';
     color: #e89bb0;
     margin: 0 12px;
     font-size: 14px;
   }
-  .summary ul {
+  .toc ul {
     list-style: none;
     padding-left: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
   }
-  .summary li {
+  .toc li {
     padding: 12px 18px;
     background: white;
     border-radius: 22px;
-    margin-bottom: 10px;
     border: 1.5px solid #f5cdd6;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    text-align: center;
     box-shadow: 0 2px 8px rgba(245, 205, 214, 0.2);
+    color: #5a7a52;
+    font-weight: 600;
   }
-  .summary li .qnum { font-weight: 700; color: #5a7a52; }
-  .summary li .qpoint {
-    font-size: 13px;
-    color: #c8869e;
-    font-weight: 700;
-    background: #fce8ee;
-    padding: 3px 12px;
-    border-radius: 12px;
-  }
+  .toc li a { color: inherit; text-decoration: none; }
+  .toc li:hover { background: #fff8fb; }
 
   .problem {
     padding: 40px 32px;
@@ -212,9 +153,6 @@
   }
   .problem:last-of-type { border-bottom: none; }
   .problem-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 22px;
     padding-bottom: 16px;
     border-bottom: 2px solid #a8c4a2;
@@ -232,15 +170,6 @@
     font-size: 22px;
     color: #5a7a52;
     padding-left: 14px;
-  }
-  .points-tag {
-    background: #fce8ee;
-    color: #c8869e;
-    padding: 5px 14px;
-    border-radius: 18px;
-    font-size: 13px;
-    font-weight: 700;
-    border: 1.5px solid #f5cdd6;
   }
   .section-label {
     font-size: 12px;
@@ -267,7 +196,6 @@
     margin-bottom: 16px;
     font-size: 15px;
     line-height: 1.85;
-    position: relative;
   }
   .passage .date-tag {
     display: inline-block;
@@ -316,12 +244,12 @@
     border-radius: 14px;
     font-size: 15px;
   }
-  .wrong-box {
-    background: #fce8ee;
-    border: 2px solid #f0bcc9;
+  .my-answer {
+    background: #fff5e0;
+    border: 2px solid #e6d4a8;
   }
-  .wrong-box .label {
-    color: #c8869e;
+  .my-answer .label {
+    color: #a08a4a;
     font-weight: 700;
     font-size: 13px;
     margin-bottom: 8px;
@@ -375,6 +303,7 @@
     border-bottom: 1px solid #f0e0e8;
     padding: 12px 14px;
     text-align: left;
+    vertical-align: top;
   }
   .grammar-table th {
     background: #a8c4a2;
@@ -457,6 +386,16 @@
     color: #7a6a44;
   }
 
+  .dialogue {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-size: 15px;
+    line-height: 2;
+  }
+  .dialogue .speaker { font-weight: 700; color: #5a7a52; }
+
   footer {
     background: #5a7a52;
     color: white;
@@ -486,18 +425,12 @@
   }
 
   @media (max-width: 640px) {
-    body {
-      padding: 12px 8px;
-      background-size: auto;
-    }
+    body { padding: 12px 8px; }
     .wave-frame { padding: 6px; border-radius: 18px; }
     header { padding: 36px 20px 28px; }
     header h1 { font-size: 22px; }
     .problem { padding: 28px 18px; }
     .answer-row { flex-direction: column; }
-    .score-banner { padding: 18px; gap: 12px; }
-    .score-item { min-width: 100px; }
-    .score-item .value { font-size: 22px; }
   }
 </style>
 </head>
@@ -506,140 +439,35 @@
 <div class="container">
   <header>
     <div class="brand">♡ 영핏영어 · ENGFIT ♡</div>
-    <h1>한태은 중간고사 오답 분석</h1>
+    <h1>한태은 중간고사 문제 해설</h1>
     <div class="meta">2026학년도 1학기 2학년 1회 정기시험 · 영어 · 2026.04.28</div>
   </header>
   <div class="divider-wave"></div>
 
-  <div class="score-banner">
-    <div class="score-item">
-      <div class="label">총점</div>
-      <div class="value green">90 / 100</div>
-    </div>
-    <div class="score-item">
-      <div class="label">맞은 문제</div>
-      <div class="value green">22 / 26</div>
-    </div>
-    <div class="score-item">
-      <div class="label">틀린 문제</div>
-      <div class="value red">4문항</div>
-    </div>
-    <div class="score-item">
-      <div class="label">감점</div>
-      <div class="value red">-10점</div>
-    </div>
-  </div>
-
-  <div class="summary">
-    <h2>오답 요약</h2>
+  <div class="toc">
+    <h2>오늘 함께 살펴볼 문제</h2>
     <ul>
-      <li><span><span class="qnum">11번</span> · to부정사의 같은 쓰임 찾기</span><span class="qpoint">-4점</span></li>
-      <li><span><span class="qnum">18번</span> · 영영뜻풀이에서 본문에 없는 단어 찾기</span><span class="qpoint">-4점</span></li>
-      <li><span><span class="qnum">서술형 6-1</span> · 우리말 조건 영작 (sudden sound)</span><span class="qpoint">-1점</span></li>
-      <li><span><span class="qnum">서술형 6-2</span> · 우리말 조건 영작 (wonder why)</span><span class="qpoint">-1점</span></li>
+      <li><a href="#p18">18번 · 영영뜻풀이</a></li>
+      <li><a href="#p19">19번 · 어법상 틀린 문장</a></li>
+      <li><a href="#s2">서술형 2 · 요약문 완성</a></li>
+      <li><a href="#s4">서술형 4 · 영어 문장 답하기</a></li>
+      <li><a href="#s5">서술형 5 · 대화문 영작</a></li>
     </ul>
   </div>
 
-  <!-- 문제 11 -->
-  <div class="problem">
+  <!-- 18번 -->
+  <div class="problem" id="p18">
     <div class="problem-header">
-      <h3>문제 11. to부정사의 같은 쓰임</h3>
-      <span class="points-tag">4점</span>
-    </div>
-
-    <div class="section-label">본문 (FEB 14)</div>
-    <div class="passage">
-      <span class="date-tag">FEB 14</span>
-      <p>This afternoon, I took part in a training class for Halla and Olle, two dolphins in an aquarium in Jeju-do. The latest project of Dolphin Lovers is <strong>(A) to return</strong> them to the sea. For this, Halla and Olle have some skills <strong>(B) to learn</strong>. They will need them <strong>(C) to survive</strong> in the wild. I really wanted to be part of the project. Luckily, I got the chance. I just ran some errands in the training class today, but the experience made me so excited. <em>*I = Inho</em></p>
-    </div>
-
-    <div class="section-label">본문 (FEB 14 추가 — 10~12번 공통 지문)</div>
-    <div class="passage">
-      <span class="passage-title">Text Better, Communicate Better!</span>
-      <p>Texting is the main way of communication for many people these days, especially for teenagers. Do you want to know (A) <strong>문자메세지를 통해 어떻게 더 잘 소통하는지</strong>? Here are some helpful tips.</p>
-      <p><strong>1 You need to (B) ______.</strong></p>
-      <p>Henry just sent the text message below to his mother.</p>
-      <p>"Mom, I want you <strong>(C) to wait</strong> just a little longer. BRT"</p>
-      <p>Do you think Henry's mother differently understood BRT? Probably not.</p>
-      <p>You can use expressions like <em>BRT</em> (be right there), <em>JK</em> (just kidding), or <em>LOL</em> (laughing out loud) when you text your friends. However, be smart with such expressions when you text your teachers or parents. You need to understand that some of them may not know the meanings of such expressions.</p>
-    </div>
-
-    <div class="section-label">문제</div>
-    <div class="question-box">
-      밑줄 친 (C) <strong>to wait</strong>와 쓰임이 같은 to부정사가 사용된 문장을 〈보기〉에서 고른 것으로 가장 적절한 것은? [4점]
-      <ul class="options">
-        <li>ⓐ He woke up early <strong>to catch</strong> the first bus.</li>
-        <li>ⓑ They expect us <strong>to follow</strong> the rules at school.</li>
-        <li>ⓒ The teacher allows students <strong>to ask</strong> questions anytime.</li>
-        <li>ⓓ She bought a dress <strong>to wear</strong> at her cousin's birthday party.</li>
-        <li>ⓔ My dream is <strong>to become</strong> a doctor and help sick people in the future.</li>
-      </ul>
-      ① ⓐ, ⓒ &nbsp;&nbsp; ② ⓐ, ⓓ &nbsp;&nbsp; ③ ⓑ, ⓒ &nbsp;&nbsp; ④ ⓑ, ⓓ &nbsp;&nbsp; ⑤ ⓒ, ⓔ
-    </div>
-
-    <div class="answer-row">
-      <div class="answer-box wrong-box">
-        <div class="label">✗ 태은이가 쓴 답</div>
-        <div>② ⓐ, ⓓ</div>
-      </div>
-      <div class="answer-box correct-box">
-        <div class="label">✓ 정답</div>
-        <div>③ ⓑ, ⓒ</div>
-      </div>
-    </div>
-
-    <div class="explanation">
-      <h4>🔍 자세한 설명</h4>
-      <p>본문의 <strong>"I want you <span style="color:#dc2626;">to wait</span>"</strong>에서 <code>to wait</code>는 동사 <strong>want</strong>의 <strong>목적격 보어(O.C.)</strong>로 쓰인 to부정사예요. 즉 <strong>「want + 목적어 + to부정사」</strong> 구조입니다.</p>
-
-      <table class="grammar-table">
-        <tr><th>문장</th><th>to부정사 쓰임</th><th>같은 쓰임?</th></tr>
-        <tr><td>ⓐ He woke up early <strong>to catch</strong> the first bus.</td><td>부사적(목적) "~하기 위해"</td><td class="wrong">✗ 다름</td></tr>
-        <tr><td>ⓑ They expect us <strong>to follow</strong> the rules.</td><td>목적격 보어 (expect+O+to V)</td><td class="correct">✓ 같음</td></tr>
-        <tr><td>ⓒ The teacher allows students <strong>to ask</strong> questions.</td><td>목적격 보어 (allow+O+to V)</td><td class="correct">✓ 같음</td></tr>
-        <tr><td>ⓓ She bought a dress <strong>to wear</strong>...</td><td>형용사적 (dress 수식)</td><td class="wrong">✗ 다름</td></tr>
-        <tr><td>ⓔ My dream is <strong>to become</strong> a doctor.</td><td>명사적 (주격 보어)</td><td class="wrong">✗ 다름</td></tr>
-      </table>
-
-      <div class="key-point">
-        <strong>꼭 기억하기!</strong> 「동사 + 목적어 + to부정사」 구조를 만드는 동사: <em>want, ask, tell, expect, allow, advise, order, encourage, force</em> 등. 태은이는 ⓐ(목적)와 ⓓ(형용사적)를 골랐는데, 이 둘은 본문의 'to wait'(목적격 보어)와는 쓰임이 달라요.
-      </div>
-    </div>
-
-    <div class="retry-section">
-      <h4>한번 더 풀어보기</h4>
-      <div class="retry-question">
-        <p>다음 중 밑줄 친 to부정사의 쓰임이 <strong>"My mom told me <span style="color:#dc2626;">to clean</span> my room."</strong>의 to부정사와 같은 것은?</p>
-        <ol style="padding-left:24px; margin-top:10px;">
-          <li>I have many things <strong>to do</strong> today.</li>
-          <li>She studied hard <strong>to pass</strong> the exam.</li>
-          <li>The coach wants the players <strong>to practice</strong> more.</li>
-          <li>His plan is <strong>to travel</strong> around Europe.</li>
-        </ol>
-      </div>
-      <div class="retry-answer">
-        <div class="ra-label">✓ 정답 및 해설</div>
-        <p><strong>정답: ③</strong></p>
-        <p>제시문의 <code>told me to clean</code>은 「tell+O+to V」구조의 목적격 보어예요. ③의 <code>wants the players to practice</code> 역시 「want+O+to V」구조로 같은 쓰임입니다.</p>
-        <p>① 형용사적(things 수식) &nbsp; ② 부사적(목적) &nbsp; ④ 명사적(주격 보어) &nbsp; — 모두 쓰임이 달라요.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 문제 18 -->
-  <div class="problem">
-    <div class="problem-header">
-      <h3>문제 18. 영영뜻풀이로 본문에 없는 단어 찾기</h3>
-      <span class="points-tag">4점</span>
+      <h3>18번 · 영영뜻풀이로 본문에 없는 단어 찾기</h3>
     </div>
 
     <div class="section-label">본문 (16~18번 공통 지문)</div>
     <div class="passage">
       <span class="passage-title">3 Sometimes, you need to pick up the phone.</span>
       <p>Amy just got the following text message from her best friend Nari.</p>
-      <p><strong>Nari:</strong> Did you really <strong>talk behind</strong> my back? I want you to <strong>apologize</strong> to me.</p>
-      <p>Amy wanted to text Nari and <strong>explain</strong> the situation, but she thought again. "Well, (A) this is too much for a text," she said to herself and called Nari.</p>
-      <p>Texting is okay for casual situations, but sometimes, you need to pick up the phone. This is because misunderstandings can easily happen when you text. Do you need to talk about <strong>sensitive</strong> issues with your friends? Then, don't text them. Call them instead.</p>
+      <p><strong>Nari:</strong> Did you really <u>talk behind</u> my back? I want you to <u>apologize</u> to me.</p>
+      <p>Amy wanted to text Nari and <u>explain</u> the situation, but she thought again. "Well, (A) <em>this is too much for a text</em>," she said to herself and called Nari.</p>
+      <p>Texting is okay for casual situations, but sometimes, you need to pick up the phone. This is because misunderstandings can easily happen when you text. Do you need to talk about <u>sensitive</u> issues with your friends? Then, don't text them. Call them instead.</p>
     </div>
 
     <div class="section-label">문제</div>
@@ -655,157 +483,295 @@
     </div>
 
     <div class="answer-row">
-      <div class="answer-box wrong-box">
-        <div class="label">✗ 태은이가 쓴 답</div>
-        <div>⑤ explain</div>
-      </div>
       <div class="answer-box correct-box">
         <div class="label">✓ 정답</div>
-        <div>① manage</div>
+        <div>① <strong>manage</strong></div>
       </div>
     </div>
 
     <div class="explanation">
-      <h4>🔍 자세한 설명</h4>
-      <p>이 문제는 각 영영뜻풀이가 가리키는 <strong>단어가 본문에 있는지 없는지</strong>를 묻고 있어요. 본문에 등장한 단어를 하나씩 확인해 봅시다.</p>
+      <h4>🌿 친절한 해설</h4>
+      <p>이 문제는 영영풀이 5개가 가리키는 영어 단어가 <strong>본문에 등장하는지 / 등장하지 않는지</strong>를 묻고 있어요. 한 번에 본문 전체를 외우려고 하지 말고, 보기마다 핵심 단어를 떠올린 뒤 본문에서 "어디에 있더라?"를 빠르게 추적하면 돼요.</p>
 
       <table class="grammar-table">
-        <tr><th>번호</th><th>영영풀이 → 단어</th><th>본문 위치</th></tr>
-        <tr><td>①</td><td>manage(관리하다)</td><td class="wrong">✗ 본문 어디에도 없음 → <strong>정답!</strong></td></tr>
-        <tr><td>②</td><td>apologize(사과하다)</td><td class="correct">✓ "I want you to apologize to me."</td></tr>
-        <tr><td>③</td><td>sensitive(민감한)</td><td class="correct">✓ "talk about sensitive issues"</td></tr>
-        <tr><td>④</td><td>talk behind(뒷담화하다)</td><td class="correct">✓ "Did you really talk behind my back?"</td></tr>
-        <tr><td>⑤</td><td>explain(설명하다)</td><td class="correct">✓ "Amy wanted to text Nari and explain the situation"</td></tr>
+        <tr><th>보기</th><th>영영풀이가 가리키는 단어</th><th>본문에서의 위치</th></tr>
+        <tr><td>①</td><td><strong>manage</strong> (관리하다)</td><td class="wrong">✗ 본문에 한 번도 등장하지 않음 → 정답!</td></tr>
+        <tr><td>②</td><td>apologize (사과하다)</td><td class="correct">✓ "I want you to <strong>apologize</strong> to me."</td></tr>
+        <tr><td>③</td><td>sensitive (민감한)</td><td class="correct">✓ "talk about <strong>sensitive</strong> issues"</td></tr>
+        <tr><td>④</td><td>talk behind (뒤에서 험담하다)</td><td class="correct">✓ "Did you really <strong>talk behind</strong> my back?"</td></tr>
+        <tr><td>⑤</td><td>explain (설명하다)</td><td class="correct">✓ "Amy wanted to text Nari and <strong>explain</strong> the situation"</td></tr>
       </table>
 
       <div class="key-point">
-        <strong>왜 ⑤가 아닐까?</strong> 'explain'은 본문 둘째 문단 "Amy wanted to text Nari and <strong>explain</strong> the situation"에 분명히 나와 있어요. 'manage'는 본문에 한 번도 등장하지 않는 단어이므로 정답은 ①.
+        <strong>풀이 순서 팁!</strong> ① 영영풀이를 보고 → ② "이 뜻이면 영단어는 ___이지" 하고 단어를 떠올리고 → ③ 본문을 훑으며 그 단어를 찾으세요. 단어가 보이면 ✓, 안 보이면 ✗. ✗인 게 정답!
       </div>
       <div class="key-point">
-        <strong>풀이 팁!</strong> 영영풀이 문제는 ① 먼저 뜻풀이가 가리키는 영단어를 떠올리고 → ② 본문에서 그 단어(또는 동사 변형형, 같은 어근)를 ctrl+F로 훑듯이 빠르게 찾으면 시간을 줄일 수 있어요.
+        <strong>이번에 외워둘 단어들</strong><br>
+        • <strong>manage</strong> [매니지] 관리하다, 처리하다, 해내다<br>
+        • <strong>apologize</strong> [어팔러좌이즈] 사과하다 (apology 명사 — 사과)<br>
+        • <strong>sensitive</strong> [센시티브] 민감한, 예민한<br>
+        • <strong>explain</strong> [익스플레인] 설명하다 (explanation 명사 — 설명)<br>
+        • <strong>talk behind one's back</strong> 누군가 없는 데서 험담하다
       </div>
     </div>
 
     <div class="retry-section">
       <h4>한번 더 풀어보기</h4>
       <div class="retry-question">
-        <p>다음 글에 다음 영영풀이의 단어 중 <strong>찾을 수 없는</strong> 것은?</p>
-        <div style="background:#fefce8; padding:12px 16px; border-radius:6px; margin:10px 0;">
-          "Last weekend, I visited my grandmother. She made delicious cookies and we had a wonderful time together. I promised to visit her more often."
+        <p>다음 글에 나오는 단어가 <strong>아닌</strong> 것을 영영풀이에서 고르세요.</p>
+        <div style="background:#fefce8; padding:12px 16px; border-radius:10px; margin:10px 0;">
+          "Yesterday, I visited a museum with my friend. The paintings were beautiful, and I learned a lot about art. After that, we went to a nice restaurant and ordered some pasta."
         </div>
         <ol style="padding-left:24px; margin-top:10px;">
-          <li>to come to see someone or someplace → <em>visit</em></li>
-          <li>having a very pleasant taste → <em>delicious</em></li>
-          <li>to say firmly that you will do something → <em>promise</em></li>
-          <li>extremely angry → <em>furious</em></li>
+          <li>to go to see a place or person → <em>visit</em></li>
+          <li>a building where you can see paintings and art → <em>museum</em></li>
+          <li>to give someone money to do work → <em>pay</em></li>
+          <li>a place where you can buy and eat food → <em>restaurant</em></li>
         </ol>
       </div>
       <div class="retry-answer">
         <div class="ra-label">✓ 정답 및 해설</div>
-        <p><strong>정답: ④ furious</strong></p>
-        <p>①visit, ②delicious, ③promise는 모두 본문에 등장하지만, ④ furious(매우 화난)는 본문에 없어요. 본문에 'wonderful'은 있지만 'furious'와는 다른 단어입니다.</p>
+        <p><strong>정답: ③ pay</strong></p>
+        <p>본문에 <em>visit</em>(visited), <em>museum</em>, <em>restaurant</em>은 모두 나오지만 <em>pay</em>는 보이지 않아요. "ordered some pasta"라고 했지만 "pay"라는 단어 자체는 등장하지 않습니다.</p>
       </div>
     </div>
   </div>
 
-  <!-- 서술형 6-1 -->
-  <div class="problem">
+  <!-- 19번 -->
+  <div class="problem" id="p19">
     <div class="problem-header">
-      <h3>서술형 6-1. 조건 영작 (sudden sound)</h3>
-      <span class="points-tag">3점</span>
+      <h3>19번 · 어법상 틀린 문장 두 개 고르기</h3>
     </div>
 
     <div class="section-label">문제</div>
     <div class="question-box">
-      다음 우리말과 같도록 주어진 단어들을 <strong>모두</strong> 사용하여 주어진 단어 수에 맞게 문장을 쓰시오. (필요한 경우, 단어를 추가하거나 어법에 맞게 주어진 단어를 변형할 수 있음. 축약형은 두 단어로 간주함.)
-      <p style="margin-top:12px;">▶ 그 갑작스러운 큰 소리는 밤에 그 소녀를 매우 놀라게 했다. <strong>[11단어]</strong></p>
-      <div class="word-breakdown">
-        <div class="wb-title">주어진 단어</div>
-        <span class="word-chip">sudden</span>
-        <span class="word-chip">sound</span>
-        <span class="word-chip">make</span>
-        <span class="word-chip">girl</span>
-        <span class="word-chip">surprise</span>
-        <span class="word-chip">night</span>
-      </div>
+      다음 〈보기〉의 문장 중 <strong>어법상 틀린 것</strong>을 고른 것으로 가장 적절한 것은? [4점]
+      <ul class="options">
+        <li>ⓐ He needs a friend <strong>to talk</strong>.</li>
+        <li>ⓑ We need tools <strong>to fix</strong> this broken chair.</li>
+        <li>ⓒ They wanted the bus <strong>to leave</strong> on time.</li>
+        <li>ⓓ Sarah asked her brother <strong>to walk</strong> the dog.</li>
+        <li>ⓔ The ending of the story made us <strong>surprisingly</strong>.</li>
+      </ul>
+      ① ⓐ, ⓒ &nbsp;&nbsp; ② ⓐ, ⓔ &nbsp;&nbsp; ③ ⓑ, ⓒ &nbsp;&nbsp; ④ ⓑ, ⓓ &nbsp;&nbsp; ⑤ ⓒ, ⓔ
     </div>
 
     <div class="answer-row">
-      <div class="answer-box wrong-box">
-        <div class="label">✗ 태은이가 쓴 답 (8단어)</div>
-        <div>The sudden sound <span style="color:#dc2626;">make</span> the girl <span style="color:#dc2626;">surprise</span>.</div>
-      </div>
       <div class="answer-box correct-box">
-        <div class="label">✓ 모범 답안 (11단어)</div>
-        <div>The sudden <strong>loud</strong> sound <strong>made</strong> the girl <strong>very surprised at</strong> night.</div>
+        <div class="label">✓ 정답</div>
+        <div>② ⓐ, ⓔ</div>
       </div>
     </div>
 
     <div class="explanation">
-      <h4>🔍 자세한 설명</h4>
-      <p>이 영작에서 놓친 부분이 여러 개 있어요. 하나씩 보면:</p>
+      <h4>🌿 친절한 해설</h4>
+      <p>5개의 문장을 하나씩 따져 보면서 어디가 어법적으로 어색한지 찾아볼게요.</p>
+
       <table class="grammar-table">
-        <tr><th>실수</th><th>설명</th></tr>
-        <tr><td class="wrong">make → made</td><td>"놀라게 했다"는 <strong>과거시제</strong>이므로 made가 맞아요.</td></tr>
-        <tr><td class="wrong">surprise → surprised</td><td>「make + 목적어 + 형용사」 5형식. 사람이 "놀란" 감정 상태이므로 과거분사 <strong>surprised</strong>. (surprising은 사물·상황을 묘사할 때)</td></tr>
-        <tr><td class="wrong">"큰" 빠짐</td><td>'큰 소리'를 표현하려면 <strong>loud</strong>가 필요. (sudden은 '갑작스러운'을 의미하므로 '큰'은 따로 표현해야 함)</td></tr>
-        <tr><td class="wrong">"매우" 빠짐</td><td>'매우 놀라게'를 표현하려면 <strong>very</strong> 추가.</td></tr>
-        <tr><td class="wrong">"밤에" 빠짐</td><td>'밤에'를 표현하려면 <strong>at night</strong>. (전치사 at 추가)</td></tr>
+        <tr><th>문장</th><th>분석</th><th>판정</th></tr>
+        <tr>
+          <td>ⓐ He needs a friend <strong>to talk</strong>.</td>
+          <td>"이야기할 친구"를 의미하려면 <strong>to talk to</strong>가 되어야 함. 우리는 <em>talk to a friend</em>(친구에게 말하다)라고 하지, <em>talk a friend</em>라고 하지 않아요. → <strong>to talk to</strong></td>
+          <td class="wrong">✗ 틀림</td>
+        </tr>
+        <tr>
+          <td>ⓑ We need tools <strong>to fix</strong> this broken chair.</td>
+          <td>fix 뒤에 목적어 <em>this broken chair</em>가 있어서 전치사가 필요 없음. "이 의자를 고치다" → fix this chair. 형용사적 용법으로 tools를 수식.</td>
+          <td class="correct">✓ 맞음</td>
+        </tr>
+        <tr>
+          <td>ⓒ They wanted the bus <strong>to leave</strong> on time.</td>
+          <td>「want + 목적어 + to부정사」 → "버스가 제시간에 떠나기를 원했다". 5형식 목적격 보어로 완벽.</td>
+          <td class="correct">✓ 맞음</td>
+        </tr>
+        <tr>
+          <td>ⓓ Sarah asked her brother <strong>to walk</strong> the dog.</td>
+          <td>「ask + 목적어 + to부정사」 → "오빠에게 개를 산책시키라고 부탁했다". 어법 완벽.</td>
+          <td class="correct">✓ 맞음</td>
+        </tr>
+        <tr>
+          <td>ⓔ The ending of the story made us <strong>surprisingly</strong>.</td>
+          <td>「make + 목적어 + 형용사」 5형식. 부사 <em>surprisingly</em>가 아니라 형용사 <strong>surprised</strong>가 와야 함. 사람이 "놀란" 상태이므로 -ed형.</td>
+          <td class="wrong">✗ 틀림</td>
+        </tr>
       </table>
 
       <div class="key-point">
-        <strong>단어 수 11개 검증:</strong> The(1) / sudden(2) / loud(3) / sound(4) / made(5) / the(6) / girl(7) / very(8) / surprised(9) / at(10) / night(11) ✓
+        <strong>핵심 1. "to부정사 + 전치사" 짝꿍</strong><br>
+        목적어가 있어야 의미가 완성되는 동사는 to부정사로 쓸 때 <strong>전치사</strong>가 빠지기 쉬워요.<br>
+        • a friend <strong>to talk to</strong> (이야기할 친구)<br>
+        • a chair <strong>to sit on</strong> (앉을 의자)<br>
+        • a pen <strong>to write with</strong> (글 쓸 펜)<br>
+        • a house <strong>to live in</strong> (살 집)
       </div>
       <div class="key-point">
-        <strong>감정 형용사 정리</strong><br>
-        • <strong>-ed</strong> (사람이 ~한 감정 느낌): surprised, excited, bored, interested, tired, confused<br>
-        • <strong>-ing</strong> (~한 감정을 일으키는): surprising, exciting, boring, interesting, tiring, confusing<br>
-        예) The movie was <em>boring</em>. / I was <em>bored</em>.
+        <strong>핵심 2. 「make + 목적어 + 형용사」 5형식</strong><br>
+        목적격 보어 자리에는 <strong>형용사</strong>가 와야 해요 (부사 ✗).<br>
+        ✗ The story made us surprising<u>ly</u>. → 부사<br>
+        ✓ The story made us <strong>surprised</strong>. → 우리가 놀란 (사람이 느낀 감정)<br>
+        ✓ The story was <strong>surprising</strong>. → 그 이야기 자체가 놀라움을 주는
       </div>
     </div>
 
     <div class="retry-section">
       <h4>한번 더 풀어보기</h4>
       <div class="retry-question">
-        <p>다음 우리말을 영어로 옮길 때, 빈칸에 알맞은 형태를 쓰세요.</p>
-        <p style="margin-top:10px;">▶ 그 영화는 매우 흥미진진했고, 우리는 모두 신이 났다.</p>
-        <p style="margin-top:8px; padding-left:14px;">→ The movie was very <strong>(exciting / excited)</strong>, and we all became <strong>(exciting / excited)</strong>.</p>
+        <p>다음 문장에서 빈칸에 들어갈 알맞은 형태를 고르세요.</p>
+        <ol style="padding-left:24px; margin-top:10px;">
+          <li>I need a chair to sit ( on / in ).</li>
+          <li>The news made my mom ( angry / angrily ).</li>
+          <li>She wants her son ( clean / to clean ) his room.</li>
+        </ol>
       </div>
       <div class="retry-answer">
         <div class="ra-label">✓ 정답 및 해설</div>
-        <p><strong>정답: exciting / excited</strong></p>
-        <p>"영화"는 흥미를 <em>일으키는</em> 주체이므로 <code>exciting</code>(능동적 의미). "우리"는 흥미진진함을 <em>느낀</em> 사람이므로 <code>excited</code>(수동적 의미).</p>
-        <p>마찬가지로 시험 문제에서 "그 소녀를 놀라게 했다"는 → girl이 놀람을 <em>당한</em> 것이므로 <strong>surprised</strong>.</p>
+        <p><strong>1. on</strong> — sit on a chair (의자 위에 앉다)이므로 전치사 <em>on</em>이 필요.</p>
+        <p><strong>2. angry</strong> — 「make+목적어+형용사」 5형식이므로 형용사 <em>angry</em>.</p>
+        <p><strong>3. to clean</strong> — 「want+목적어+to V」 구조.</p>
       </div>
     </div>
   </div>
 
-  <!-- 서술형 6-2 -->
-  <div class="problem">
+  <!-- 서술형 2 -->
+  <div class="problem" id="s2">
     <div class="problem-header">
-      <h3>서술형 6-2. 조건 영작 (wonder why)</h3>
-      <span class="points-tag">3점</span>
+      <h3>서술형 2 · 본문 요약문 완성</h3>
+    </div>
+
+    <div class="section-label">본문 (APR 22)</div>
+    <div class="passage">
+      <span class="date-tag">APR 22</span>
+      <p>Today, Halla and Olle went back to the sea. There was a small ceremony, and all the members of Dolphin Lovers were there. The ceremony made us emotional. In fact, I cried a little. Now I cannot see Halla and Olle anymore! However, I was very happy at the same time. After 10 years of hard life in an aquarium, now all the sea is their home. "Live freely and happily ever after!" I shouted and waved goodbye to them. <em>*I = Inho</em></p>
     </div>
 
     <div class="section-label">문제</div>
     <div class="question-box">
-      <p>▶ 그는 그녀가 요즘 왜 항상 학교에 늦는지 궁금해 한다. <strong>[11단어]</strong></p>
-      <p>※ 문장의 첫글자는 대문자로 시작할 것.</p>
+      윗글을 다음과 같이 요약하고자 할 때, 빈칸 (A), (B), (C)에 들어갈 말을 〈보기〉에 주어진 단어를 사용하여 완성하시오. (필요한 경우, 단어를 추가하거나 어법에 맞게 주어진 단어를 변형할 수 있음. 단, 추가한 단어는 각각 3개를 넘지 말 것.) [각 2점, 총 6점]
+      <div style="background:white; padding:14px 18px; border-radius:10px; margin-top:12px; line-height:1.9;">
+        After 10 years in an aquarium, Halla and Olle finally (A)<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>. There was a small ceremony, and Inho (B)<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>. Inho was sad to say goodbye, but he was also happy that they could now (C)<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>.
+      </div>
       <div class="word-breakdown">
-        <div class="wb-title">주어진 단어</div>
-        <span class="word-chip">He</span>
-        <span class="word-chip">wonder</span>
-        <span class="word-chip">she</span>
-        <span class="word-chip">late</span>
-        <span class="word-chip">school</span>
-        <span class="word-chip">these days</span>
+        <div class="wb-title">〈보기〉</div>
+        <p>(A) return, sea</p>
+        <p>(B) feel, emotional, even, cry</p>
+        <p>(C) live, freely, sea</p>
       </div>
     </div>
 
     <div class="answer-row">
-      <div class="answer-box wrong-box">
-        <div class="label">✗ 태은이가 쓴 답 (8단어)</div>
-        <div>He <span style="color:#dc2626;">wonder</span> why she <span style="color:#dc2626;">late school</span> these days.</div>
+      <div class="answer-box my-answer">
+        <div class="label">★ 태은이가 쓴 답</div>
+        <div>
+          (A) <span style="color:#c8869e;">return</span> to the sea<br>
+          (B) feel emotional and even <span style="color:#c8869e;">(cried)</span><br>
+          (C) live freely in the sea
+        </div>
       </div>
       <div class="answer-box correct-box">
-        <div class="label"
+        <div class="label">✓ 모범 답안</div>
+        <div>
+          (A) <strong>returned</strong> to the sea<br>
+          (B) <strong>felt</strong> emotional and even <strong>cried</strong><br>
+          (C) live freely in the sea
+        </div>
+      </div>
+    </div>
+
+    <div class="explanation">
+      <h4>🌿 친절한 해설</h4>
+      <p>요약문 빈칸 채우기는 <strong>① 빈칸 앞뒤의 시제 / 주어 / 어법</strong>을 먼저 확인하고, <strong>② 〈보기〉의 단어를 알맞게 변형</strong>하는 게 핵심이에요.</p>
+
+      <table class="grammar-table">
+        <tr><th>빈칸</th><th>해설</th></tr>
+        <tr>
+          <td>(A) returned to the sea</td>
+          <td>
+            본문이 "Today, Halla and Olle <strong>went back</strong> to the sea"라는 <strong>과거</strong> 사건이에요. 그래서 요약문에서도 <em>return</em>은 <strong>returned</strong>(과거형)로 써야 해요.<br>
+            • return → returned (-ed 붙이기)<br>
+            • "to the sea"에서 <strong>to</strong> 전치사도 필요해요. "바다 <em>로</em> 돌아갔다"의 '~로' 의미.<br>
+            <span class="correct">즉 "returned to the sea" (추가 단어 2개: -ed, to)</span>
+          </td>
+        </tr>
+        <tr>
+          <td>(B) felt emotional and even cried</td>
+          <td>
+            본문: "The ceremony made us emotional. In fact, I <strong>cried</strong> a little."<br>
+            요약문에서 인호는 ① <em>emotional</em>하게 느꼈고 ② 심지어 <em>cry</em>(울었)었어요. 두 동작 모두 <strong>과거</strong>!<br>
+            • feel → <strong>felt</strong> (불규칙 과거형)<br>
+            • cry → <strong>cried</strong> (-y를 -ied로)<br>
+            • 두 동사를 연결하는 <strong>and</strong> 추가<br>
+            <span class="correct">즉 "felt emotional and even cried" (추가 단어 1개: and)</span>
+          </td>
+        </tr>
+        <tr>
+          <td>(C) live freely in the sea</td>
+          <td>
+            본문: "Live freely and happily ever after!" + "now all the sea is their home"<br>
+            앞 문장에서 "they <strong>could now</strong> ___" 다음에 들어가니 동사원형 <strong>live</strong>가 와야 해요 (조동사 could 뒤이므로).<br>
+            "바다 <strong>에서</strong> 자유롭게 살다" → <strong>in the sea</strong>(전치사 in 추가)<br>
+            <span class="correct">즉 "live freely in the sea" — 잘 썼어요! 👏</span>
+          </td>
+        </tr>
+      </table>
+
+      <div class="key-point">
+        <strong>꼭 기억! 시제 일치</strong><br>
+        본문이 "오늘 있었던 과거 사건"이면 요약문도 <strong>과거형</strong>이 자연스러워요. <em>return → returned, feel → felt, cry → cried.</em>
+      </div>
+      <div class="key-point">
+        <strong>불규칙 과거형 - 자주 나오는 것</strong><br>
+        feel → <strong>felt</strong> · think → thought · go → went · come → came · see → saw · take → took · eat → ate · know → knew · get → got · make → made · say → said · tell → told
+      </div>
+      <div class="key-point">
+        <strong>전치사 in / to / on 구분</strong><br>
+        • return <strong>to</strong> the sea (방향: 바다 쪽으로)<br>
+        • live <strong>in</strong> the sea (장소 안에서: 바다 속에서)<br>
+        • play <strong>on</strong> the beach (표면 위에서)
+      </div>
+    </div>
+
+    <div class="retry-section">
+      <h4>한번 더 풀어보기</h4>
+      <div class="retry-question">
+        <p>다음 빈칸에 〈보기〉의 단어를 알맞게 변형하여 채우세요.</p>
+        <p style="margin-top:10px;">After the long trip, Mina finally (A)____________ home and (B)____________ tired.</p>
+        <p style="margin-top:8px; padding-left:14px;">〈보기〉 (A) come, home &nbsp;&nbsp; (B) feel, very</p>
+      </div>
+      <div class="retry-answer">
+        <div class="ra-label">✓ 정답 및 해설</div>
+        <p><strong>(A) came home</strong> — "긴 여행 후에"라는 과거 시점이므로 come의 과거형 <strong>came</strong>. "home"은 부사로 쓰여 전치사 to가 필요 없어요. ("come home" 한 덩어리!)</p>
+        <p><strong>(B) felt very tired</strong> — 같은 과거 시점이므로 feel → <strong>felt</strong>. "very tired"는 〈보기〉의 very + 문맥에서 필요한 tired.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 서술형 4 -->
+  <div class="problem" id="s4">
+    <div class="problem-header">
+      <h3>서술형 4 · 질문에 영어 문장으로 답하기</h3>
+    </div>
+
+    <div class="section-label">본문 (13~15번 공통 지문)</div>
+    <div class="passage">
+      <p><strong>2 You need to understand that people use emojis differently.</strong></p>
+      <p>Yesterday, Jisu gave a birthday gift to her little brother Jihoo. Later, she got the following text message.</p>
+      <p><strong>Jihoo:</strong> I loved your gift. Thanks a lot. 😊</p>
+      <p>"Only one smiling face (😊)? I guess he didn't like my gift," Jisu thought.</p>
+      <p>When we talk with someone, we use not only words but also facial expressions and body language. In texting, we use emojis instead. Sometimes, a little emoji like 😊 can speak louder than many words. The problem is that not everybody uses emojis in the same way. Some people like to use them a lot, and some don't. In addition, the same emojis can mean different things to different people.</p>
+    </div>
+
+    <div class="section-label">문제</div>
+    <div class="question-box">
+      다음 질문에 대한 답을 <strong>완전한 문장의 영어</strong>로 쓰시오. [4점]
+      <p style="margin-top:10px; font-weight:600;">Q. Why did Jisu think Jihoo didn't like her gift?</p>
+      <p style="margin-top:6px; font-size:13px; color:#a08a96;">※ 문장의 첫글자는 대문자로 시작할 것.</p>
+    </div>
+
+    <div class="answer-row">
+      <div class="answer-box my-answer">
+        <div class="label">★ 태은이가 쓴 답</div>
+        <div><span style="color:#c8869e;">It's she got</span> the text message with only <span style="color:#c8869e;">on</span> smiling face.</div>
+      </div>
+      <div class="answer-box correct-box">
+        <div class="label">✓ 모범 답안</div>
+        <div><strong>It's because</strong> she got the text mes
