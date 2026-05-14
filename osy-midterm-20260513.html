@@ -573,6 +573,127 @@
     text-shadow: 1px 1px 0 #4a3220;
   }
 
+  /* ===== Game animations ===== */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+    20%, 40%, 60%, 80% { transform: translateX(8px); }
+  }
+  @keyframes flash-green {
+    0% { background: #b8e0a0; }
+    30% { background: #6fde72; box-shadow: 0 0 40px #6fde72, 4px 4px 0 #4a3220; }
+    100% { background: #b8e0a0; }
+  }
+  @keyframes flash-red {
+    0% { background: #ffd9a8; }
+    30% { background: #ff6a4a; box-shadow: 0 0 40px #ff6a4a, 4px 4px 0 #4a3220; }
+    100% { background: #ffd9a8; }
+  }
+  @keyframes pop-in {
+    0% { transform: scale(0.4) rotate(-8deg); opacity: 0; }
+    60% { transform: scale(1.15) rotate(3deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+  }
+  @keyframes coin-pop {
+    0% { transform: scale(1); color: #f0c850; }
+    50% { transform: scale(1.6); color: #fff; text-shadow: 0 0 12px #ffd860; }
+    100% { transform: scale(1); color: #f0c850; }
+  }
+  @keyframes hp-drain {
+    0% { transform: scaleY(1); background: linear-gradient(180deg, #ff7a3c 0%, #d94a1a 100%); }
+    50% { transform: scaleY(1.4); background: #ff2020; }
+    100% { transform: scaleY(0); }
+  }
+  @keyframes float-up {
+    0% { transform: translate(-50%, 0); opacity: 1; }
+    100% { transform: translate(-50%, -80px); opacity: 0; }
+  }
+  @keyframes sparkle-burst {
+    0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(1); opacity: 0; }
+  }
+
+  .retry-section.shake { animation: shake 0.5s; }
+  .retry-section.win .retry-question { animation: flash-green 0.7s; }
+  .retry-section.lose .retry-question { animation: flash-red 0.7s; }
+
+  .retry-feedback.show { animation: pop-in 0.45s; }
+
+  .hp-cell.draining { animation: hp-drain 0.6s forwards; transform-origin: center; }
+  .coin-pop-anim { animation: coin-pop 0.6s; display: inline-block; }
+
+  /* Floating score popup */
+  .score-popup {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, 0);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    pointer-events: none;
+    animation: float-up 1.2s forwards;
+    z-index: 30;
+    text-shadow: 2px 2px 0 #1f2422, -2px -2px 0 #1f2422, 2px -2px 0 #1f2422, -2px 2px 0 #1f2422;
+  }
+  .score-popup.plus { color: #f0c850; }
+  .score-popup.minus { color: #ff5a3c; }
+
+  /* Big quest result overlay (in retry section) */
+  .quest-result {
+    display: none;
+    text-align: center;
+    margin-top: 14px;
+    padding: 14px;
+    border: 3px solid #4a3220;
+    font-family: 'Press Start 2P', monospace;
+    box-shadow: 4px 4px 0 #4a3220;
+  }
+  .quest-result.show { display: block; animation: pop-in 0.5s; }
+  .quest-result.win {
+    background: linear-gradient(180deg, #f0c850 0%, #d9a020 100%);
+    color: #1f2422;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+  .quest-result.lose {
+    background: linear-gradient(180deg, #6c6f6e 0%, #4a4d4c 100%);
+    color: #f7e9c8;
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+  .quest-result .sub {
+    display: block;
+    margin-top: 8px;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: inherit;
+    opacity: 0.9;
+  }
+
+  /* Sparkles container */
+  .sparkles {
+    position: absolute;
+    pointer-events: none;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    z-index: 25;
+  }
+  .sparkle {
+    position: absolute;
+    width: 14px; height: 14px;
+    font-size: 14px;
+    line-height: 14px;
+    animation: sparkle-burst 0.9s forwards ease-out;
+  }
+
+  .retry-section { position: relative; }
+
+  /* Stat HUD pulse */
+  .hud .level.flash {
+    animation: coin-pop 0.5s;
+  }
+
   @media (max-width: 640px) {
     body { padding: 12px 6px; }
     .device { padding: 8px; }
@@ -593,16 +714,17 @@
   <!-- Game HUD -->
   <div class="hud">
     <span class="hud-icon" title="HP">❤️</span>
-    <span class="hud-icon" title="coconut">🥥</span>
-    <div class="hp-bar" aria-label="진행도">
+    <span id="hp-text" style="font-size:9px;">5/5</span>
+    <div class="hp-bar" aria-label="HP" id="hp-bar">
       <span class="hp-cell"></span>
       <span class="hp-cell"></span>
       <span class="hp-cell"></span>
       <span class="hp-cell"></span>
-      <span class="hp-cell empty"></span>
+      <span class="hp-cell"></span>
     </div>
-    <span class="level">LV.3</span>
-    <span class="hud-icon" title="coin">🪙</span>
+    <span class="hud-icon" title="coconut">🥥</span>
+    <span id="combo-text" style="font-size:9px;">x0</span>
+    <span class="level" id="coin-level"><span class="hud-icon" style="width:14px;height:14px;font-size:12px;">🪙</span> <span id="coin-text">0</span></span>
   </div>
 
   <!-- Jungle banner -->
@@ -666,8 +788,9 @@
             <label><input type="radio" name="q11" value="4"> ④ Why Laughter is Important to Humans</label>
             <label><input type="radio" name="q11" value="5"> ⑤ Different Kinds of Emotions in Text Messages</label>
           </div>
-          <button class="retry-btn" onclick="checkMC('q11', '3', 'fb11')">SUBMIT</button>
+          <button class="retry-btn" onclick="checkMC('q11', '3', 'fb11', 'qr11')">SUBMIT</button>
           <div id="fb11" class="retry-feedback"></div>
+          <div id="qr11" class="quest-result"></div>
         </div>
       </div>
 
@@ -742,8 +865,9 @@
         <div class="retry-question">
           <p style="margin-bottom: 12px;">"입을 활짝 벌리고 눈은 감은 채로 만든" → 8단어, "a", "and" 사용</p>
           <input type="text" class="retry-input" id="s1-input" placeholder="여기에 영어로 써보세요 (8 words)">
-          <button class="retry-btn" onclick="checkText('s1-input', [&quot;with a mouth wide open and eyes closed&quot;, &quot;with a wide open mouth and closed eyes&quot;, &quot;with a wide-open mouth and closed eyes&quot;], 'fb-s1')">SUBMIT</button>
+          <button class="retry-btn" onclick="checkText('s1-input', [&quot;with a mouth wide open and eyes closed&quot;, &quot;with a wide open mouth and closed eyes&quot;, &quot;with a wide-open mouth and closed eyes&quot;], 'fb-s1', 'qr-s1')">SUBMIT</button>
           <div id="fb-s1" class="retry-feedback"></div>
+          <div id="qr-s1" class="quest-result"></div>
         </div>
       </div>
 
@@ -814,8 +938,9 @@
             <label><input type="radio" name="q21" value="4"> ④ produced by Jane H.</label>
             <label><input type="radio" name="q21" value="5"> ⑤ waiting for the bus</label>
           </div>
-          <button class="retry-btn" onclick="checkMC('q21', '3', 'fb21')">SUBMIT</button>
+          <button class="retry-btn" onclick="checkMC('q21', '3', 'fb21', 'qr21')">SUBMIT</button>
           <div id="fb21" class="retry-feedback"></div>
+          <div id="qr21" class="quest-result"></div>
         </div>
       </div>
 
@@ -905,8 +1030,9 @@
             <label><input type="radio" name="q25" value="4"> ④ The movie that we watched</label>
             <label><input type="radio" name="q25" value="5"> ⑤ the words that he said</label>
           </div>
-          <button class="retry-btn" onclick="checkMC('q25', '3', 'fb25')">SUBMIT</button>
+          <button class="retry-btn" onclick="checkMC('q25', '3', 'fb25', 'qr25')">SUBMIT</button>
           <div id="fb25" class="retry-feedback"></div>
+          <div id="qr25" class="quest-result"></div>
         </div>
       </div>
 
@@ -1008,4 +1134,267 @@
       </div>
 
       <div class="retry-section">
-        <h4>다시 영작해보기!<
+        <h4>다시 영작해보기!</h4>
+        <div class="retry-question">
+          <p style="margin-bottom: 12px;">"마을 사람들이 좋아하지 않았던 못생긴 땅이" → 8단어, "an / ugly / lot" 모두 사용</p>
+          <input type="text" class="retry-input" id="s4-input" placeholder="여기에 영어로 써보세요 (8 words)">
+          <button class="retry-btn" onclick="checkText('s4-input', [&quot;an ugly lot that people didn't like before&quot;, &quot;an ugly lot which people didn't like before&quot;, &quot;an ugly lot that people did not like&quot;], 'fb-s4', 'qr-s4')">SUBMIT</button>
+          <div id="fb-s4" class="retry-feedback"></div>
+          <div id="qr-s4" class="quest-result"></div>
+        </div>
+      </div>
+
+      <div class="explanation">
+        <h4>친절한 해설</h4>
+        <p>이 문장은 주어 자리에 들어가는 <strong>긴 명사구</strong>예요. 핵심 명사는 <strong>"an ugly lot"</strong>(못생긴 땅)이고, 뒤에서 "사람들이 좋아하지 않았던"이라는 <strong>관계대명사절</strong>로 꾸며 줘야 해요.</p>
+
+        <div class="key-point">
+          <strong>영작 설계도</strong><br>
+          · 한국어 어순: "[마을 사람들이 좋아하지 않았던] [못생긴 땅]"<br>
+          · 영어 어순: <strong>[못생긴 땅(an ugly lot)]</strong> + <strong>[that + 마을 사람들이 좋아하지 않았던]</strong><br>
+          → 영어에서는 꾸미는 말이 길어지면 명사 <u>뒤</u>로 가요!
+        </div>
+
+        <table class="grammar-table">
+          <tr><th>구간</th><th>구성 요소</th><th>설명</th></tr>
+          <tr><td>an ugly lot</td><td>관사 + 형용사 + 명사</td><td>핵심 명사구 ("못생긴 땅")</td></tr>
+          <tr><td>that</td><td>관계대명사 (목적격)</td><td>like의 목적어 역할, 생략 가능하지만 단어 수 맞추기 위해 사용</td></tr>
+          <tr><td>people</td><td>관계절 안의 주어</td><td>"마을 사람들이"</td></tr>
+          <tr><td>didn't like</td><td>과거시제 부정</td><td>지금은 정원이 됐으므로 "좋아하지 않았던" → 과거</td></tr>
+          <tr><td>before</td><td>부사</td><td>"전에는"이라는 시간 부사, 단어 수 8개 맞추기</td></tr>
+        </table>
+
+        <div class="word-breakdown">
+          <div class="wb-title">WORD COUNT (TOTAL 8)</div>
+          <span class="word-chip">an ①</span>
+          <span class="word-chip">ugly ②</span>
+          <span class="word-chip">lot ③</span>
+          <span class="word-chip">that ④</span>
+          <span class="word-chip">people ⑤</span>
+          <span class="word-chip">didn't ⑥</span>
+          <span class="word-chip">like ⑦</span>
+          <span class="word-chip">before ⑧</span>
+        </div>
+
+        <div class="key-point">
+          <strong>내가 쓴 답의 문제점</strong><br>
+          · "people didn't like that an ugly..." 처럼 시작하면 주어 자리에 절(節)이 어색하게 들어가요.<br>
+          · 영어에서는 <strong>꾸밈을 받는 명사가 먼저</strong>, 꾸미는 절은 그 뒤에 와야 해요.<br>
+          · <em>and dirty</em>는 본문 단어 조건(an, ugly, lot)에 어긋나고, 단어 수도 초과돼요.<br>
+          · 핵심 구조 「<strong>핵심 명사 + that + 주어 + 동사</strong>」를 꼭 기억해 주세요.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="brand-name">★ ENGFIT ★</div>
+    <div class="motto">한 문제 한 문제, 차근차근 LEVEL UP!</div>
+    <div class="copy">© 2026 ENGFIT · TEACHER JINA</div>
+  </footer>
+</div>
+</div>
+
+<script>
+// ===== Game state =====
+var GAME = { hp: 5, maxHp: 5, coins: 0, combo: 0, answered: {} };
+
+// ===== 8-bit sound effects via Web Audio API =====
+var audioCtx;
+function getAudio() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
+  }
+  return audioCtx;
+}
+function beep(freq, dur, type, vol) {
+  var ctx = getAudio();
+  if (!ctx) return;
+  var osc = ctx.createOscillator();
+  var gain = ctx.createGain();
+  osc.type = type || 'square';
+  osc.frequency.value = freq;
+  gain.gain.value = vol || 0.12;
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start();
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+  osc.stop(ctx.currentTime + dur);
+}
+function playWinSound() {
+  // ascending arpeggio: C-E-G-C
+  beep(523, 0.09, 'square'); // C5
+  setTimeout(function(){ beep(659, 0.09, 'square'); }, 90);
+  setTimeout(function(){ beep(784, 0.09, 'square'); }, 180);
+  setTimeout(function(){ beep(1046, 0.22, 'square'); }, 270);
+}
+function playLoseSound() {
+  beep(220, 0.12, 'sawtooth', 0.14);
+  setTimeout(function(){ beep(165, 0.12, 'sawtooth', 0.14); }, 120);
+  setTimeout(function(){ beep(110, 0.28, 'sawtooth', 0.14); }, 240);
+}
+function playClickSound() {
+  beep(440, 0.05, 'square', 0.08);
+}
+
+// ===== HUD updates =====
+function updateHUD() {
+  var hpBar = document.getElementById('hp-bar');
+  if (!hpBar) return;
+  var cells = hpBar.children;
+  for (var i = 0; i < cells.length; i++) {
+    if (i < GAME.hp) cells[i].classList.remove('empty');
+    else cells[i].classList.add('empty');
+  }
+  document.getElementById('hp-text').textContent = GAME.hp + '/' + GAME.maxHp;
+  document.getElementById('coin-text').textContent = GAME.coins;
+  document.getElementById('combo-text').textContent = 'x' + GAME.combo;
+}
+function flashCoin() {
+  var el = document.getElementById('coin-level');
+  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  var coinTxt = document.getElementById('coin-text');
+  coinTxt.classList.remove('coin-pop-anim'); void coinTxt.offsetWidth; coinTxt.classList.add('coin-pop-anim');
+}
+function drainHpCell() {
+  var hpBar = document.getElementById('hp-bar');
+  var cells = hpBar.children;
+  if (GAME.hp <= 0) return;
+  var cell = cells[GAME.hp - 1];
+  cell.classList.add('draining');
+  setTimeout(function(){ cell.classList.add('empty'); cell.classList.remove('draining'); }, 600);
+}
+
+// ===== Sparkle / popup effects =====
+function spawnSparkles(parent) {
+  var box = document.createElement('div');
+  box.className = 'sparkles';
+  parent.appendChild(box);
+  var icons = ['⭐','✨','💫','🌟'];
+  for (var i = 0; i < 14; i++) {
+    var s = document.createElement('span');
+    s.className = 'sparkle';
+    s.textContent = icons[Math.floor(Math.random()*icons.length)];
+    var angle = (i / 14) * Math.PI * 2;
+    var dist = 80 + Math.random()*60;
+    s.style.setProperty('--tx', (Math.cos(angle)*dist) + 'px');
+    s.style.setProperty('--ty', (Math.sin(angle)*dist - 20) + 'px');
+    box.appendChild(s);
+  }
+  setTimeout(function(){ box.remove(); }, 1000);
+}
+function spawnScorePopup(parent, text, cls) {
+  var p = document.createElement('div');
+  p.className = 'score-popup ' + cls;
+  p.textContent = text;
+  parent.appendChild(p);
+  setTimeout(function(){ p.remove(); }, 1300);
+}
+
+// ===== Main check logic =====
+function awardWin(retrySection, qrEl, fb, msg) {
+  // Track unique solve so coins/HP only apply once per quest
+  var questId = retrySection.id || retrySection.parentNode.id;
+  GAME.combo++;
+  if (!GAME.answered[questId]) {
+    GAME.answered[questId] = 'win';
+    GAME.coins += 10 + GAME.combo*2;
+    flashCoin();
+    spawnScorePopup(retrySection, '+' + (10 + GAME.combo*2) + ' 🪙', 'plus');
+  }
+  updateHUD();
+  retrySection.classList.add('win');
+  setTimeout(function(){ retrySection.classList.remove('win'); }, 800);
+  spawnSparkles(retrySection);
+  playWinSound();
+  fb.className = 'retry-feedback correct show';
+  fb.innerHTML = msg;
+  qrEl.className = 'quest-result win show';
+  qrEl.innerHTML = '★ QUEST CLEAR! ★<span class="sub">COMBO x' + GAME.combo + ' · +' + (10 + GAME.combo*2) + ' coin</span>';
+}
+function awardLose(retrySection, qrEl, fb, msg) {
+  var questId = retrySection.id || retrySection.parentNode.id;
+  if (!GAME.answered[questId]) {
+    GAME.answered[questId] = 'lose';
+    GAME.combo = 0;
+    if (GAME.hp > 0) {
+      drainHpCell();
+      GAME.hp--;
+      spawnScorePopup(retrySection, '-1 ❤️', 'minus');
+    }
+  } else {
+    GAME.combo = 0;
+  }
+  updateHUD();
+  retrySection.classList.add('shake', 'lose');
+  setTimeout(function(){ retrySection.classList.remove('shake', 'lose'); }, 700);
+  playLoseSound();
+  fb.className = 'retry-feedback incorrect show';
+  fb.innerHTML = msg;
+  qrEl.className = 'quest-result lose show';
+  qrEl.innerHTML = '× MISS... TRY AGAIN<span class="sub">아래 해설을 꼭 읽고 다시 도전!</span>';
+}
+
+function checkMC(name, correct, fbId, qrId) {
+  playClickSound();
+  var radios = document.getElementsByName(name);
+  var selected = null;
+  for (var i = 0; i < radios.length; i++) {
+    if (radios[i].checked) { selected = radios[i].value; break; }
+  }
+  var fb = document.getElementById(fbId);
+  var qr = document.getElementById(qrId);
+  var retrySection = fb.closest('.retry-section');
+  if (!selected) {
+    fb.className = 'retry-feedback incorrect show';
+    fb.innerHTML = '! 선택지를 먼저 골라 주세요';
+    retrySection.classList.add('shake');
+    setTimeout(function(){ retrySection.classList.remove('shake'); }, 500);
+    beep(200, 0.1, 'square', 0.1);
+    return;
+  }
+  if (selected === correct) {
+    awardWin(retrySection, qr, fb, '정답이에요! 잘했어요.');
+  } else {
+    awardLose(retrySection, qr, fb, '정답은 ' + correct + '번이에요.');
+  }
+}
+
+function normalize(s) {
+  return s.toLowerCase()
+          .replace(/[‘’“”]/g, "'")
+          .replace(/[.,!?\-]/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+}
+
+function checkText(inputId, answers, fbId, qrId) {
+  playClickSound();
+  var v = document.getElementById(inputId).value;
+  var fb = document.getElementById(fbId);
+  var qr = document.getElementById(qrId);
+  var retrySection = fb.closest('.retry-section');
+  if (!v.trim()) {
+    fb.className = 'retry-feedback incorrect show';
+    fb.innerHTML = '! 답을 먼저 입력해 주세요';
+    retrySection.classList.add('shake');
+    setTimeout(function(){ retrySection.classList.remove('shake'); }, 500);
+    beep(200, 0.1, 'square', 0.1);
+    return;
+  }
+  var n = normalize(v);
+  var ok = false;
+  for (var i = 0; i < answers.length; i++) {
+    if (n === normalize(answers[i])) { ok = true; break; }
+  }
+  if (ok) {
+    awardWin(retrySection, qr, fb, '정답이에요! 영작 완성 ★');
+  } else {
+    awardLose(retrySection, qr, fb, '단어 수와 어순을 다시 확인해 보세요.');
+  }
+}
+
+// Initialize HUD
+window.addEventListener('DOMContentLoaded', updateHUD);
+</script>
+</body>
+</html>
