@@ -343,102 +343,6 @@
   .my-answer .note { color: #c44a1a; }
   .correct-box .note { color: #1f5028; }
 
-  /* ===== Retry section (treasure chest vibe) ===== */
-  .retry-section {
-    background:
-      linear-gradient(180deg, #c44a1a 0%, #a83810 100%);
-    border: 4px solid #4a3220;
-    box-shadow: 6px 6px 0 #4a3220;
-    padding: 20px;
-    margin: 22px 0 10px;
-    color: #f7e9c8;
-  }
-  .retry-section h4 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 11px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 0 #4a3220;
-  }
-  .retry-section h4::before {
-    content: '⚔ RETRY';
-    background: #f0c850;
-    color: #4a3220;
-    padding: 5px 10px;
-    border: 2px solid #4a3220;
-    font-size: 9px;
-    text-shadow: none;
-  }
-  .retry-question {
-    background: #fff8e0;
-    border: 3px solid #4a3220;
-    padding: 16px 20px;
-    color: #4a3220;
-    font-size: 15px;
-  }
-  .retry-options {
-    margin-top: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .retry-options label {
-    background: #fff8e0;
-    padding: 11px 14px;
-    border: 2px solid #4a3220;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    transition: background 0.1s;
-  }
-  .retry-options label:hover { background: #ffe7a8; }
-  .retry-options input[type="radio"] { accent-color: #c44a1a; }
-  .retry-input {
-    width: 100%;
-    padding: 12px 14px;
-    border: 3px solid #4a3220;
-    font-size: 15px;
-    font-family: inherit;
-    margin-top: 12px;
-    background: #fff8e0;
-    color: #4a3220;
-  }
-  .retry-input:focus { outline: 3px solid #f0c850; }
-  .retry-btn {
-    margin-top: 14px;
-    background: #f0c850;
-    color: #4a3220;
-    border: 3px solid #4a3220;
-    box-shadow: 4px 4px 0 #4a3220;
-    padding: 12px 26px;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 11px;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.1s;
-  }
-  .retry-btn:hover { background: #ffd860; }
-  .retry-btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 #4a3220; }
-
-  .retry-feedback {
-    display: none;
-    margin-top: 14px;
-    padding: 14px 18px;
-    border: 3px solid #4a3220;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    line-height: 1.8;
-    letter-spacing: 1px;
-  }
-  .retry-feedback.show { display: block; }
-  .retry-feedback.correct { background: #b8e0a0; color: #1f5028; }
-  .retry-feedback.incorrect { background: #ffd9a8; color: #c44a1a; }
-
   /* ===== Explanation ===== */
   .explanation {
     background: #fff8e0;
@@ -573,127 +477,6 @@
     text-shadow: 1px 1px 0 #4a3220;
   }
 
-  /* ===== Game animations ===== */
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
-    20%, 40%, 60%, 80% { transform: translateX(8px); }
-  }
-  @keyframes flash-green {
-    0% { background: #b8e0a0; }
-    30% { background: #6fde72; box-shadow: 0 0 40px #6fde72, 4px 4px 0 #4a3220; }
-    100% { background: #b8e0a0; }
-  }
-  @keyframes flash-red {
-    0% { background: #ffd9a8; }
-    30% { background: #ff6a4a; box-shadow: 0 0 40px #ff6a4a, 4px 4px 0 #4a3220; }
-    100% { background: #ffd9a8; }
-  }
-  @keyframes pop-in {
-    0% { transform: scale(0.4) rotate(-8deg); opacity: 0; }
-    60% { transform: scale(1.15) rotate(3deg); opacity: 1; }
-    100% { transform: scale(1) rotate(0); opacity: 1; }
-  }
-  @keyframes coin-pop {
-    0% { transform: scale(1); color: #f0c850; }
-    50% { transform: scale(1.6); color: #fff; text-shadow: 0 0 12px #ffd860; }
-    100% { transform: scale(1); color: #f0c850; }
-  }
-  @keyframes hp-drain {
-    0% { transform: scaleY(1); background: linear-gradient(180deg, #ff7a3c 0%, #d94a1a 100%); }
-    50% { transform: scaleY(1.4); background: #ff2020; }
-    100% { transform: scaleY(0); }
-  }
-  @keyframes float-up {
-    0% { transform: translate(-50%, 0); opacity: 1; }
-    100% { transform: translate(-50%, -80px); opacity: 0; }
-  }
-  @keyframes sparkle-burst {
-    0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
-    100% { transform: translate(var(--tx), var(--ty)) scale(1); opacity: 0; }
-  }
-
-  .retry-section.shake { animation: shake 0.5s; }
-  .retry-section.win .retry-question { animation: flash-green 0.7s; }
-  .retry-section.lose .retry-question { animation: flash-red 0.7s; }
-
-  .retry-feedback.show { animation: pop-in 0.45s; }
-
-  .hp-cell.draining { animation: hp-drain 0.6s forwards; transform-origin: center; }
-  .coin-pop-anim { animation: coin-pop 0.6s; display: inline-block; }
-
-  /* Floating score popup */
-  .score-popup {
-    position: absolute;
-    left: 50%;
-    top: 30%;
-    transform: translate(-50%, 0);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 14px;
-    pointer-events: none;
-    animation: float-up 1.2s forwards;
-    z-index: 30;
-    text-shadow: 2px 2px 0 #1f2422, -2px -2px 0 #1f2422, 2px -2px 0 #1f2422, -2px 2px 0 #1f2422;
-  }
-  .score-popup.plus { color: #f0c850; }
-  .score-popup.minus { color: #ff5a3c; }
-
-  /* Big quest result overlay (in retry section) */
-  .quest-result {
-    display: none;
-    text-align: center;
-    margin-top: 14px;
-    padding: 14px;
-    border: 3px solid #4a3220;
-    font-family: 'Press Start 2P', monospace;
-    box-shadow: 4px 4px 0 #4a3220;
-  }
-  .quest-result.show { display: block; animation: pop-in 0.5s; }
-  .quest-result.win {
-    background: linear-gradient(180deg, #f0c850 0%, #d9a020 100%);
-    color: #1f2422;
-    font-size: 14px;
-    letter-spacing: 2px;
-  }
-  .quest-result.lose {
-    background: linear-gradient(180deg, #6c6f6e 0%, #4a4d4c 100%);
-    color: #f7e9c8;
-    font-size: 12px;
-    letter-spacing: 2px;
-  }
-  .quest-result .sub {
-    display: block;
-    margin-top: 8px;
-    font-family: 'VT323', monospace;
-    font-size: 18px;
-    letter-spacing: 1px;
-    color: inherit;
-    opacity: 0.9;
-  }
-
-  /* Sparkles container */
-  .sparkles {
-    position: absolute;
-    pointer-events: none;
-    top: 50%; left: 50%;
-    width: 0; height: 0;
-    z-index: 25;
-  }
-  .sparkle {
-    position: absolute;
-    width: 14px; height: 14px;
-    font-size: 14px;
-    line-height: 14px;
-    animation: sparkle-burst 0.9s forwards ease-out;
-  }
-
-  .retry-section { position: relative; }
-
-  /* Stat HUD pulse */
-  .hud .level.flash {
-    animation: coin-pop 0.5s;
-  }
-
   @media (max-width: 640px) {
     body { padding: 12px 6px; }
     .device { padding: 8px; }
@@ -711,20 +494,19 @@
 <div class="device">
 <div class="screen">
 
-  <!-- Game HUD -->
+  <!-- Game HUD (decorative) -->
   <div class="hud">
     <span class="hud-icon" title="HP">❤️</span>
-    <span id="hp-text" style="font-size:9px;">5/5</span>
-    <div class="hp-bar" aria-label="HP" id="hp-bar">
-      <span class="hp-cell"></span>
-      <span class="hp-cell"></span>
-      <span class="hp-cell"></span>
-      <span class="hp-cell"></span>
-      <span class="hp-cell"></span>
-    </div>
     <span class="hud-icon" title="coconut">🥥</span>
-    <span id="combo-text" style="font-size:9px;">x0</span>
-    <span class="level" id="coin-level"><span class="hud-icon" style="width:14px;height:14px;font-size:12px;">🪙</span> <span id="coin-text">0</span></span>
+    <div class="hp-bar" aria-label="진행도">
+      <span class="hp-cell"></span>
+      <span class="hp-cell"></span>
+      <span class="hp-cell"></span>
+      <span class="hp-cell"></span>
+      <span class="hp-cell empty"></span>
+    </div>
+    <span class="level">LV.3</span>
+    <span class="hud-icon" title="coin">🪙</span>
   </div>
 
   <!-- Jungle banner -->
@@ -776,23 +558,6 @@
           <li>④ Why Laughter is Important to Humans</li>
           <li>⑤ Different Kinds of Emotions in Text Messages</li>
         </ul>
-      </div>
-
-      <div class="retry-section">
-        <h4>다시 도전하기!</h4>
-        <div class="retry-question">
-          <p style="margin-bottom: 12px;">윗글의 제목으로 가장 적절한 것을 골라보세요.</p>
-          <div class="retry-options">
-            <label><input type="radio" name="q11" value="1"> ① How to Write Funny Stories</label>
-            <label><input type="radio" name="q11" value="2"> ② How People Laugh in Daily Life</label>
-            <label><input type="radio" name="q11" value="3"> ③ Ways to Show Laughter in Writing</label>
-            <label><input type="radio" name="q11" value="4"> ④ Why Laughter is Important to Humans</label>
-            <label><input type="radio" name="q11" value="5"> ⑤ Different Kinds of Emotions in Text Messages</label>
-          </div>
-          <button class="retry-btn" onclick="checkMC('q11', '3', 'fb11', 'qr11')">SUBMIT</button>
-          <div id="fb11" class="retry-feedback"></div>
-          <div id="qr11" class="quest-result"></div>
-        </div>
       </div>
 
       <div class="answer-row">
@@ -858,17 +623,6 @@
           <div class="label">✓ ANSWER</div>
           <div><strong>with eyes closed tightly and a mouth opened</strong></div>
           <div class="note">8단어 ✓ · a ✓ · and ✓ · 우리말 순서(눈 → 입) ✓</div>
-        </div>
-      </div>
-
-      <div class="retry-section">
-        <h4>다시 영작해보기!</h4>
-        <div class="retry-question">
-          <p style="margin-bottom: 12px;">"<strong>눈은 꽉 감고 입은 벌린 채로</strong>" → 8단어 · "a", "and" 사용 · <strong>우리말 순서대로(눈 먼저!)</strong></p>
-          <input type="text" class="retry-input" id="s1-input" placeholder="여기에 영어로 써보세요 (8 words, 눈 → 입 순서)">
-          <button class="retry-btn" onclick="checkText('s1-input', [&quot;with eyes closed tightly and a mouth opened&quot;, &quot;with eyes tightly closed and a mouth opened&quot;], 'fb-s1', 'qr-s1')">SUBMIT</button>
-          <div id="fb-s1" class="retry-feedback"></div>
-          <div id="qr-s1" class="quest-result"></div>
         </div>
       </div>
 
@@ -947,23 +701,6 @@
         </ul>
       </div>
 
-      <div class="retry-section">
-        <h4>다시 도전하기!</h4>
-        <div class="retry-question">
-          <p style="margin-bottom: 12px;">어법상 틀린 것을 골라 보세요.</p>
-          <div class="retry-options">
-            <label><input type="radio" name="q21" value="1"> ① sitting next to me</label>
-            <label><input type="radio" name="q21" value="2"> ② the lights turned off</label>
-            <label><input type="radio" name="q21" value="3"> ③ baking in the oven</label>
-            <label><input type="radio" name="q21" value="4"> ④ produced by Jane H.</label>
-            <label><input type="radio" name="q21" value="5"> ⑤ waiting for the bus</label>
-          </div>
-          <button class="retry-btn" onclick="checkMC('q21', '3', 'fb21', 'qr21')">SUBMIT</button>
-          <div id="fb21" class="retry-feedback"></div>
-          <div id="qr21" class="quest-result"></div>
-        </div>
-      </div>
-
       <div class="answer-row">
         <div class="answer-box correct-box">
           <div class="label">✓ ANSWER</div>
@@ -1037,23 +774,6 @@
           <li>④ The movie <u>that</u> we watched yesterday was really exciting.</li>
           <li>⑤ I don't like the words <u>that</u> he said to me during the meeting.</li>
         </ul>
-      </div>
-
-      <div class="retry-section">
-        <h4>다시 도전하기!</h4>
-        <div class="retry-question">
-          <p style="margin-bottom: 12px;">본문의 that과 쓰임이 같은 것을 골라 보세요.</p>
-          <div class="retry-options">
-            <label><input type="radio" name="q25" value="1"> ① the dress that I recommended</label>
-            <label><input type="radio" name="q25" value="2"> ② He couldn't believe that was the right answer</label>
-            <label><input type="radio" name="q25" value="3"> ③ I think that she will finish...</label>
-            <label><input type="radio" name="q25" value="4"> ④ The movie that we watched</label>
-            <label><input type="radio" name="q25" value="5"> ⑤ the words that he said</label>
-          </div>
-          <button class="retry-btn" onclick="checkMC('q25', '3', 'fb25', 'qr25')">SUBMIT</button>
-          <div id="fb25" class="retry-feedback"></div>
-          <div id="qr25" class="quest-result"></div>
-        </div>
       </div>
 
       <div class="answer-row">
@@ -1153,17 +873,6 @@
         </div>
       </div>
 
-      <div class="retry-section">
-        <h4>다시 영작해보기!</h4>
-        <div class="retry-question">
-          <p style="margin-bottom: 12px;">"마을 사람들이 좋아하지 않았던 못생긴 땅이" → 8단어, "an / ugly / lot" 모두 사용</p>
-          <input type="text" class="retry-input" id="s4-input" placeholder="여기에 영어로 써보세요 (8 words)">
-          <button class="retry-btn" onclick="checkText('s4-input', [&quot;an ugly lot that people didn't like before&quot;, &quot;an ugly lot which people didn't like before&quot;, &quot;an ugly lot that people did not like&quot;], 'fb-s4', 'qr-s4')">SUBMIT</button>
-          <div id="fb-s4" class="retry-feedback"></div>
-          <div id="qr-s4" class="quest-result"></div>
-        </div>
-      </div>
-
       <div class="explanation">
         <h4>친절한 해설</h4>
         <p>이 문장은 주어 자리에 들어가는 <strong>긴 명사구</strong>예요. 핵심 명사는 <strong>"an ugly lot"</strong>(못생긴 땅)이고, 뒤에서 "사람들이 좋아하지 않았던"이라는 <strong>관계대명사절</strong>로 꾸며 줘야 해요.</p>
@@ -1215,152 +924,6 @@
 </div>
 </div>
 
-<script>
-// ===== Game state =====
-var GAME = { hp: 5, maxHp: 5, coins: 0, combo: 0, answered: {} };
-
-// ===== 8-bit sound effects via Web Audio API =====
-var audioCtx;
-function getAudio() {
-  if (!audioCtx) {
-    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
-  }
-  return audioCtx;
-}
-function beep(freq, dur, type, vol) {
-  var ctx = getAudio();
-  if (!ctx) return;
-  var osc = ctx.createOscillator();
-  var gain = ctx.createGain();
-  osc.type = type || 'square';
-  osc.frequency.value = freq;
-  gain.gain.value = vol || 0.12;
-  osc.connect(gain); gain.connect(ctx.destination);
-  osc.start();
-  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
-  osc.stop(ctx.currentTime + dur);
-}
-function playWinSound() {
-  // ascending arpeggio: C-E-G-C
-  beep(523, 0.09, 'square'); // C5
-  setTimeout(function(){ beep(659, 0.09, 'square'); }, 90);
-  setTimeout(function(){ beep(784, 0.09, 'square'); }, 180);
-  setTimeout(function(){ beep(1046, 0.22, 'square'); }, 270);
-}
-function playLoseSound() {
-  beep(220, 0.12, 'sawtooth', 0.14);
-  setTimeout(function(){ beep(165, 0.12, 'sawtooth', 0.14); }, 120);
-  setTimeout(function(){ beep(110, 0.28, 'sawtooth', 0.14); }, 240);
-}
-function playClickSound() {
-  beep(440, 0.05, 'square', 0.08);
-}
-
-// ===== HUD updates =====
-function updateHUD() {
-  var hpBar = document.getElementById('hp-bar');
-  if (!hpBar) return;
-  var cells = hpBar.children;
-  for (var i = 0; i < cells.length; i++) {
-    if (i < GAME.hp) cells[i].classList.remove('empty');
-    else cells[i].classList.add('empty');
-  }
-  document.getElementById('hp-text').textContent = GAME.hp + '/' + GAME.maxHp;
-  document.getElementById('coin-text').textContent = GAME.coins;
-  document.getElementById('combo-text').textContent = 'x' + GAME.combo;
-}
-function flashCoin() {
-  var el = document.getElementById('coin-level');
-  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
-  var coinTxt = document.getElementById('coin-text');
-  coinTxt.classList.remove('coin-pop-anim'); void coinTxt.offsetWidth; coinTxt.classList.add('coin-pop-anim');
-}
-function drainHpCell() {
-  var hpBar = document.getElementById('hp-bar');
-  var cells = hpBar.children;
-  if (GAME.hp <= 0) return;
-  var cell = cells[GAME.hp - 1];
-  cell.classList.add('draining');
-  setTimeout(function(){ cell.classList.add('empty'); cell.classList.remove('draining'); }, 600);
-}
-
-// ===== Sparkle / popup effects =====
-function spawnSparkles(parent) {
-  var box = document.createElement('div');
-  box.className = 'sparkles';
-  parent.appendChild(box);
-  var icons = ['⭐','✨','💫','🌟'];
-  for (var i = 0; i < 14; i++) {
-    var s = document.createElement('span');
-    s.className = 'sparkle';
-    s.textContent = icons[Math.floor(Math.random()*icons.length)];
-    var angle = (i / 14) * Math.PI * 2;
-    var dist = 80 + Math.random()*60;
-    s.style.setProperty('--tx', (Math.cos(angle)*dist) + 'px');
-    s.style.setProperty('--ty', (Math.sin(angle)*dist - 20) + 'px');
-    box.appendChild(s);
-  }
-  setTimeout(function(){ box.remove(); }, 1000);
-}
-function spawnScorePopup(parent, text, cls) {
-  var p = document.createElement('div');
-  p.className = 'score-popup ' + cls;
-  p.textContent = text;
-  parent.appendChild(p);
-  setTimeout(function(){ p.remove(); }, 1300);
-}
-
-// ===== Main check logic =====
-function awardWin(retrySection, qrEl, fb, msg) {
-  // Track unique solve so coins/HP only apply once per quest
-  var questId = retrySection.id || retrySection.parentNode.id;
-  GAME.combo++;
-  if (!GAME.answered[questId]) {
-    GAME.answered[questId] = 'win';
-    GAME.coins += 10 + GAME.combo*2;
-    flashCoin();
-    spawnScorePopup(retrySection, '+' + (10 + GAME.combo*2) + ' 🪙', 'plus');
-  }
-  updateHUD();
-  retrySection.classList.add('win');
-  setTimeout(function(){ retrySection.classList.remove('win'); }, 800);
-  spawnSparkles(retrySection);
-  playWinSound();
-  fb.className = 'retry-feedback correct show';
-  fb.innerHTML = msg;
-  qrEl.className = 'quest-result win show';
-  qrEl.innerHTML = '★ QUEST CLEAR! ★<span class="sub">COMBO x' + GAME.combo + ' · +' + (10 + GAME.combo*2) + ' coin</span>';
-}
-function awardLose(retrySection, qrEl, fb, msg) {
-  var questId = retrySection.id || retrySection.parentNode.id;
-  if (!GAME.answered[questId]) {
-    GAME.answered[questId] = 'lose';
-    GAME.combo = 0;
-    if (GAME.hp > 0) {
-      drainHpCell();
-      GAME.hp--;
-      spawnScorePopup(retrySection, '-1 ❤️', 'minus');
-    }
-  } else {
-    GAME.combo = 0;
-  }
-  updateHUD();
-  retrySection.classList.add('shake', 'lose');
-  setTimeout(function(){ retrySection.classList.remove('shake', 'lose'); }, 700);
-  playLoseSound();
-  fb.className = 'retry-feedback incorrect show';
-  fb.innerHTML = msg;
-  qrEl.className = 'quest-result lose show';
-  qrEl.innerHTML = '× MISS... TRY AGAIN<span class="sub">아래 해설을 꼭 읽고 다시 도전!</span>';
-}
-
-function checkMC(name, correct, fbId, qrId) {
-  playClickSound();
-  var radios = document.getElementsByName(name);
-  var selected = null;
-  for (var i = 0; i < radios.length; i++) {
-    if (radios[i].checked) { selected = radios[i].value; break; }
-  }
-  var fb = document.getElementById(fbId);
-  var qr = document.getElementById(qrId);
-  var retrySection = fb.closest('.r
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
